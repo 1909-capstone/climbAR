@@ -7,7 +7,10 @@
     "start-server": "nodemon ./server/index.js -e html,js,css --ignore public",
     "build-watch": "webpack -w",
     "start-dev": "npm run build-watch & npm run start-server",
-    "start": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=production node server/index.js",
+    "lint": "eslint ./server && eslint ./app",
+    "lint:fix": "./node_modules/.bin/eslint ./ --ignore-path .gitignore --fix",
+    "fix": "prettier \"{app,server}/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -33,7 +36,14 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "dotenv-webpack": "^1.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-fullstack": "^5.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
     "nodemon": "^2.0.2",
+    "prettier": "1.19.1",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   },
