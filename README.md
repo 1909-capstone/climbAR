@@ -1,1 +1,0 @@
-# -acme-faker-favorites-react
