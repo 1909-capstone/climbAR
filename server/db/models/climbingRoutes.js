@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../database');
 
-const { UUID, UUIDV4, STRING, BOOLEAN, DATEONLY } = Sequelize;
+const { UUID, UUIDV4, STRING, DECIMAL, DATEONLY } = Sequelize;
 
 const ClimbingRoute = db.define('climbingRoute', {
   id: {
@@ -16,19 +16,16 @@ const ClimbingRoute = db.define('climbingRoute', {
     type: STRING
   },
   areaHeight: {
-    type: STRING
+    type: DECIMAL
   },
   areaWidth: {
-    type: STRING
+    type: DECIMAL
   },
   status: {
     type: STRING,
     validate: {
       isIn: [['installed', 'pending', 'expired']]
     }
-  },
-  isLike: {
-    type: BOOLEAN
   },
   endDate: {
     type: DATEONLY

@@ -3,7 +3,6 @@ const db = require('./../database');
 
 const { UUID, UUIDV4, STRING } = Sequelize;
 
-//TO DO: define completedRoute or likedRoute here?
 const User = db.define('user', {
   id: {
     primaryKey: true,

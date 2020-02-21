@@ -4,6 +4,8 @@ const {
   ClimbingRoute,
   Wall,
   Hold,
+  CompletedRoute,
+  LikedRoute,
   Rating,
   Video,
   Session
@@ -16,13 +18,20 @@ ClimbingRoute.belongsTo(Wall);
 ClimbingRoute.hasMany(Hold);
 Hold.belongsTo(ClimbingRoute);
 
-ClimbingRoute.hasMany(Rating);
-Rating.belongsTo(ClimbingRoute);
+ClimbingRoute.belongsToMany(User, { through: Rating });
+User.hasMany(ClimbingRoute);
+
+ClimbingRoute.belongsToMany(User, { through: CompletedRoute });
+User.hasMany(ClimbingRoute);
+
+ClimbingRoute.belongsToMany(User, { through: LikedRoute });
+User.hasMany(ClimbingRoute);
+
+ClimbingRoute.belongsToMany(User, { through: Video });
+User.hasMany(ClimbingRoute);
 
 Session.hasOne(User);
 User.belongsTo(Session);
-
-//TO DO: define association between Route, User and Video
 
 module.exports = {
   db,
@@ -31,6 +40,8 @@ module.exports = {
     ClimbingRoute,
     Wall,
     Hold,
+    CompletedRoute,
+    LikedRoute,
     Rating,
     Video,
     Session
