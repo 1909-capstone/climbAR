@@ -1,0 +1,15 @@
+.holds_container {
+  width: 10em;
+  height: 15em;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+.hold {
+  width: 2em;
+  height: 2em;
+  background-color: black;
+}
