@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./../database');
 
-const { UUID, UUIDV4, STRING, DECIMAL, BOOLEAN } = Sequelize;
+const { UUID, UUIDV4, STRING } = Sequelize;
 
 //TO DO: define holding surface direction?
 const Hold = db.define('hold', {
@@ -13,26 +13,8 @@ const Hold = db.define('hold', {
   holdType: {
     type: STRING,
     validate: {
-      isIn: [['handHold', 'footHold']]
+      isIn: [['handHold', 'footHold', 'pocket', 'jug', 'sloper']]
     }
-  },
-  color: {
-    type: STRING
-  },
-  coordinateX: {
-    type: DECIMAL
-  },
-  coordinateY: {
-    type: DECIMAL
-  },
-  coordinateZ: {
-    type: DECIMAL
-  },
-  isStart: {
-    type: BOOLEAN
-  },
-  isFinish: {
-    type: BOOLEAN
   }
 });
 

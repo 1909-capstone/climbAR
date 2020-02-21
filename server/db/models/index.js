@@ -7,6 +7,7 @@ const LikedRoute = require('./likedRoutes');
 const Rating = require('./ratings');
 const Video = require('./videos');
 const Session = require('./sessions');
+const RouteModel = require('./routeModel');
 
 module.exports = {
   User,
@@ -17,5 +18,6 @@ module.exports = {
   LikedRoute,
   Rating,
   Video,
-  Session
+  Session,
+  RouteModel
 };

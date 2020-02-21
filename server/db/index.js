@@ -8,15 +8,16 @@ const {
   LikedRoute,
   Rating,
   Video,
-  Session
+  Session,
+  RouteModel
 } = require('./models/index');
 
 //MODEL ASSOCIATIONS
 Wall.hasMany(ClimbingRoute);
 ClimbingRoute.belongsTo(Wall);
 
+Hold.belongsToMany(ClimbingRoute, { through: RouteModel });
 ClimbingRoute.hasMany(Hold);
-Hold.belongsTo(ClimbingRoute);
 
 ClimbingRoute.belongsToMany(User, { through: Rating });
 User.hasMany(ClimbingRoute);
