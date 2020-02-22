@@ -12,17 +12,6 @@ router.get('/', (req, res, next) => {
     });
 });
 
-//finds and gets the specific user associated with their userId
-router.get('/:id', (req, res, next) => {
-  const userId = req.params.id;
-  User.findByPk(userId)
-    .then(foundUser => res.status(200).send(foundUser))
-    .catch(e => {
-      res.status(404);
-      next(e);
-    });
-});
-
 //adds a new user to the database
 router.post('/', (req, res, next) => {
   const newUser = req.body;
@@ -41,7 +30,7 @@ router.get('/admin', (req, res, next) => {
       userType: 'Admin'
     }
   })
-    .then(adminUsers => res.satus(200).send(adminUsers))
+    .then(adminUsers => res.status(200).send(adminUsers))
     .catch(e => {
       res.status(404);
       next(e);
@@ -55,7 +44,18 @@ router.get('/climber', (req, res, next) => {
       userType: 'Climber'
     }
   })
-    .then(adminUsers => res.status(200).send(adminUsers))
+    .then(climbers => res.status(200).send(climbers))
+    .catch(e => {
+      res.status(404);
+      next(e);
+    });
+});
+
+//finds and gets the specific user associated with their userId
+router.get('/:id', (req, res, next) => {
+  const userId = req.params.id;
+  User.findByPk(userId)
+    .then(foundUser => res.status(200).send(foundUser))
     .catch(e => {
       res.status(404);
       next(e);
