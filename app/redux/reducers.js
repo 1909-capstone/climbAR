@@ -1,4 +1,4 @@
-import { SET_HOLD } from './constants';
+import { SET_HOLD, SET_HOLDS } from './constants';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -7,8 +7,9 @@ export const holds = (state = [], action) => {
       const filteredState = state.filter(
         _h => _h.x !== hold.x && _h.y !== hold.y
       );
-      console.log('new state = ', [...filteredState, hold]);
       return [...filteredState, hold];
+    case SET_HOLDS:
+      return action.holds;
     default:
       return state;
   }

@@ -2,8 +2,8 @@ import React from 'react';
 import style from '../css/routeCanvas.css';
 import CanvasSlot from './CanvasSlot';
 import { connect } from 'react-redux';
-import { setNewHold } from '../redux/thunks/holdThunks';
 import { Form } from 'react-bootstrap';
+import { setNewHold } from '../redux/thunks/holdThunks';
 
 class RouteCanvas extends React.Component {
   constructor() {
