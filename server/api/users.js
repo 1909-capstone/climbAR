@@ -1,6 +1,27 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 const { models } = require('../db/index');
 const { User, Session } = models;
+
+router.get('/session/:sessionId', (req, res, next) => {
+  const { sessionId } = req.params;
+  if (!sessionId) {
+    return res.status(401).send('login required');
+  } else {
+    User.findOne({
+      where: {
+        sessionId
+      }
+    })
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(e => {
+        res.status(400);
+        next(e);
+      });
+  }
+});
 
 // log in
 router.post('/login', (req, res, next) => {
@@ -13,7 +34,26 @@ router.post('/login', (req, res, next) => {
       if (!user) {
         return res.state(401).send('User not found');
       } else {
-        return res.status(200).send(user);
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          if (result) {
+            Session.create().then(session => {
+              user.update({ sessionId: session.id }).then(() => {
+                return res
+                  .cookie('session_id', req.cookies.session_id, {
+                    path: '/',
+                    expires: new Date(Date.now() + 1000 * 60 * 60)
+                  })
+                  .status(202)
+                  .send(user);
+              });
+            });
+          } else {
+            return res.status(401).send('Incorrect password');
+          }
+        });
       }
     })
     .catch(e => {

@@ -7,11 +7,12 @@ const { Session, User } = models;
 
 app.use(express.json());
 app.use(cookieParser());
-
+/*
 app.use((req, res, next) => {
   if (!req.cookies['session_id']) {
     try {
-      //res.send('Log in first');
+      //status: user doesn't have a cookie id
+      //action: send user to log in form
       next();
     } catch (err) {
       console.log(err);
@@ -25,16 +26,17 @@ app.use((req, res, next) => {
     })
       .then(user => {
         if (!user) {
-          Session.create()
-            .then(session => {
-              req.cookies.session_id = session.id;
-              res.statu(401).send('Log in first');
-            })
-            .catch(e => {
-              res.status(404);
-            });
+          //status: user has a cookie id, but not sign up yet
+          //action: update session id with cookie id
+          //action: send user to sign up form
+          next();
         } else {
-          req.user = user.dataValues;
+          //status: user has a cookie id and he signed up already
+          //action: update user's sessionId and renew the cookie id
+          user.update({ sessionId: req.cookies.session_id }).then(() => {
+            req.user = user.dataValues;
+          });
+
           next();
         }
       })
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
       });
   }
 });
-
+*/
 app.use('/api', require('./api'));
 
 app.use(express.static(path.join(__dirname, '../public')));
