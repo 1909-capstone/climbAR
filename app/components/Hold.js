@@ -6,9 +6,11 @@ import { useDrag } from 'react-dnd';
 const Hold = () => {
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.HOLD },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging()
-    })
+    collect: monitor => {
+      return {
+        isDragging: !!monitor.isDragging()
+      };
+    }
   });
   return (
     <div
