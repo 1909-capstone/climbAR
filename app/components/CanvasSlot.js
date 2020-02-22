@@ -2,13 +2,17 @@ import React from 'react';
 import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
 
-const CanvasSlot = ({ x, y, width, children }) => {
-  const [{ isOver, item }, drop] = useDrop({
+const CanvasSlot = ({ x, y, width, holds, setNewHold }) => {
+  const holdAtThisPosition = holds.filter(_h => _h.x === x && _h.y === y)[0];
+  const [{ isOver, hasHold }, drop] = useDrop({
     accept: ItemTypes.HOLD,
-    drop: monitor =>
-      console.log('DROPPED AT ', x, ', ', y, 'MONITOR = ', monitor),
+    drop: monitor => {
+      console.log('DROPPED AT ', x, ', ', y, 'MONITOR = ', monitor);
+      setNewHold({ id: 3, x, y });
+    },
     collect: monitor => ({
-      isOver: !!monitor.isOver()
+      isOver: !!monitor.isOver(),
+      hasHold: holdAtThisPosition
     })
   });
   return (
@@ -34,6 +38,11 @@ const CanvasSlot = ({ x, y, width, children }) => {
             backgroundColor: 'yellow'
           }}
         />
+      )}
+      {hasHold && (
+        <div
+          style={{ backgroundColor: 'black', height: '100%', width: '100%' }}
+        ></div>
       )}
     </div>
   );

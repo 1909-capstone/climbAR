@@ -1,6 +1,8 @@
 import React from 'react';
 import style from '../css/routeCanvas.css';
 import CanvasSlot from './CanvasSlot';
+import { connect } from 'react-redux';
+import { setNewHold } from '../redux/thunks/holdThunks';
 
 class RouteCanvas extends React.Component {
   constructor() {
@@ -11,7 +13,10 @@ class RouteCanvas extends React.Component {
     };
   }
   render() {
-    const { width, height } = this.state;
+    const {
+      state: { width, height },
+      props: { holds, setNewHold }
+    } = this;
     return (
       <div>
         <div>Canvas</div>
@@ -21,7 +26,14 @@ class RouteCanvas extends React.Component {
         >
           {Array.from({ length: height }).map((_row, r) =>
             Array.from({ length: width }).map((_col, c) => (
-              <CanvasSlot key={`row-${r}-col${c}`} x={r} y={c} width={width} />
+              <CanvasSlot
+                key={`row-${r}-col${c}`}
+                x={r}
+                y={c}
+                width={width}
+                holds={holds}
+                setNewHold={setNewHold}
+              />
             ))
           )}
         </div>
@@ -30,4 +42,10 @@ class RouteCanvas extends React.Component {
   }
 }
 
-export default RouteCanvas;
+const mapState = ({ holds }) => ({ holds });
+const mapDispatch = dispatch => {
+  return {
+    setNewHold: hold => dispatch(setNewHold(hold))
+  };
+};
+export default connect(mapState, mapDispatch)(RouteCanvas);
