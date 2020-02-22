@@ -30,6 +30,16 @@ const Navigation = () => (
         Create Route
       </Nav.Link>
     </Nav>
+    <Nav>
+      <Nav.Link
+        href="/signup"
+        style={{
+          color: 'white'
+        }}
+      >
+        Signup
+      </Nav.Link>
+    </Nav>
   </Navbar>
 );
 
