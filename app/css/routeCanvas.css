@@ -1,0 +1,7 @@
+.route_canvas {
+  width: 10em;
+  height: 15em;
+  border: 1px solid;
+  display: flex;
+  flex-wrap: wrap;
+}
