@@ -1,16 +1,16 @@
 .holds_container {
-  width: 10em;
-  height: 15em;
+  width: 3em;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   border: 1px solid;
   justify-content: space-around;
-  align-content: space-around;
+  align-items: center;
 }
 
 .hold {
   width: 1em;
   height: 1em;
+  margin: 0.5em;
   background-color: black;
   cursor: move;
 }
