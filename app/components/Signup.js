@@ -7,17 +7,17 @@ import { createUser } from '../redux/thunks/UserThunks';
 class Signup extends Component {
   state = {
     email: '',
+    userType: 'Climber',
     password: '',
     confirmPassword: ''
   };
-
-  handleChange = event => {
+  handleOnChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
-  handleOnSubmit = e => {
-    e.preventDefault();
+  handleOnSubmit = event => {
+    event.preventDefault();
     const { id } = this.props.user;
     console.log('this is hte props', this.props.user);
     this.props.createUser({ ...this.state, id });
@@ -47,11 +47,7 @@ class Signup extends Component {
               name="email"
               value={email}
               onChange={this.handleOnChange}
-              isInvalid={!!emailError}
             />
-            <Control.Feedback type="invalid" className="text-danger">
-              {emailError}
-            </Control.Feedback>
           </Group>
           <Group
             controlId="password"
@@ -59,23 +55,13 @@ class Signup extends Component {
               width: '50%'
             }}
           >
-            <Label>
-              PASSWORD
-              <span style={{ color: 'red', fontSize: '10px' }}>
-                *required<br></br>Password must:<br></br>contain letters and
-                numbers<br></br>Be between 8 and 20 characters in length
-              </span>
-            </Label>
+            <Label>PASSWORD</Label>
             <Control
               type="password"
               name="password"
               value={password}
               onChange={this.handleOnChange}
-              isInvalid={!!passwordError}
             />
-            <Control.Feedback type="invalid" className="text-danger">
-              {passwordError}
-            </Control.Feedback>
           </Group>
           <Group
             controlId="confirmPassword"
@@ -89,11 +75,7 @@ class Signup extends Component {
               name="confirmPassword"
               value={confirmPassword}
               onChange={this.handleOnChange}
-              isInvalid={!!confirmPasswordError}
             />
-            <Control.Feedback type="invalid" className="text-danger">
-              {confirmPasswordError}
-            </Control.Feedback>
           </Group>
           <Button onClick={this.handleOnSubmit}>Sign Up</Button>
         </Form>
