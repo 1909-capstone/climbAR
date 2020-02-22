@@ -3,16 +3,23 @@ import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
 
 const CanvasSlot = ({ x, y, width, holds, setNewHold }) => {
-  const holdAtThisPosition = holds.filter(_h => _h.x === x && _h.y === y)[0];
-  const [{ isOver, hasHold }, drop] = useDrop({
+  const holdAtThisPosition = holds.filter(
+    _h => _h.coordinateX === x && _h.coordinateY === y
+  )[0];
+  const [{ isOver, hasHold, holdData }, drop] = useDrop({
     accept: ItemTypes.HOLD,
     drop: monitor => {
-      console.log('DROPPED AT ', x, ', ', y, 'MONITOR = ', monitor);
-      setNewHold({ id: 3, x, y });
+      setNewHold({
+        ...monitor.holdData,
+        coordinateX: x,
+        coordinateY: y,
+        coordinateZ: -5
+      });
     },
     collect: monitor => ({
       isOver: !!monitor.isOver(),
-      hasHold: holdAtThisPosition
+      hasHold: holdAtThisPosition,
+      holdData: monitor.getItem()
     })
   });
   return (

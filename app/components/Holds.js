@@ -15,7 +15,7 @@ class Holds extends React.Component {
         <div>Holds</div>
         <div className="holds_container">
           {holds.map((h, i) => (
-            <Hold key={`hold-${i}`} />
+            <Hold hold={h} key={`hold-${i}`} />
           ))}
         </div>
       </div>

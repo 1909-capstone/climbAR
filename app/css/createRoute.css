@@ -4,3 +4,8 @@
   display: flex;
   justify-content: space-around;
 }
+.button_container {
+  width: 100%;
+  text-align: center;
+  margin-top: 2em;
+}

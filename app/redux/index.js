@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
-import { holds } from './reducers';
+import { holds, routeModel } from './reducers';
 
 export default combineReducers({
-  holds
+  holds,
+  routeModel
 });
