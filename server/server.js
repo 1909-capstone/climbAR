@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const { models } = require('./db/index')
+const { models } = require('./db/index');
 const { Session, User } = models;
 
 app.use(express.json());
 app.use(cookieParser());
-
+/*
 app.use((req,res, next) => {
   if(!req.cookies['session_id']){
     try{
@@ -44,7 +44,7 @@ app.use((req,res, next) => {
     })
   }
 })
-
+*/
 app.use('/api', require('./api'));
 
 app.use(express.static(path.join(__dirname, '../public')));
