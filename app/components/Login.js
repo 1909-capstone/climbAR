@@ -1,11 +1,24 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
-//import { logInUser } from '../redux/thunks/UserThunks';
+import { connect } from 'react-redux';
+import { logInUser } from '../redux/thunks/UserThunks';
 
 class Login extends Component {
   state = {
     email: '',
     password: ''
+  };
+
+  handleChange = ev => {
+    this.setState({
+      [ev.target.name]: ev.target.value
+    });
+  };
+
+  onSubmit = ev => {
+    ev.preventDefault();
+    console.log(this.state);
+    this.props.logIn(this.state);
   };
 
   render() {
@@ -60,4 +73,16 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapState = state => {
+  const user = state.user;
+  return {
+    user
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    logIn: credentials => dispatch(logInUser(credentials))
+  };
+};
+export default connect(mapState, mapDispatch)(Login);

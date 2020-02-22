@@ -7,44 +7,43 @@ const { Session, User } = models;
 
 app.use(express.json());
 app.use(cookieParser());
-/*
-app.use((req,res, next) => {
-  if(!req.cookies['session_id']){
-    try{
-      console.log('no cookie');
-      res.send('Log in first')
-    }catch(err){
+
+app.use((req, res, next) => {
+  if (!req.cookies['session_id']) {
+    try {
+      //res.send('Log in first');
+      next();
+    } catch (err) {
       console.log(err);
-      res.status(404)
+      res.status(404);
     }
-  }else {
+  } else {
     User.findOne({
       where: {
         sessionId: req.cookies['session_id']
       }
     })
-    .then(user => {
-      if(!user) {
-        Session.create()
-        .then(session => {
-          req.cookies.session_id = session.id;
-          res.statu(401).send('Log in first')
-        })
-        .catch( e=> {
-          res.status(404)
-        })
-      }else{
-        req.user = user.dataValues;
-        next();
-      }
-      
-    })
-    .catch( e => {
-      res.status(404)
-    })
+      .then(user => {
+        if (!user) {
+          Session.create()
+            .then(session => {
+              req.cookies.session_id = session.id;
+              res.statu(401).send('Log in first');
+            })
+            .catch(e => {
+              res.status(404);
+            });
+        } else {
+          req.user = user.dataValues;
+          next();
+        }
+      })
+      .catch(e => {
+        res.status(404);
+      });
   }
-})
-*/
+});
+
 app.use('/api', require('./api'));
 
 app.use(express.static(path.join(__dirname, '../public')));

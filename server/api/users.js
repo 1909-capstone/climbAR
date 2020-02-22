@@ -3,24 +3,24 @@ const { models } = require('../db/index');
 const { User, Session } = models;
 
 // log in
-router.post('/login', (req,res, next) => {
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
-    })
+router.post('/login', (req, res, next) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
     .then(user => {
-        if(!user) {
-            return res.state(401).send('User not found');
-        }else{
-
-        }
+      if (!user) {
+        return res.state(401).send('User not found');
+      } else {
+        return res.status(200).send(user);
+      }
     })
     .catch(e => {
-        res.status(500).send('Internal Error');
-        next(e)
-    })
-})
+      res.status(500).send('Internal Error');
+      next(e);
+    });
+});
 
 //finds and gets all the users in the database
 router.get('/', (req, res, next) => {
