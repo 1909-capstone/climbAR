@@ -34,9 +34,10 @@ class Root extends Component {
           <Navigation />
           <Switch>
             <Route path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
+            <Route exact path="/home" component={Home} />
             <Route exact path="/admin/create" component={CreateRoute} />
-            <Redirect to="/login" />
+            {/* Redirect runs after res.redirect */}
+            <Redirect to="/home" />
           </Switch>
         </div>
       </Router>
