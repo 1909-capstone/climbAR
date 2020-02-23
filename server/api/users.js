@@ -5,7 +5,8 @@ const { User, Session } = models;
 
 router.get('/session/:sessionId', (req, res, next) => {
   const { sessionId } = req.params;
-  if (!sessionId) {
+  if (sessionId === undefined) {
+    console.log('no session id found');
     return res.status(401).send('login required');
   } else {
     User.findOne({
@@ -39,6 +40,7 @@ router.post('/login', (req, res, next) => {
             console.log(err);
           }
           if (result) {
+            //user is found in database, but doesn't have a cookie or seesion id
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
                 return res

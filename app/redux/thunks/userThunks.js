@@ -8,6 +8,8 @@ export const fetchUser = sessionId => {
       .get(`api/users/session/${sessionId}`)
       .then(res => {
         if (typeof res.data === 'string') {
+          console.log('received a string from get sessionId api');
+          console.log(res.data);
           return res.data;
         } else {
           dispatch(setUser(res.data));
@@ -23,8 +25,8 @@ export const logInUser = ({ email, password }) => {
   return function thunk(dispatch) {
     return axios
       .post(`/api/users/login`, { email, password })
-      .then(user => {
-        dispatch(setUser(user.data));
+      .then(res => {
+        dispatch(setUser(res.data));
       })
       .catch(err => {
         console.log(err);

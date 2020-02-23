@@ -14,7 +14,7 @@ const Navigation = () => (
     <Navbar.Brand>Logo</Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link
-        href="/home"
+        href="/"
         style={{
           color: 'white'
         }}
