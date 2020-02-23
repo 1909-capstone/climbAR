@@ -1,5 +1,16 @@
-import { setHold } from '../actions.js';
+import { setHolds } from '../actions.js';
+import axios from 'axios';
 
-export function setNewHold(hold) {
-  return dispatch => dispatch(setHold(hold));
+export function fetchHolds() {
+  return dispatch => {
+    console.log('feching holds');
+    return axios
+      .get(`/api/holds`)
+      .then(res => {
+        dispatch(setHolds(res.data));
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
 }
