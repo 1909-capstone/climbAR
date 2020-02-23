@@ -5,6 +5,7 @@ import Backend from 'react-dnd-html5-backend';
 import RouteCanvas from './RouteCanvas';
 import style from '../css/createRoute.css';
 import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
 
 const CreateRoute = () => {
@@ -19,7 +20,7 @@ const CreateRoute = () => {
       <div className="button_container">
         <Button
           onClick={() => {
-            createRouteModel();
+            this.props.createRouteModel(this.props.routeModel);
           }}
         >
           SAVE NEW ROUTE
@@ -29,4 +30,10 @@ const CreateRoute = () => {
   );
 };
 
-export default CreateRoute;
+const mapState = ({ routeModel }) => ({ routeModel });
+const mapDispatch = dispatch => {
+  return {
+    createRouteModel: model => dispatch(createRouteModel(model))
+  };
+};
+export default connect(mapState)(CreateRoute);
