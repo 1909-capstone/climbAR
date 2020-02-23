@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { RouteModel } = models;
+const { RouteModel, ClimbingRoute } = models;
 
 //get all climbing routes
 router.get('/', (req, res, next) => {
@@ -14,8 +14,30 @@ router.get('/', (req, res, next) => {
 
 //create a new climbing route
 router.post('/new', (req, res, next) => {
-  RouteModel.create(req.body.model)
-    .then(m => res.status(200).send({ m }))
+  const {
+    areaWidth,
+    areaHeight,
+    grade,
+    status,
+    endDate,
+    holdColor,
+    holds
+  } = req.body;
+  ClimbingRoute.create({
+    areaWidth,
+    areaHeight,
+    grade,
+    status,
+    endDate,
+    holdColor
+  })
+    .then(newRoute => {
+      const routeModels = Promise.all(
+        holds.map(_hold => RouteModel.create({ ..._hold }))
+      );
+      return routeModels;
+    })
+    .then(models => res.status(200).send({ models }))
     .catch(e => {
       res.status(400);
       next(e);
