@@ -9,7 +9,6 @@ class SingleClimbingRoute extends React.Component {
     this.props.fetchSingleClimbingRoute(paramsId);
   }
   render() {
-    console.log('this is the props', this.props);
     const { climbingRoute } = this.props;
     return (
       <main>
