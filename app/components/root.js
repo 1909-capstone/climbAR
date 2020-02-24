@@ -11,13 +11,10 @@ import Home from './Home';
 import Navigation from './Navigation';
 import Signup from './Signup';
 import Toast from './Toast';
-<<<<<<< HEAD
 import { fetchUser } from '../redux/thunks/userThunks';
 import Login from './Login';
-=======
-import ClimbingRoutes from './ClimbingRoutes'; 
+import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
->>>>>>> f00bbdaafe44726e95524c0246185dc1089925aa
 
 class Root extends Component {
   render() {
@@ -31,8 +28,8 @@ class Root extends Component {
             <Route path="/login" component={Login} />
             <Route exact path="/" component={Home} />
             <Route exact path="/admin/create" component={CreateRoute} />
-            <Route exact path="/climbingroutes" component={ClimbingRoutes}/> 
-            <Route path="/climbingroutes/:id" component={SingleClimbingRoute}/> 
+            <Route exact path="/climbingroutes" component={ClimbingRoutes} />
+            <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
             <Route exact path="/signup" component={Signup} />
             <Redirect to="/" />
           </Switch>

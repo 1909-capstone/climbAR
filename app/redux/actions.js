@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { SET_HOLD, SET_USER, STATUS_MESSAGE } from './constants';
-=======
 import {
   SET_HOLD,
   SET_HOLDS,
@@ -10,7 +7,6 @@ import {
   STATUS_MESSAGE,
   SET_CLIMBING_ROUTES
 } from './constants';
->>>>>>> f00bbdaafe44726e95524c0246185dc1089925aa
 
 export const setHold = hold => {
   return {
@@ -58,5 +54,5 @@ export const setClimbingRoutes = routes => {
   return {
     type: SET_CLIMBING_ROUTES,
     routes
-  }
-}
+  };
+};
