@@ -1,6 +1,68 @@
 const router = require('express').Router();
-const { models } = require('../db');
-const { User } = models;
+const bcrypt = require('bcrypt');
+const { models } = require('../db/index');
+const { User, Session } = models;
+
+router.get('/session/:sessionId', (req, res, next) => {
+  const { sessionId } = req.params;
+  if (sessionId === undefined) {
+    console.log('no session id found');
+    return res.status(401).send('login required');
+  } else {
+    User.findOne({
+      where: {
+        sessionId
+      }
+    })
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(e => {
+        res.status(400);
+        next(e);
+      });
+  }
+});
+
+// log in
+router.post('/login', (req, res, next) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(user => {
+      if (!user) {
+        return res.state(401).send('User not found');
+      } else {
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          if (result) {
+            //user is found in database, but doesn't have a cookie or seesion id
+            Session.create().then(session => {
+              user.update({ sessionId: session.id }).then(() => {
+                return res
+                  .cookie('session_id', req.cookies.session_id, {
+                    path: '/',
+                    expires: new Date(Date.now() + 1000 * 60 * 60)
+                  })
+                  .status(202)
+                  .send(user);
+              });
+            });
+          } else {
+            return res.status(401).send('Incorrect password');
+          }
+        });
+      }
+    })
+    .catch(e => {
+      res.status(500).send('Internal Error');
+      next(e);
+    });
+});
 
 //finds and gets all the users in the database
 router.get('/', (req, res, next) => {

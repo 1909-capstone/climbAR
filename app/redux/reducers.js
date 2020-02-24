@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { SET_HOLD, SET_USER, STATUS_MESSAGE } from './constants';
+=======
+import { SET_HOLD, SET_USER } from './constants';
+>>>>>>> cf703b2b8da4a3980f18d4cf7eb6e83f69e27833
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -22,6 +26,7 @@ export const user = (state = {}, action) => {
       return state;
   }
 };
+<<<<<<< HEAD
 
 export const statusMessage = (state = { status: null, text: '' }, action) => {
   switch (action.type) {
@@ -31,3 +36,5 @@ export const statusMessage = (state = { status: null, text: '' }, action) => {
       return state;
   }
 };
+=======
+>>>>>>> cf703b2b8da4a3980f18d4cf7eb6e83f69e27833

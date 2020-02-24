@@ -1,4 +1,4 @@
-import { SET_HOLD, SET_USER , STATUS_MESSAGE } from './constants';
+import { SET_HOLD, SET_USER, STATUS_MESSAGE } from './constants';
 
 export const setHold = hold => {
   return {

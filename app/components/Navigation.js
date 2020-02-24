@@ -29,6 +29,14 @@ const Navigation = () => (
       >
         Create Route
       </Nav.Link>
+      <Nav.Link
+        href="/login"
+        style={{
+          color: 'white'
+        }}
+      >
+        Login
+      </Nav.Link>
     </Nav>
     <Nav>
       <Nav.Link
