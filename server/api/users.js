@@ -27,16 +27,18 @@ router.get('/session/:sessionId', (req, res, next) => {
 // log in
 router.post('/login', (req, res, next) => {
   console.log('calling post login api');
+  console.log(req.body);
   User.findOne({
     where: {
       email: req.body.email
     }
   })
     .then(user => {
-      console.log('found user in database');
       if (!user) {
+        console.log('user not found');
         return res.state(401).send('User not found');
       } else {
+        console.log('found user in database');
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (err) {
             console.log(err);
