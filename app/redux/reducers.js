@@ -1,4 +1,4 @@
-import { SET_HOLD, SET_USER } from './constants';
+import { SET_HOLD, SET_USER, STATUS_MESSAGE } from './constants';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -18,6 +18,15 @@ export const user = (state = {}, action) => {
   switch (action.type) {
     case SET_USER:
       return action.user;
+    default:
+      return state;
+  }
+};
+
+export const statusMessage = (state = { status: null, text: '' }, action) => {
+  switch (action.type) {
+    case STATUS_MESSAGE:
+      return action.message;
     default:
       return state;
   }
