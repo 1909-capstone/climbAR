@@ -7,16 +7,12 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import { connect } from 'react-redux';
 import CreateRoute from './CreateRoute';
 import Home from './Home';
 import Navigation from './Navigation';
 import Signup from './Signup';
 import Toast from './Toast';
 import { fetchUser } from '../redux/thunks/userThunks';
-import CreateRoute from './CreateRoute';
-import Home from './Home';
-import Navigation from './Navigation';
 import Login from './Login';
 
 class Root extends Component {
