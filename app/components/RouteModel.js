@@ -9,7 +9,9 @@ class SingleClimbingRoute extends React.Component {
   }
   render() {
     const { climbingRoutes } = this.props;
+    console.log( climbingRoutes );
     return (
+    <div>
       <main>
         <div> Name: {climbingRoutes.id}</div>
         <div> Grade: {climbingRoutes.grade}</div>
@@ -17,6 +19,8 @@ class SingleClimbingRoute extends React.Component {
         <div> Height {climbingRoutes.areaHeight} Width: {climbingRoutes.areaWidth}</div>
         <div> End Date: {climbingRoutes.endDate}</div>
       </main>
+    </div>
+
     );
   }
 }

@@ -17,7 +17,7 @@ Wall.hasMany(ClimbingRoute);
 ClimbingRoute.belongsTo(Wall);
 
 Hold.belongsToMany(ClimbingRoute, { through: RouteModel });
-ClimbingRoute.hasMany(Hold);
+ClimbingRoute.hasMany(RouteModel);
 
 ClimbingRoute.belongsToMany(User, { through: Rating });
 User.hasMany(ClimbingRoute);
