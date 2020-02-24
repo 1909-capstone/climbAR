@@ -49,11 +49,10 @@ class Root extends Component {
   }
 }
 
-const mapStateToProps = ({ statusMessage }) => ({ statusMessage });
-
 const mapState = state => {
   const user = state.user;
-  return { user };
+  const statusMessage = state.statusMessage;
+  return { user, statusMessage };
 };
 
 const mapDispatch = dispatch => {
