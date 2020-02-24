@@ -16,19 +16,6 @@ import { fetchUser } from '../redux/thunks/userThunks';
 import Login from './Login';
 
 class Root extends Component {
-  // componentDidMount() {
-  //   const { fetchUser } = this.props;
-  //   //console.log(document.cookie) returns empty
-  //   let fetchUserResult = fetchUser();
-  //   console.log(fetchUserResult);
-  //   // document.cookie
-  //   //   .split(';')
-  //   //   .filter(c => /session_id=/.test(c))[0]
-  //   //   .replace(/session_id=/, '')
-  //   //   .replace(/ /, '')
-  //   //test if fetchUserResult is a string or not
-  //   //if it is a string, login is required
-  // }
   render() {
     const { status, text } = this.props.statusMessage;
     return (
