@@ -18,6 +18,7 @@ class Login extends Component {
   onSubmit = ev => {
     ev.preventDefault();
     this.props.logIn(this.state);
+    console.log(this.state);
   };
 
   render() {

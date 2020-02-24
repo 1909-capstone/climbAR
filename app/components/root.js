@@ -4,8 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  withRouter
+  Redirect
 } from 'react-router-dom';
 import CreateRoute from './CreateRoute';
 import Home from './Home';
@@ -25,7 +24,7 @@ class Root extends Component {
           <Toast status={status} message={text} />
           <Switch>
             <Route path="/login" component={Login} />
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/admin/create" component={CreateRoute} />
             <Route exact path="/signup" component={Signup} />
             <Redirect to="/" />

@@ -32,6 +32,7 @@ router.post('/login', (req, res, next) => {
     }
   })
     .then(user => {
+      console.log('found user in database');
       if (!user) {
         return res.state(401).send('User not found');
       } else {
@@ -43,6 +44,8 @@ router.post('/login', (req, res, next) => {
             //user is found in database, but doesn't have a cookie or seesion id
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
+                console.log('session id is created');
+                console.log(user);
                 return res
                   .cookie('session_id', req.cookies.session_id, {
                     path: '/',

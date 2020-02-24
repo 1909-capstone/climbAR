@@ -13,8 +13,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/login', (req, res) => {
-  console.log('redirecting to login page');
-  console.log(req.url);
+  console.log('hitting on login route');
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
@@ -22,10 +21,14 @@ app.use((req, res, next) => {
   console.log('validating user');
   if (!req.cookies || !req.cookies['session_id']) {
     //status: user doesn't have a cookie id
-    //action: send user to log in form
+    //action: send user to login page
     req.loggedIn = false;
     console.log('redirecting');
-    res.redirect('/login');
+    if (req.body) {
+      return res.send(req.body);
+    } else {
+      res.redirect('/login');
+    }
   } else {
     //status: user has a cookie, but not sure if it's active
     console.log('yes cookie');

@@ -26,6 +26,8 @@ export const logInUser = ({ email, password }) => {
     return axios
       .post(`/api/users/login`, { email, password })
       .then(res => {
+        console.log('user is updated');
+        console.log(res.data);
         dispatch(setUser(res.data));
       })
       .catch(err => {
