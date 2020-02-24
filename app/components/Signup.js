@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 const { Group, Label, Control, Text, Row, Col } = Form;
-import { createUser } from '../redux/thunks/UserThunks';
+import { createUser } from '../redux/thunks/userThunks';
 
 class Signup extends Component {
   state = {
