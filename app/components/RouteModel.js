@@ -8,16 +8,16 @@ class SingleClimbingRoute extends React.Component {
     this.props.fetchSingleClimbingRoute(paramsId);
   }
   render() {
-    const { climbingRoutes } = this.props;
-    console.log( climbingRoutes );
+    const { climbingRoute } = this.props;
+    console.log( climbingRoute );
     return (
     <div>
       <main>
-        <div> Name: {climbingRoutes.id}</div>
-        <div> Grade: {climbingRoutes.grade}</div>
-        <div> Hold Color: {climbingRoutes.areaHeight}</div> 
-        <div> Height {climbingRoutes.areaHeight} Width: {climbingRoutes.areaWidth}</div>
-        <div> End Date: {climbingRoutes.endDate}</div>
+        <div> Name: {climbingRoute.id}</div>
+        <div> Grade: {climbingRoute.grade}</div>
+        <div> Hold Color: {climbingRoute.areaHeight}</div> 
+        <div> Height {climbingRoute.areaHeight} Width: {climbingRoute.areaWidth}</div>
+        <div> End Date: {climbingRoute.endDate}</div>
       </main>
     </div>
 
@@ -25,7 +25,7 @@ class SingleClimbingRoute extends React.Component {
   }
 }
 
-const mapState = ({ climbingRoutes }) => ({ climbingRoutes });
+const mapState = ({ climbingRoute }) => ({ climbingRoute });
 
 const mapDispatch = dispatch => {
   return {
