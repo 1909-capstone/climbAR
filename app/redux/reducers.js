@@ -3,7 +3,8 @@ import {
   SET_HOLDS,
   SET_ROUTE_MODEL,
   SET_USER,
-  STATUS_MESSAGE
+  STATUS_MESSAGE,
+  SET_CLIMBING_ROUTES
 } from './constants';
 
 export const holds = (state = [], action) => {
@@ -58,3 +59,12 @@ export const statusMessage = (state = { status: null, text: '' }, action) => {
       return state;
   }
 };
+
+export const climbingRoutes = (state = [], action )=> {
+  switch(action.type){
+    case SET_CLIMBING_ROUTES:
+      return action.routes;
+    default:
+      return state;
+  }
+}

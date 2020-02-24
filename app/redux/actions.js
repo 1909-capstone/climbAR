@@ -4,7 +4,8 @@ import {
   SET_ROUTE_MODELS,
   SET_ROUTE_MODEL,
   SET_USER,
-  STATUS_MESSAGE
+  STATUS_MESSAGE,
+  SET_CLIMBING_ROUTES
 } from './constants';
 
 export const setHold = hold => {
@@ -48,3 +49,10 @@ export const setRouteModels = models => {
     models
   };
 };
+
+export const setClimbingRoutes = routes => {
+  return {
+    type: SET_CLIMBING_ROUTES,
+    routes
+  }
+}
