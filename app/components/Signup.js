@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 const { Group, Label, Control, Text, Row, Col } = Form;
-import { createUser } from '../redux/thunks/UserThunks';
+import { createUser } from '../redux/thunks/userThunks';
 
 class Signup extends Component {
   state = {
@@ -19,7 +19,6 @@ class Signup extends Component {
   handleOnSubmit = event => {
     event.preventDefault();
     const { id } = this.props.user;
-    console.log('this is hte props', this.props.user);
     this.props.createUser({ ...this.state, id });
     this.setState({
       email: '',
