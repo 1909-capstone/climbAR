@@ -35,7 +35,15 @@ const Navigation = () => (
           color: 'white'
         }}
       >
-        Login
+        Log In
+      </Nav.Link>
+      <Nav.Link
+        href="/climbingroutes"
+        style={{
+          color: 'white'
+        }}
+      >
+        Climbing Routes
       </Nav.Link>
     </Nav>
     <Nav>

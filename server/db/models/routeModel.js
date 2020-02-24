@@ -1,10 +1,15 @@
 const Sequelize = require('sequelize');
 const db = require('./../database');
 
-const { UUID, DECIMAL, BOOLEAN } = Sequelize;
+const { UUID, UUIDV4, DECIMAL, BOOLEAN } = Sequelize;
 
 //TO DO: define holding surface direction?
 const RouteModel = db.define('routeModel', {
+  id: {
+    primaryKey: true,
+    type: UUID,
+    defaultValue: UUIDV4
+  },
   holdId: {
     type: UUID,
     allowNull: false

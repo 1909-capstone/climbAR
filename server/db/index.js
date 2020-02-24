@@ -45,6 +45,7 @@ module.exports = {
     LikedRoute,
     Rating,
     Video,
-    Session
+    Session,
+    RouteModel
   }
 };

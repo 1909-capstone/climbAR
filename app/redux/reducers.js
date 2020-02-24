@@ -1,14 +1,42 @@
-import { SET_HOLD, SET_USER, STATUS_MESSAGE } from './constants';
+import {
+  SET_HOLD,
+  SET_HOLDS,
+  SET_ROUTE_MODEL,
+  SET_USER,
+  STATUS_MESSAGE,
+  SET_CLIMBING_ROUTES
+} from './constants';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
+    case SET_HOLDS:
+      return action.holds;
+    default:
+      return state;
+  }
+};
+
+export const routeModel = (
+  state = {
+    holds: [],
+    grade: '',
+    holdColor: '',
+    areaHeight: 0,
+    areaWidth: 0,
+    status: '',
+    endData: ''
+  },
+  action
+) => {
+  switch (action.type) {
+    case SET_ROUTE_MODEL:
+      return { ...state, ...action.model };
     case SET_HOLD:
       const hold = action.hold;
-      const filteredState = state.filter(
-        _h => _h.x !== hold.x && _h.y !== hold.y
+      const filteredState = state.holds.filter(
+        _h => _h.coordinateX !== hold.x && _h.coordinateY !== hold.y
       );
-      console.log('new state = ', [...filteredState, hold]);
-      return [...filteredState, hold];
+      return { ...state, holds: [...filteredState, hold] };
     default:
       return state;
   }
@@ -31,3 +59,12 @@ export const statusMessage = (state = { status: null, text: '' }, action) => {
       return state;
   }
 };
+
+export const climbingRoutes = (state = [], action )=> {
+  switch(action.type){
+    case SET_CLIMBING_ROUTES:
+      return action.routes;
+    default:
+      return state;
+  }
+}

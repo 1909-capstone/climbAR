@@ -19,7 +19,6 @@ class Signup extends Component {
   handleOnSubmit = event => {
     event.preventDefault();
     const { id } = this.props.user;
-    console.log('this is hte props', this.props.user);
     this.props.createUser({ ...this.state, id });
     this.setState({
       email: '',
