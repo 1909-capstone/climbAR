@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-////finds a specific climbing route in the database id 
+//finds a specific climbing route in the database id 
 router.get('/:id', (req, res, next) => {
   const climbingRouteId = req.params.id;
   ClimbingRoute.findByPk(climbingRouteId)
