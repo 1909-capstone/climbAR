@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { holds } from './reducers';
+import { holds, user, statusMessage } from './reducers';
 
 export default combineReducers({
-  holds
+  holds,
+  user,
+  statusMessage 
 });
