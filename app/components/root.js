@@ -51,7 +51,6 @@ class Root extends Component {
 
 const mapStateToProps = ({ statusMessage }) => ({ statusMessage });
 
-export default connect(mapStateToProps)(Root);
 const mapState = state => {
   const user = state.user;
   return { user };
