@@ -3,9 +3,9 @@ import style from '../css/holds.css';
 import { ItemTypes } from '../draggable';
 import { useDrag } from 'react-dnd';
 
-const Hold = () => {
+const Hold = ({ hold }) => {
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.HOLD },
+    item: { type: ItemTypes.HOLD, holdData: hold },
     collect: monitor => {
       return {
         isDragging: !!monitor.isDragging()
