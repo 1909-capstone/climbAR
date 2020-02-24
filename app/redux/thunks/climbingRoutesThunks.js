@@ -1,4 +1,4 @@
-import { setClimbingRoutes } from '../actions';
+import { setClimbingRoutes, setClimbingRoute } from '../actions';
 import axios from 'axios';
 
 export const fetchClimbingRoutes = () => {
@@ -16,7 +16,7 @@ export const fetchSingleClimbingRoute = id => {
 	return dispatch => {
 		axios
 			.get(`/api/climbingroutes/${id}`)
-			.then(res => dispatch(setClimbingRoutes(res.data)))
+			.then(res => dispatch(setClimbingRoute(res.data)))
 			.catch(e =>
 				console.error(e)
 			);
