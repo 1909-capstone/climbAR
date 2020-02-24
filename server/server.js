@@ -23,21 +23,21 @@ app.use((req, res, next) => {
 
   if (!req.cookies['session_id'] || !req.cookies) {
     //status: user doesn't have a cookie id
-    //action: send user to login page
     req.loggedIn = false;
     console.log(chalk.green('no cookie'));
-
     if (Object.keys(req.body).length !== 0) {
+      //status: req.body has login input
       next();
     } else {
+      //status: req.body is empty
+      //action: redirect user to login page
       console.log(chalk.green('redirecting to login'));
       return res.redirect('/login');
     }
   } else {
     //status: user has a cookie, but not sure if it's active
     console.log(chalk.green('yes cookie'));
-    console.log(req.cookies);
-    req.loggedIn = true;
+
     User.findOne({
       where: {
         sessionId: req.cookies['session_id']
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
       .then(user => {
         if (!user) {
           //status: user has a cookie id, but login expired
-          //action: send user to login page
+          //action: redirect user to login page
           return res.redirect('/login');
         } else {
           //status: user has a cookie id and he signed up already
@@ -54,6 +54,7 @@ app.use((req, res, next) => {
           user.update({ sessionId: req.cookies.session_id }).then(() => {
             res.user = user.dataValues;
           });
+          req.loggedIn = true;
           next();
         }
       })
