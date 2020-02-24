@@ -14,6 +14,8 @@ router.get('/', (req, res, next) => {
 
 //create a new climbing route
 router.post('/new', (req, res, next) => {
+  console.log('POSTING NEW ROUTE');
+  console.log(req.body);
   const {
     areaWidth,
     areaHeight,
@@ -27,19 +29,33 @@ router.post('/new', (req, res, next) => {
     areaWidth,
     areaHeight,
     grade,
-    status,
+    status: 'installed',
     endDate,
     holdColor
   })
     .then(newRoute => {
+      console.log('NEW CLIMBING ROUTE CREATED');
+      console.log(newRoute);
+      console.log(RouteModel);
       const routeModels = Promise.all(
-        holds.map(_hold => RouteModel.create({ ..._hold }))
+        holds.map(_hold =>
+          RouteModel.create({
+            holdId: _hold.id,
+            coordinateX: _hold.coordinateX,
+            coordinateY: _hold.coordinateY,
+            coordinateZ: _hold.coordinateZ,
+            isStart: false,
+            isFinish: false,
+            climbingRouteId: newRoute.id
+          })
+        )
       );
       return routeModels;
     })
     .then(models => res.status(200).send({ models }))
     .catch(e => {
       res.status(400);
+      console.log(e);
       next(e);
     });
 });

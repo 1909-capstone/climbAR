@@ -8,27 +8,31 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
 
-const CreateRoute = () => {
-  return (
-    <div>
-      <div className="create_route">
-        <DndProvider backend={Backend}>
-          <Holds />
-          <RouteCanvas />
-        </DndProvider>
+class CreateRoute extends React.Component {
+  render() {
+    const { createRouteModel, routeModel } = this.props;
+    console.log(createRouteModel);
+    return (
+      <div>
+        <div className="create_route">
+          <DndProvider backend={Backend}>
+            <Holds />
+            <RouteCanvas />
+          </DndProvider>
+        </div>
+        <div className="button_container">
+          <Button
+            onClick={() => {
+              createRouteModel(routeModel);
+            }}
+          >
+            SAVE NEW ROUTE
+          </Button>
+        </div>
       </div>
-      <div className="button_container">
-        <Button
-          onClick={() => {
-            this.props.createRouteModel(this.props.routeModel);
-          }}
-        >
-          SAVE NEW ROUTE
-        </Button>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapState = ({ routeModel }) => ({ routeModel });
 const mapDispatch = dispatch => {
@@ -36,4 +40,5 @@ const mapDispatch = dispatch => {
     createRouteModel: model => dispatch(createRouteModel(model))
   };
 };
-export default connect(mapState)(CreateRoute);
+
+export default connect(mapState, mapDispatch)(CreateRoute);

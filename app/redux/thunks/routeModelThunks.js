@@ -7,6 +7,8 @@ export function setNewHold(hold) {
 
 export function createRouteModel(model) {
   return dispatch => {
+    console.log('CREATING ROUTE MODEL');
+    console.log(model);
     return axios
       .post(`/api/routemodels/new`, model)
       .then(() => {

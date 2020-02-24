@@ -3,7 +3,7 @@ import {
   SET_HOLDS,
   SET_ROUTE_MODEL,
   SET_USER,
-  STATUS_MESSAG
+  STATUS_MESSAGE
 } from './constants';
 
 export const holds = (state = [], action) => {
