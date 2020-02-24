@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -28,19 +28,40 @@ class Root extends Component {
   //   //if it is a string, login is required
   // }
   render() {
+    // this will be a redux state and updated on component did mount
+    let isLoggedIn = false;
     return (
       <Router>
         <div>
           <Navigation />
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/admin/create" component={CreateRoute} />
-            {/* Redirect runs after res.redirect */}
-            <Redirect to="/home" />
+            <Route exact path="/login" component={Login} />
+            <Redirect to="/" />
           </Switch>
         </div>
       </Router>
+      // <Router>
+      //   <div>
+      //     <Navigation />
+      //     <Switch>
+      //       <Route path="/login" component={Login} />
+      //       {isLoggedIn ? (
+      //         <Fragment>
+      //           <Route exact path="/home" component={Home} />
+      //           <Route exact path="/admin/create" component={CreateRoute} />
+      //           {/* Redirect runs after res.redirect */}
+      //           <Redirect to="/home" />
+      //         </Fragment>
+      //       ) : (
+      //         <Fragment>
+      //           <Redirect to="/login" />
+      //         </Fragment>
+      //       )}
+      //     </Switch>
+      //   </div>
+      // </Router>
     );
   }
 }
