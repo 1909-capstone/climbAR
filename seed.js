@@ -1,5 +1,10 @@
 const { users, holds, climbingRoutes, routeModels } = require('./seed-data.js');
-const { User, Hold, ClimbingRoute, RouteModel } = require('./server/db/models/index.js');
+const {
+  User,
+  Hold,
+  ClimbingRoute,
+  RouteModel
+} = require('./server/db/models/index.js');
 
 const seed = async () => {
   await Promise.all(users.map(user => User.create(user)));
@@ -7,7 +12,15 @@ const seed = async () => {
   const newRoutes = await Promise.all(
     climbingRoutes.map(climbingRoute => ClimbingRoute.create(climbingRoute))
   );
-  await RouteModel.create({...routeModels[0], climbingRouteId: newRoutes[0].id, holdId: newHolds[0].id})
+  await Promise.all(
+    routeModels.map((_r, i) =>
+      RouteModel.create({
+        ...routeModels[i],
+        climbingRouteId: newRoutes[0].id,
+        holdId: newHolds[0].id
+      })
+    )
+  );
 };
 
 module.exports = seed;
