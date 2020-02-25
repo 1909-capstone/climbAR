@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
+import { Link } from 'react-router-dom'
 
 class SingleClimbingRoute extends React.Component {
   componentDidMount() {
@@ -8,21 +9,21 @@ class SingleClimbingRoute extends React.Component {
     this.props.fetchSingleClimbingRoute(paramsId);
   }
   render() {
-    console.log('this is the props', this.props);
-    const { climbingRoutes } = this.props;
+    const { climbingRoute } = this.props;
     return (
       <main>
-        <div> Name: {climbingRoutes.id}</div>
-        <div> Grade: {climbingRoutes.grade}</div>
-        <div> Hold Color: {climbingRoutes.areaHeight}</div> 
-        <div> Height {climbingRoutes.areaHeight} Width: {climbingRoutes.areaWidth}</div>
-        <div> End Date: {climbingRoutes.endDate}</div>
+        <div> Name: {climbingRoute.id}</div>
+        <div> Grade: {climbingRoute.grade}</div>
+        <div> Hold Color: {climbingRoute.areaHeight}</div> 
+        <div> Height {climbingRoute.areaHeight} Width: {climbingRoute.areaWidth}</div>
+        <div> End Date: {climbingRoute.endDate}</div>
+        <Link to={`/model/${climbingRoute.id}`}>View Model</Link>
       </main>
     );
   }
 }
 
-const mapState = ({ climbingRoutes }) => ({ climbingRoutes });
+const mapState = ({ climbingRoute }) => ({ climbingRoute });
 
 const mapDispatch = dispatch => {
   return {
