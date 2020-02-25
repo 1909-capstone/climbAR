@@ -13,27 +13,29 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('/login', (req, res) => {
-  console.log(chalk.green('hitting on login route before all other routes'));
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+
+// api endpoint for react to check its login status
+app.get('/auth', (req, res, next) => {
+  const body = { loggedIn: false };
+  User.findOne({ where: { sessionId: req.cookies['session_id'] } })
+    .then(user => {
+      if (user) {
+        body.loggedIn = true;
+      }
+      res.status(200).send(body);
+    })
+    .catch(e => {
+      res.status(200).send(body);
+    });
 });
 
-app.use((req, res, next) => {
-  console.log(chalk.green('validating user'));
 
+app.use((req, res, next) => {
   if (!req.cookies['session_id'] || !req.cookies) {
     //status: user doesn't have a cookie id
     req.loggedIn = false;
     console.log(chalk.green('no cookie'));
-    if (Object.keys(req.body).length !== 0) {
-      //status: req.body has login input
-      next();
-    } else {
-      //status: req.body is empty
-      //action: redirect user to login page
-      console.log(chalk.green('redirecting to login'));
-      return res.redirect('/login');
-    }
+    next();
   } else {
     //status: user has a cookie, but not sure if it's active
     console.log(chalk.green('yes cookie'));
@@ -47,7 +49,8 @@ app.use((req, res, next) => {
         if (!user) {
           //status: user has a cookie id, but login expired
           //action: redirect user to login page
-          return res.redirect('/login');
+          // return res.redirect('/login');
+          next();
         } else {
           //status: user has a cookie id and he signed up already
           //action: update user's sessionId and renew the cookie id
@@ -68,10 +71,7 @@ app.use('/api', require('./api'));
 
 app.get('*', (req, res) => {
   console.log('all routes');
-  if (!req.loggedIn) {
-    return res.redirect('/login');
-  }
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+ res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 //Error-handling endware

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import {
   BrowserRouter as Router,
+  withRouter,
   Switch,
   Route,
   Redirect
@@ -17,24 +19,42 @@ import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
 
 class Root extends Component {
+  componentDidMount() {
+    // dont authenticate if user is trying to signup or login
+    if (
+      this.props.location.pathname.includes('/signup') ||
+      this.props.location.pathname.includes('/login')
+    ) {
+      return;
+    }
+    axios
+      .get('/auth')
+      .then(resp => {
+        const { loggedIn } = resp.data;
+        if (!loggedIn) {
+          this.props.history.push('/login');
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  }
   render() {
     const { status, text } = this.props.statusMessage;
     return (
-      <Router>
-        <div>
-          <Navigation />
-          <Toast status={status} message={text} />
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/admin/create" component={CreateRoute} />
-            <Route exact path="/climbingroutes" component={ClimbingRoutes} />
-            <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
-            <Route exact path="/signup" component={Signup} />
-            <Redirect to="/" />
-          </Switch>
-        </div>
-      </Router>
+      <div>
+        <Navigation />
+        <Toast status={status} message={text} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/admin/create" component={CreateRoute} />
+          <Route exact path="/climbingroutes" component={ClimbingRoutes} />
+          <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
+          <Redirect to="/" />
+        </Switch>
+      </div>
     );
   }
 }
@@ -45,9 +65,9 @@ const mapState = state => {
   return { user, statusMessage };
 };
 
-const mapDispatch = dispatch => {
-  return {
-    fetchUser: sessionId => dispatch(fetchUser(sessionId))
-  };
-};
-export default connect(mapState, mapDispatch)(Root);
+// const mapDispatch = dispatch => {
+//   return {
+//     fetchUser: sessionId => dispatch(fetchUser(sessionId))
+//   };
+// };
+export default connect(mapState)(withRouter(Root));
