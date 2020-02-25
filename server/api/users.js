@@ -27,7 +27,6 @@ router.get('/session/:sessionId', (req, res, next) => {
 // log in
 router.post('/login', (req, res, next) => {
   console.log('calling post login api');
-  console.log(req.body);
   User.findOne({
     where: {
       email: req.body.email
@@ -48,7 +47,6 @@ router.post('/login', (req, res, next) => {
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
                 console.log('session id is created');
-                console.log(user);
                 return res
                   .cookie('session_id', user.sessionId, {
                     path: '/',
