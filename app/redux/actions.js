@@ -55,17 +55,12 @@ export const setClimbingRoutes = routes => {
   return {
     type: SET_CLIMBING_ROUTES,
     routes
-<<<<<<< HEAD
   };
 };
-=======
-  }
-}
 
 export const setClimbingRoute = route => {
   return {
     type: SET_CLIMBING_ROUTE,
     route
-  }
-}
->>>>>>> 85bc78f55820e4f414d286184c45fec7ae04331f
+  };
+};
