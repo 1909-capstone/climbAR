@@ -44,7 +44,7 @@ router.post('/login', (req, res, next) => {
             console.log(err);
           }
           if (result) {
-            //user is found in database, but doesn't have a cookie or seesion id
+            //user is found in database and given a new cookie
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
                 console.log('session id is created');
@@ -84,7 +84,20 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const newUser = req.body;
   User.create(newUser)
-    .then(createdUser => res.status(201).send(createdUser))
+    .then(user => {
+      Session.create().then(session => {
+        user.update({ sessionId: session.id }).then(() => {
+          console.log('new user with session id is created');
+          return res
+            .cookie('session_id', user.sessionId, {
+              path: '/',
+              expires: new Date(Date.now() + 1000 * 60 * 60)
+            })
+            .status(201)
+            .send(user);
+        });
+      });
+    })
     .catch(e => {
       res.status(400);
       next(e);

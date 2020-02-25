@@ -25,11 +25,12 @@ app.use((req, res, next) => {
     //status: user doesn't have a cookie id
     req.loggedIn = false;
     console.log(chalk.green('no cookie'));
-    if (Object.keys(req.body).length !== 0) {
-      //status: req.body has login input
+    if (req.url.includes('/signup') || Object.keys(req.body).length !== 0) {
+      //status: user is on sign up page or req.body has login input
+      req.loggedIn = true;
       next();
     } else {
-      //status: req.body is empty
+      //status: user is not on sign up page and req.body is empty
       //action: redirect user to login page
       console.log(chalk.green('redirecting to login'));
       return res.redirect('/login');
@@ -46,8 +47,16 @@ app.use((req, res, next) => {
       .then(user => {
         if (!user) {
           //status: user has a cookie id, but login expired
-          //action: redirect user to login page
-          return res.redirect('/login');
+          //action: user can sign up or log in, and destroy current cookie
+          console.log(
+            chalk.yellow('user has cookie, but need to sign up or log in')
+          );
+          if (req.url.includes('/signup')) {
+            req.loggedIn = true;
+            next();
+          } else {
+            next();
+          }
         } else {
           //status: user has a cookie id and he signed up already
           //action: update user's sessionId and renew the cookie id
@@ -55,6 +64,7 @@ app.use((req, res, next) => {
             res.user = user.dataValues;
           });
           req.loggedIn = true;
+          console.log(chalk.yellow('user logged in'));
           next();
         }
       })
