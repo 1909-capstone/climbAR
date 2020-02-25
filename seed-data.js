@@ -81,9 +81,27 @@ const climbingRoutes = [
 ];
 
 const routeModels = [
-  { coordinateX: 1, coordinateY: 1, isStart: false, isFinish: false },
-  { coordinateX: 3, coordinateY: 3, isStart: false, isFinish: false },
-  { coordinateX: 5, coordinateY: 5, isStart: false, isFinish: false }
+  {
+    coordinateX: 1,
+    coordinateY: 1,
+    coordinateZ: -1,
+    isStart: false,
+    isFinish: false
+  },
+  {
+    coordinateX: 3,
+    coordinateY: 3,
+    coordinateZ: -1,
+    isStart: false,
+    isFinish: false
+  },
+  {
+    coordinateX: 5,
+    coordinateY: 5,
+    coordinateZ: -1,
+    isStart: false,
+    isFinish: false
+  }
 ];
 
 module.exports = {

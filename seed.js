@@ -13,13 +13,19 @@ const seed = async () => {
     climbingRoutes.map(climbingRoute => ClimbingRoute.create(climbingRoute))
   );
   await Promise.all(
-    routeModels.map((_r, i) =>
-      RouteModel.create({
-        ...routeModels[i],
+    routeModels.map((_r, i) => {
+      console.log('ROUTE MODEL');
+      console.log({
+        ..._r,
         climbingRouteId: newRoutes[0].id,
         holdId: newHolds[0].id
-      })
-    )
+      });
+      return RouteModel.create({
+        ..._r,
+        climbingRouteId: newRoutes[0].id,
+        holdId: newHolds[0].id
+      });
+    })
   );
 };
 

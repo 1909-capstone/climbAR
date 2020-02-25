@@ -11,13 +11,16 @@ const RouteModel = db.define('routeModel', {
     defaultValue: UUIDV4
   },
   coordinateX: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   coordinateY: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   coordinateZ: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   isStart: {
     type: BOOLEAN

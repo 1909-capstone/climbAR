@@ -16,10 +16,12 @@ const {
 Wall.hasMany(ClimbingRoute);
 ClimbingRoute.belongsTo(Wall);
 
+//Route Model
 Hold.belongsToMany(ClimbingRoute, {
   through: { model: RouteModel, unique: false }
 });
 ClimbingRoute.hasMany(Hold);
+ClimbingRoute.hasMany(RouteModel);
 
 ClimbingRoute.belongsToMany(User, { through: Rating });
 User.hasMany(ClimbingRoute);
