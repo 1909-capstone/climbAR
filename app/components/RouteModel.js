@@ -63,11 +63,11 @@ class RouteModel extends React.Component {
           <Entity
             primitive="a-box"
             position={{
-              x: _h.coordinateX,
+              x: _h.coordinateX - 1,
               y: _h.coordinateY,
               z: _h.coordinateZ
             }}
-            scale={{ x: 1.2, y: 1.2, z: 1.2 }}
+            scale={{ x: 0.05, y: 0.05, z: 0.05 }}
           />
         ))}
         <Entity primitive="a-camera" position="0 1.75 0">

@@ -84,21 +84,21 @@ const routeModels = [
   {
     coordinateX: 1,
     coordinateY: 1,
-    coordinateZ: -1,
+    coordinateZ: -0.95,
     isStart: false,
     isFinish: false
   },
   {
-    coordinateX: 3,
-    coordinateY: 3,
-    coordinateZ: -1,
+    coordinateX: 1.25,
+    coordinateY: 1.25,
+    coordinateZ: -0.95,
     isStart: false,
     isFinish: false
   },
   {
-    coordinateX: 5,
-    coordinateY: 5,
-    coordinateZ: -1,
+    coordinateX: 1.05,
+    coordinateY: 2,
+    coordinateZ: -0.95,
     isStart: false,
     isFinish: false
   }
