@@ -13,6 +13,7 @@ import Signup from './Signup';
 import Toast from './Toast';
 import ClimbingRoutes from './ClimbingRoutes'; 
 import SingleClimbingRoute from './SingleClimbingRoute';
+import RouteModel from './RouteModel';
 
 class Root extends Component {
   render() {
@@ -26,7 +27,8 @@ class Root extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/admin/create" component={CreateRoute} />
             <Route exact path="/climbingroutes" component={ClimbingRoutes}/> 
-            <Route path="/climbingroutes/:id" component={SingleClimbingRoute}/> 
+            <Route path="/climbingroutes/:id" component={SingleClimbingRoute}/>
+            <Route path="/model/:id" component={RouteModel}/> 
             <Route exact path="/signup" component={Signup} />
             <Redirect to="/" />
           </Switch>

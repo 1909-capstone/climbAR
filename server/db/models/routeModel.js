@@ -10,22 +10,17 @@ const RouteModel = db.define('routeModel', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  holdId: {
-    type: UUID,
-    allowNull: false
-  },
-  climbingRouteId: {
-    type: UUID,
-    allowNull: false
-  },
   coordinateX: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   coordinateY: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   coordinateZ: {
-    type: DECIMAL
+    type: DECIMAL,
+    allowNull: false
   },
   isStart: {
     type: BOOLEAN
