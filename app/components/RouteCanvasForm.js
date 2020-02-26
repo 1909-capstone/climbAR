@@ -16,11 +16,15 @@ class RouteCanvasForm extends React.Component {
     };
   }
   handleInput(e) {
-    console.log(e.target.name, ' = ', e.target.value);
     this.props.setRouteModel({ [e.target.name]: e.target.value });
   }
+  changeHoldColor(color) {
+    [...document.querySelectorAll('.hold')].forEach(h => {
+      h.style.backgroundColor = color;
+    });
+  }
   render() {
-    console.log(this.props);
+    console.log('HOLD COLOR IS ', this.props.routeModel.holdColor);
     return (
       <div>
         <Form.Group>
@@ -91,14 +95,17 @@ class RouteCanvasForm extends React.Component {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label htmlFor="holdColor">Grade</Form.Label>
+          <Form.Label htmlFor="holdColor">Color</Form.Label>
           <Form.Control
             as="select"
             id="holdColor"
             name="holdColor"
             type="select"
-            value={this.props.routeModel.grade || this.state.grade}
-            onChange={this.handleInput}
+            value={this.props.routeModel.holdColor || this.state.holdColor}
+            onChange={e => {
+              this.handleInput(e);
+              this.changeHoldColor(e.target.value);
+            }}
           >
             <option value="Red">Red</option>
             <option value="Orange">Orange</option>

@@ -25,6 +25,7 @@ export const createUser = user => {
         dispatch(setUser(res.data));
       })
       .then(() => {
+        console.log('sending status message');
         dispatch(
           statusMessage({
             status: SUCCESS,
@@ -33,6 +34,7 @@ export const createUser = user => {
         );
       })
       .catch(() => {
+        console.log('success status message not found');
         dispatch(
           statusMessage({
             status: FAIL,
