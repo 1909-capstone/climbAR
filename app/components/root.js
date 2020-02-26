@@ -13,7 +13,6 @@ import Home from './Home';
 import Navigation from './Navigation';
 import Signup from './Signup';
 import Toast from './Toast';
-import { fetchUser } from '../redux/thunks/userThunks';
 import Login from './Login';
 import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
@@ -44,7 +43,6 @@ class Root extends Component {
   render() {
     const { status, text } = this.props.statusMessage;
     return (
-<<<<<<< HEAD
       <div>
         <Navigation />
         <Toast status={status} message={text} />
@@ -58,24 +56,6 @@ class Root extends Component {
           <Redirect to="/" />
         </Switch>
       </div>
-=======
-      <Router>
-        <div>
-          <Navigation />
-          <Toast status={status} message={text} />
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/admin/create" component={CreateRoute} />
-            <Route exact path="/climbingroutes" component={ClimbingRoutes} />
-            <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
-            <Route path="/model/:id" component={RouteModel} />
-            <Route exact path="/signup" component={Signup} />
-            <Redirect to="/" />
-          </Switch>
-        </div>
-      </Router>
->>>>>>> 52d3ed428bd060c6b1d4995dc33c32fa4778c28b
     );
   }
 }
@@ -86,9 +66,4 @@ const mapState = state => {
   return { user, statusMessage };
 };
 
-// const mapDispatch = dispatch => {
-//   return {
-//     fetchUser: sessionId => dispatch(fetchUser(sessionId))
-//   };
-// };
 export default connect(mapState)(withRouter(Root));
