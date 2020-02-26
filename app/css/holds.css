@@ -1,5 +1,5 @@
 .holds_container {
-  width: 3em;
+  width: 7em;
   display: flex;
   flex-direction: column;
   border: 1px solid;
@@ -11,6 +11,44 @@
   width: 1em;
   height: 1em;
   margin: 0.5em;
-  background-color: black;
+  background-color: red;
   cursor: move;
+}
+
+#sloper {
+  width: 30px;
+  height: 15px;
+  border-radius: 20px / 10px;
+}
+
+#footHold {
+  width: 15px;
+  height: 12px;
+  transform: skew(-30deg); 
+  border-radius: 5px;
+}
+
+#pinch {
+  width: 30px;
+  height: 8px;
+  border-radius: 10%;
+}
+
+#jug {
+  display: block;
+  width: 12px;
+  height: 18px;
+  border-radius: 10% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+#pocket {
+  width: 1em;
+  height: 1em;
+  margin: 0.5em;
+}
+
+#crimper {
+  width: 15px;
+  height: 10px;
+  transform: skew(30deg);
 }

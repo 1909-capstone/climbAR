@@ -13,14 +13,18 @@ const Hold = ({ hold }) => {
     }
   });
   return (
-    <div
-      className="hold"
-      ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move'
-      }}
-    ></div>
+    <div style={{display:'flex'}}>
+      <div> {hold.holdType}</div>
+      <div
+        id={hold.holdType}
+        className="hold"
+        ref={drag}
+        style={{
+          opacity: isDragging ? 0.5 : 1,
+          cursor: 'move'
+        }}
+      ></div>
+    </div>
   );
 };
 
