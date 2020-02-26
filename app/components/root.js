@@ -8,6 +8,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import { fetchUser } from '../redux/thunks/userThunks';
 import CreateRoute from './CreateRoute';
 import Home from './Home';
 import Navigation from './Navigation';
@@ -31,7 +32,6 @@ class Root extends Component {
       .get('/auth')
       .then(resp => {
         const { loggedIn } = resp.data;
-        console.log(loggedIn);
         if (!loggedIn) {
           this.props.history.push('/login');
         }
@@ -39,6 +39,16 @@ class Root extends Component {
       .catch(e => {
         console.error(e);
       });
+
+    console.log(document.cookie.split(';'));
+    const { fetchUser } = this.props;
+    fetchUser(
+      document.cookie
+        .split(';')
+        .filter(c => /session_id=/.test(c))[0]
+        .replace(/session_id=/, '')
+        .replace(/ /, '')
+    );
   }
   render() {
     const { status, text } = this.props.statusMessage;
@@ -66,4 +76,10 @@ const mapState = state => {
   return { user, statusMessage };
 };
 
-export default connect(mapState)(withRouter(Root));
+const mapDispatch = dispatch => {
+  return {
+    fetchUser: sessionId => dispatch(fetchUser(sessionId))
+  };
+};
+
+export default connect(mapState, mapDispatch)(withRouter(Root));

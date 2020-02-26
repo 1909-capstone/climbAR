@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // api endpoint for react to check its login status
 app.get('/auth', (req, res, next) => {
+  console.log(chalk.yellow('calling auth api'));
   const body = { loggedIn: false };
   User.findOne({ where: { sessionId: req.cookies['session_id'] } })
     .then(user => {

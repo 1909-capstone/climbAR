@@ -2,6 +2,22 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { models } = require('../db/index');
 const { User, Session } = models;
+// set user in state
+router.get('/session/:sessionId', (req, res, next) => {
+  const { sessionId } = req.params;
+  User.findOne({
+    where: {
+      sessionId
+    }
+  })
+    .then(user => {
+      res.status(200).send(user);
+    })
+    .catch(e => {
+      res.status(400);
+      next(e);
+    });
+});
 
 // log in
 router.post('/login', (req, res, next) => {
@@ -43,6 +59,24 @@ router.post('/login', (req, res, next) => {
     })
     .catch(e => {
       res.status(500).send('Internal Error');
+      next(e);
+    });
+});
+
+//log out
+router.post('/logout/:userId', (req, res, next) => {
+  const id = req.params.userId;
+  User.update(
+    {
+      sessionId: null
+    },
+    {
+      where: { id }
+    }
+  )
+    .then(loggoutUser => res.status(201).send(loggoutUser))
+    .catch(e => {
+      res.status(401);
       next(e);
     });
 });

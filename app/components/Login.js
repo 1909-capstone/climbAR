@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { logInUser } from '../redux/thunks/userThunks';
 
 class Login extends Component {
@@ -18,10 +19,14 @@ class Login extends Component {
   onSubmit = ev => {
     ev.preventDefault();
     this.props.logIn(this.state);
-    console.log(this.state);
+    this.setState({
+      email: '',
+      password: ''
+    });
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <Fragment>
         <Form
@@ -43,7 +48,7 @@ class Login extends Component {
               <Form.Control
                 name="email"
                 type="email"
-                placeholder="Enter email address"
+                value={email}
                 onChange={this.handleChange}
               />
             </Col>
@@ -58,7 +63,7 @@ class Login extends Component {
               <Form.Control
                 name="password"
                 type="password"
-                placeholder="Enter password"
+                value={password}
                 onChange={this.handleChange}
               />
             </Col>
