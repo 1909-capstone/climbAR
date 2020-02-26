@@ -3,27 +3,6 @@ const bcrypt = require('bcrypt');
 const { models } = require('../db/index');
 const { User, Session } = models;
 
-router.get('/session/:sessionId', (req, res, next) => {
-  const { sessionId } = req.params;
-  if (sessionId === undefined) {
-    console.log('no session id found');
-    return res.status(401).send('login required');
-  } else {
-    User.findOne({
-      where: {
-        sessionId
-      }
-    })
-      .then(user => {
-        res.status(200).send(user);
-      })
-      .catch(e => {
-        res.status(400);
-        next(e);
-      });
-  }
-});
-
 // log in
 router.post('/login', (req, res, next) => {
   console.log('calling post login api');
@@ -81,7 +60,14 @@ router.get('/', (req, res, next) => {
 //adds a new user to the database
 router.post('/', (req, res, next) => {
   const newUser = req.body;
-  User.create(newUser)
+  bcrypt
+    .hash(newUser.password, 10)
+    .then(hashedPassword => {
+      return User.create({
+        ...newUser,
+        password: hashedPassword
+      });
+    })
     .then(user => {
       Session.create().then(session => {
         user.update({ sessionId: session.id }).then(() => {
