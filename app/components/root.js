@@ -31,6 +31,7 @@ class Root extends Component {
       .get('/auth')
       .then(resp => {
         const { loggedIn } = resp.data;
+        console.log(loggedIn);
         if (!loggedIn) {
           this.props.history.push('/login');
         }
