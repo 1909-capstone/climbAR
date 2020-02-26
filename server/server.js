@@ -47,7 +47,7 @@ app.use((req, res, next) => {
       .then(user => {
         if (!user) {
           //status: user has a cookie id, but login expired
-          //action: user can sign up or log in, and destroy current cookie
+          //action: user can sign up or log in, and overwrite current cookie
           console.log(
             chalk.yellow('user has cookie, but need to sign up or log in')
           );
