@@ -8,12 +8,13 @@ const Hold = ({ hold }) => {
     item: { type: ItemTypes.HOLD, holdData: hold },
     collect: monitor => {
       return {
-        isDragging: !!monitor.isDragging()
+        isDragging: !!monitor.isDragging(),
+        holdType: hold.holdType
       };
     }
   });
   return (
-    <div style={{display:'flex'}}>
+    <div style={{ display: 'flex' }}>
       <div> {hold.holdType}</div>
       <div
         id={hold.holdType}

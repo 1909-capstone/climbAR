@@ -20,6 +20,7 @@ export const holds = (state = [], action) => {
 export const routeModel = (
   state = {
     holds: [],
+    sorted_holds: {},
     grade: '',
     holdColor: '',
     areaHeight: 0,
@@ -34,10 +35,19 @@ export const routeModel = (
       return { ...state, ...action.model };
     case SET_HOLD:
       const hold = action.hold;
+      const sorted_holds = state.sorted_holds;
+      const xy = `${hold.coordinateX}${hold.coordinateY}`;
       const filteredState = state.holds.filter(
         _h => _h.coordinateX !== hold.x && _h.coordinateY !== hold.y
       );
-      return { ...state, holds: [...filteredState, hold] };
+      if (!sorted_holds[xy]) {
+        sorted_holds[xy] = hold;
+      }
+      return {
+        ...state,
+        holds: [...filteredState, hold],
+        sorted_holds: { ...sorted_holds }
+      };
     default:
       return state;
   }
@@ -61,20 +71,20 @@ export const statusMessage = (state = { status: null, text: '' }, action) => {
   }
 };
 
-export const climbingRoutes = (state = [], action )=> {
-  switch(action.type){
+export const climbingRoutes = (state = [], action) => {
+  switch (action.type) {
     case SET_CLIMBING_ROUTES:
       return action.routes;
     default:
       return state;
   }
-}
+};
 
-export const climbingRoute = (state = {}, action )=> {
-  switch(action.type){
+export const climbingRoute = (state = {}, action) => {
+  switch (action.type) {
     case SET_CLIMBING_ROUTE:
       return action.route;
     default:
       return state;
   }
-}
+};
