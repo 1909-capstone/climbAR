@@ -7,6 +7,7 @@ import {
   SET_CLIMBING_ROUTES,
   SET_CLIMBING_ROUTE
 } from './constants';
+import { htmlDate } from '../utils';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -21,12 +22,12 @@ export const routeModel = (
   state = {
     holds: [],
     sorted_holds: {},
-    grade: '',
-    holdColor: '',
-    areaHeight: 0,
-    areaWidth: 0,
-    status: '',
-    endData: ''
+    grade: 'VB',
+    holdColor: 'Red',
+    areaHeight: 10,
+    areaWidth: 15,
+    status: 'installed',
+    endData: htmlDate(14)
   },
   action
 ) => {

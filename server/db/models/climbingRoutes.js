@@ -28,7 +28,7 @@ const ClimbingRoute = db.define('climbingRoute', {
     }
   },
   endDate: {
-    type: DATEONLY
+    type: STRING
   }
 });
 
