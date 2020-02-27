@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchClimbingRoutes } from '../redux/thunks/climbingRoutesThunks';
 import { climbingRoutes } from '../redux/reducers';
 import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class ClimbingRoutes extends React.Component {
   componentDidMount() {
@@ -16,12 +17,12 @@ class ClimbingRoutes extends React.Component {
       <main>
         <div> All Climbing Routes </div>
         {climbingRoutes.map(climbingRoute => (
-          <Nav.Link
+          <Link
             key={climbingRoute.id}
-            href={`/climbingroutes/${climbingRoute.id}`}
+            to={`/climbingroutes/${climbingRoute.id}`}
           >
             {climbingRoute.id}
-          </Nav.Link>
+          </Link>
         ))}
       </main>
     );
