@@ -8,19 +8,24 @@ const Hold = ({ hold }) => {
     item: { type: ItemTypes.HOLD, holdData: hold },
     collect: monitor => {
       return {
-        isDragging: !!monitor.isDragging()
+        isDragging: !!monitor.isDragging(),
+        holdType: hold.holdType
       };
     }
   });
   return (
-    <div
-      className="hold"
-      ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move'
-      }}
-    ></div>
+    <div style={{ display: 'flex' }}>
+      <div> {hold.holdType}</div>
+      <div
+        id={hold.holdType}
+        className="hold"
+        ref={drag}
+        style={{
+          opacity: isDragging ? 0.5 : 1,
+          cursor: 'move'
+        }}
+      ></div>
+    </div>
   );
 };
 
