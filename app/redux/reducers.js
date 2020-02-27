@@ -8,6 +8,7 @@ import {
   SET_CLIMBING_ROUTE
 } from './constants';
 import { htmlDate } from '../utils';
+import moment from 'moment';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -27,7 +28,7 @@ export const routeModel = (
     areaHeight: 10,
     areaWidth: 15,
     status: 'installed',
-    endData: htmlDate(14)
+    endData: moment(htmlDate(14))
   },
   action
 ) => {
@@ -37,7 +38,7 @@ export const routeModel = (
     case SET_HOLD:
       const hold = action.hold;
       const sorted_holds = state.sorted_holds;
-      const xy = `${hold.coordinateX}${hold.coordinateY}`;
+      const xy = `${hold.coordinateX.toString()}-${hold.coordinateY.toString()}`;
       const filteredState = state.holds.filter(
         _h => _h.coordinateX !== hold.x && _h.coordinateY !== hold.y
       );

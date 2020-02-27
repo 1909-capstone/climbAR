@@ -3,7 +3,7 @@ import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
 
 const CanvasSlot = ({ x, y, width, holds, setNewHold, holdColor }) => {
-  const holdAtThisPosition = holds[`${x}${y}`];
+  const holdAtThisPosition = holds[`${x.toString()}-${y.toString()}`];
   const [{ isOver, hasHold, holdData }, drop] = useDrop({
     accept: ItemTypes.HOLD,
     drop: monitor => {
