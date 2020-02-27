@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { models } = require('../db/index');
 const { User, Session } = models;
+const chalk = require('chalk');
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
   const { sessionId } = req.params;
@@ -11,6 +12,10 @@ router.get('/session/:sessionId', (req, res, next) => {
     }
   })
     .then(user => {
+      console.log(
+        chalk.yellow('calling get session api and found user by session id')
+      );
+      console.log(user.dataValues);
       res.status(200).send(user);
     })
     .catch(e => {
@@ -21,7 +26,7 @@ router.get('/session/:sessionId', (req, res, next) => {
 
 // log in
 router.post('/login', (req, res, next) => {
-  console.log('calling post login api');
+  console.log(chalk.yellow('calling post login api'));
   User.findOne({
     where: {
       email: req.body.email
@@ -29,10 +34,10 @@ router.post('/login', (req, res, next) => {
   })
     .then(user => {
       if (!user) {
-        console.log('user not found');
+        console.log(chalk.green('user not found'));
         return res.state(401).send('User not found');
       } else {
-        console.log('found user in database');
+        console.log(chalk.green('found user in database'));
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (err) {
             console.log(err);
@@ -41,7 +46,7 @@ router.post('/login', (req, res, next) => {
             //user is found in database and given a new cookie
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
-                console.log('session id is created');
+                console.log(chalk.green('session id is created'));
                 return res
                   .cookie('session_id', user.sessionId, {
                     path: '/',

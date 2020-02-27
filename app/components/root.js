@@ -42,13 +42,16 @@ class Root extends Component {
 
     console.log(document.cookie.split(';'));
     const { fetchUser } = this.props;
-    fetchUser(
-      document.cookie
-        .split(';')
-        .filter(c => /session_id=/.test(c))[0]
-        .replace(/session_id=/, '')
-        .replace(/ /, '')
-    );
+    if (document.cookie.split(';')[0].length > 0) {
+      console.log('calling fetchUser');
+      fetchUser(
+        document.cookie
+          .split(';')
+          .filter(c => /session_id=/.test(c))[0]
+          .replace(/session_id=/, '')
+          .replace(/ /, '')
+      );
+    }
   }
   render() {
     const { status, text } = this.props.statusMessage;

@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { setUser, statusMessage } from '../actions';
 import { FAIL, SUCCESS } from './utils';
+import chalk from 'chalk';
 
 export const fetchUser = sessionId => {
   return function thunk(dispatch) {
     return axios
       .get(`api/users/session/${sessionId}`)
-      .then(res => dispatch(setUser(res.data)))
+      .then(res => {
+        console.log(chalk.yellow('got user data'));
+        console.log(res.data.dataValues);
+        dispatch(setUser(res.data));
+      })
       .catch(e => {
         console.error(e);
       });
@@ -18,7 +23,7 @@ export const logInUser = ({ email, password }) => {
     return axios
       .post(`/api/users/login`, { email, password })
       .then(res => {
-        console.log('user is updated');
+        console.log(chalk.green('user is updated'));
         dispatch(setUser(res.data));
       })
       .catch(err => {

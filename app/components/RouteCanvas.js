@@ -39,8 +39,9 @@ class RouteCanvas extends React.Component {
                 x={r}
                 y={c}
                 width={width}
-                holds={routeModel.holds}
+                holds={routeModel.sorted_holds}
                 setNewHold={setNewHold}
+                holdColor={routeModel.holdColor}
               />
             ))
           )}
@@ -50,7 +51,9 @@ class RouteCanvas extends React.Component {
   }
 }
 
-const mapState = ({ routeModel }) => ({ routeModel });
+const mapState = ({ routeModel }) => ({
+  routeModel
+});
 const mapDispatch = dispatch => {
   return {
     setNewHold: hold => dispatch(setNewHold(hold))

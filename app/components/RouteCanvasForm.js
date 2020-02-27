@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { setRouteModel } from '../redux/actions';
+import { htmlDate } from '../utils';
 
 class RouteCanvasForm extends React.Component {
   constructor() {
@@ -11,7 +12,7 @@ class RouteCanvasForm extends React.Component {
       areaHeight: 15,
       areaWidth: 10,
       grade: 'VB',
-      endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 14),
+      endDate: htmlDate(14),
       holdColor: 'Red'
     };
   }

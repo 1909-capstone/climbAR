@@ -7,6 +7,8 @@ import {
   SET_CLIMBING_ROUTES,
   SET_CLIMBING_ROUTE
 } from './constants';
+import { htmlDate } from '../utils';
+import moment from 'moment';
 
 export const holds = (state = [], action) => {
   switch (action.type) {
@@ -20,12 +22,13 @@ export const holds = (state = [], action) => {
 export const routeModel = (
   state = {
     holds: [],
-    grade: '',
-    holdColor: '',
-    areaHeight: 0,
-    areaWidth: 0,
-    status: '',
-    endData: ''
+    sorted_holds: {},
+    grade: 'VB',
+    holdColor: 'Red',
+    areaHeight: 10,
+    areaWidth: 15,
+    status: 'installed',
+    endData: moment(htmlDate(14))
   },
   action
 ) => {
@@ -34,10 +37,19 @@ export const routeModel = (
       return { ...state, ...action.model };
     case SET_HOLD:
       const hold = action.hold;
+      const sorted_holds = state.sorted_holds;
+      const xy = `${hold.coordinateX.toString()}-${hold.coordinateY.toString()}`;
       const filteredState = state.holds.filter(
         _h => _h.coordinateX !== hold.x && _h.coordinateY !== hold.y
       );
-      return { ...state, holds: [...filteredState, hold] };
+      if (!sorted_holds[xy]) {
+        sorted_holds[xy] = hold;
+      }
+      return {
+        ...state,
+        holds: [...filteredState, hold],
+        sorted_holds: { ...sorted_holds }
+      };
     default:
       return state;
   }
@@ -61,20 +73,20 @@ export const statusMessage = (state = { status: null, text: '' }, action) => {
   }
 };
 
-export const climbingRoutes = (state = [], action )=> {
-  switch(action.type){
+export const climbingRoutes = (state = [], action) => {
+  switch (action.type) {
     case SET_CLIMBING_ROUTES:
       return action.routes;
     default:
       return state;
   }
-}
+};
 
-export const climbingRoute = (state = {}, action )=> {
-  switch(action.type){
+export const climbingRoute = (state = {}, action) => {
+  switch (action.type) {
     case SET_CLIMBING_ROUTE:
       return action.route;
     default:
       return state;
   }
-}
+};

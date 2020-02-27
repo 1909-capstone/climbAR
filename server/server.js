@@ -57,7 +57,7 @@ app.use((req, res, next) => {
             res.user = user.dataValues;
           });
           req.loggedIn = true;
-          console.log(chalk.yellow('user logged in'));
+          console.log(chalk.green('user logged in'));
           next();
         }
       })
@@ -70,7 +70,7 @@ app.use((req, res, next) => {
 app.use('/api', require('./api'));
 
 app.get('*', (req, res) => {
-  console.log('all routes');
+  console.log(chalk.green('all routes'));
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
