@@ -57,6 +57,8 @@ app.use((req, res, next) => {
             res.user = user.dataValues;
           });
           req.loggedIn = true;
+          req.user = user.dataValues;
+          console.log('USER IS ', req.user);
           console.log(chalk.green('user logged in'));
           next();
         }

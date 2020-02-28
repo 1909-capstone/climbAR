@@ -4,6 +4,7 @@ const { ClimbingRoute, RouteModel } = models;
 
 //finds and gets all the climbing routes in the database
 router.get('/', (req, res, next) => {
+  console.log('requesting climbing routes for user = ', req.user);
   ClimbingRoute.findAll({
     include: [{ model: RouteModel }]
   })
@@ -15,7 +16,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-//finds a specific climbing route in the database id
+//finds a climbing route by id
 router.get('/:id', (req, res, next) => {
   const climbingRouteId = req.params.id;
   ClimbingRoute.findByPk(climbingRouteId, { include: { model: RouteModel } })

@@ -50,17 +50,23 @@ class RouteModel extends React.Component {
           text={{ value: 'ClimbAr!', align: 'center' }}
           position={{ x: 0, y: 2, z: -1 }}
         />
-        {/* TODO: FIND A WAY TO LOAD 3D MODELS IN REACT <Entity gltf-model={{src: '../public/assets/climbing_wall/scene.gltf'} }/> */}
-        <Entity
+        <a-gltf-model
+          id="wall"
+          position="0 0 -3"
+          rotation="0 100 0"
+          src="../assets/climbing_wall/scene.gltf"
+        ></a-gltf-model>
+        {/* <Entity
           primitive="a-plane"
           src="#groundTexture"
           rotation="0 0 0"
           height={climbingRoute.areaHeight}
           width={climbingRoute.areaWidth}
           position="0 0 -1"
-        />
+        /> */}
         {climbingRoute.routeModels.map(_h => (
           <Entity
+            key={`hold-${_h.id}`}
             primitive="a-box"
             position={{
               x: _h.coordinateX - 1,
