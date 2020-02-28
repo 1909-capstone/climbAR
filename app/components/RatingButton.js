@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { likeRoute, unLikeRoute } from '../redux/thunks/UserThunks';
+import { rate } from '../redux/thunks/UserThunks';
 import style from '../css/routeTile.css';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import RatingForm from './RatingForm';
 
 class RatingButton extends React.Component {
   constructor() {
@@ -12,11 +15,23 @@ class RatingButton extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.like} variant="info">
-          <span className={this.likesThisRoute() ? 'heart liked' : 'heart'}>
-            Rate
-          </span>
-        </Button>
+        <OverlayTrigger
+          placement="top"
+          trigger="click"
+          delay={{ show: 250, hide: 5000 }}
+          overlay={
+            <Popover>
+              <Popover.Title as="h3">Rate this Route?</Popover.Title>
+              <Popover.Content>
+                <RatingForm route={this.props.route} />
+              </Popover.Content>
+            </Popover>
+          }
+        >
+          <Button variant="info">
+            <span>Rate</span>
+          </Button>
+        </OverlayTrigger>
       </div>
     );
   }
@@ -25,7 +40,7 @@ class RatingButton extends React.Component {
 const mapState = ({ user }) => ({ user });
 const mapDispatch = dispatch => {
   return {
-    rate: (user, route, rating) => dispatch(likeRoute(user, route, rating))
+    rate: (user, route, rating) => dispatch(rate(user, route, rating))
   };
 };
 

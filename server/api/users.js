@@ -224,8 +224,8 @@ router.post('/routes/rate', (req, res, next) => {
   Rating.findOne({
     where: { userId: user.id, climbingRouteId: route.id }
   })
-    .then(rating => {
-      if (rating) {
+    .then(foundRating => {
+      if (foundRating) {
         Rating.destroy({
           where: { userId: user.id, climbingRouteId: route.id }
         }).then(() =>

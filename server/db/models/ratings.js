@@ -9,7 +9,7 @@ const Rating = db.define('rating', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  content: {
+  rating: {
     type: INTEGER
   }
 });

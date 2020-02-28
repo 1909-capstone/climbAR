@@ -27,7 +27,6 @@ class CompleteButon extends React.Component {
     }
   }
   render() {
-    console.log('mark complete props ', this.props);
     return (
       <div>
         <Button onClick={this.complete} variant="info">
