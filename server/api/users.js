@@ -169,4 +169,16 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
+router.post('/routes/like', (req, res, next) => {
+  const { user, route } = req.body;
+  console.log('liking route ', route, ' for user ', user);
+  LikedRoute.create({ climbingRouteId: route.id, userId: user.id })
+    .then(() => res.status(201).send('route liked'))
+    .catch(e => {
+      console.log('error liking route ', e);
+      res.status(400);
+      next(e);
+    });
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { ClimbingRoute, RouteModel, CompletedRoute } = models;
+const { ClimbingRoute, RouteModel, CompletedRoute, LikedRoute } = models;
 
 //finds and gets all the climbing routes in the database
 router.get('/', (req, res, next) => {
@@ -8,7 +8,11 @@ router.get('/', (req, res, next) => {
   ClimbingRoute.findAll({
     include: [
       { model: RouteModel },
-      { model: CompletedRoute, where: { userId: req.user.id }, required: false }
+      {
+        model: CompletedRoute,
+        required: false
+      },
+      { model: LikedRoute, required: false }
     ]
   })
     .then(allRoutes => res.status(200).send(allRoutes))

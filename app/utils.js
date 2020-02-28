@@ -9,3 +9,10 @@ export const htmlDate = addDays => {
   const day = tempDay < 10 ? `0${tempDay}` : tempDay;
   return `${year}-${month}-${day}`;
 };
+
+export const getCookie = () =>
+  document.cookie
+    .split(';')
+    .filter(c => /session_id=/.test(c))[0]
+    .replace(/session_id=/, '')
+    .replace(/ /, '');

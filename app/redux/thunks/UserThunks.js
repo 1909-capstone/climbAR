@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setUser, statusMessage } from '../actions';
 import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
+import { getCookie } from '../../utils';
+import { fetchClimbingRoutes } from './climbingRoutesThunks';
 
 export const fetchUser = sessionId => {
   return dispatch => {
@@ -25,7 +27,6 @@ export const logInUser = ({ email, password }) => {
     return axios
       .post(`/api/users/login`, { email, password })
       .then(res => {
-        console.log(chalk.green('user is updated'));
         dispatch(setUser(res.data));
       })
       .catch(err => {
@@ -72,6 +73,21 @@ export const logoutUser = userId => {
       })
       .catch(err => {
         console.log('Error logging user out', err);
+      });
+  };
+};
+
+export const likeRoute = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .post(`/api/users/routes/like`, { user, route })
+      .then(res => {
+        console.log('route liked');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error liking a route ', err);
       });
   };
 };

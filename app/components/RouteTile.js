@@ -8,6 +8,8 @@ const RouteTile = ({ route }) => {
     <div className="routeTile">
       <div>{route.grade}</div>
       <div>{route.rating}</div>
+      <div>Likes: {route.likedRoutes.length}</div>
+      <div>Completed: {route.completedRoutes.length}</div>
       <LikeButton route={route} />
       <Link key={route.id} to={`/climbingroutes/${route.id}`}>
         {route.id}
