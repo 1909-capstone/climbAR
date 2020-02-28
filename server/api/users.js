@@ -181,4 +181,15 @@ router.post('/routes/like', (req, res, next) => {
     });
 });
 
+router.delete('/routes/unlike', (req, res, next) => {
+  const { user, route } = req.body;
+  LikedRoute.destroy({ where: { userId: user.id, climbingRouteId: route.id } })
+    .then(() => res.status(200).send('route unliked'))
+    .catch(e => {
+      console.log('error unliking route ', e);
+      res.status(400);
+      next(e);
+    });
+});
+
 module.exports = router;

@@ -91,3 +91,19 @@ export const likeRoute = (user, route) => {
       });
   };
 };
+
+export const unLikeRoute = (user, route) => {
+  console.log(user, route);
+  return function thunk(dispatch) {
+    return axios
+      .delete(`/api/users/routes/unlike`, { data: { user, route } })
+      .then(() => {
+        console.log('route unliked');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error unliking a route ', err);
+      });
+  };
+};
