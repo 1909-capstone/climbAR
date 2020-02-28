@@ -7,7 +7,6 @@ import RatingButon from './RatingButton';
 import { average } from '../utils';
 
 const RouteTile = ({ route }) => {
-  console.log(route.ratings);
   return (
     <div className="routeTile">
       <div>{route.grade}</div>
