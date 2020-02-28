@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const { models } = require('../db');
-const { User, Session } = models;
+const { User, Session, LikedRoute } = models;
 
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
@@ -10,7 +10,8 @@ router.get('/session/:sessionId', (req, res, next) => {
   User.findOne({
     where: {
       sessionId
-    }
+    },
+    include: { model: LikedRoute }
   })
     .then(user => {
       console.log(
@@ -31,7 +32,8 @@ router.post('/login', (req, res, next) => {
   User.findOne({
     where: {
       email: req.body.email
-    }
+    },
+    include: [{ model: LikedRoute }]
   })
     .then(user => {
       if (!user) {
