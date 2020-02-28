@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const { models } = require('../db');
-const { User, Session, LikedRoute } = models;
+const { User, Session, LikedRoute, CompletedRoute } = models;
 
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
@@ -11,7 +11,7 @@ router.get('/session/:sessionId', (req, res, next) => {
     where: {
       sessionId
     },
-    include: { model: LikedRoute }
+    include: [{ model: LikedRoute }, { model: CompletedRoute }]
   })
     .then(user => {
       console.log(
@@ -33,12 +33,12 @@ router.post('/login', (req, res, next) => {
     where: {
       email: req.body.email
     },
-    include: [{ model: LikedRoute }]
+    include: [{ model: LikedRoute }, { model: CompletedRoute }]
   })
     .then(user => {
       if (!user) {
         console.log(chalk.green('user not found'));
-        return res.state(401).send('User not found');
+        return res.status(401).send('User not found');
       } else {
         console.log(chalk.green('found user in database'));
         bcrypt.compare(req.body.password, user.password, (err, result) => {
@@ -169,6 +169,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
+//like a route
 router.post('/routes/like', (req, res, next) => {
   const { user, route } = req.body;
   console.log('liking route ', route, ' for user ', user);
@@ -181,12 +182,38 @@ router.post('/routes/like', (req, res, next) => {
     });
 });
 
+//mark a route completed
+router.post('/routes/complete', (req, res, next) => {
+  const { user, route } = req.body;
+  console.log('marking route complete', route, ' for user ', user);
+  CompletedRoute.create({ climbingRouteId: route.id, userId: user.id })
+    .then(() => res.status(201).send('route marked complete'))
+    .catch(e => {
+      console.log('error marking route complete', e);
+      res.status(400);
+      next(e);
+    });
+});
+
 router.delete('/routes/unlike', (req, res, next) => {
   const { user, route } = req.body;
   LikedRoute.destroy({ where: { userId: user.id, climbingRouteId: route.id } })
     .then(() => res.status(200).send('route unliked'))
     .catch(e => {
       console.log('error unliking route ', e);
+      res.status(400);
+      next(e);
+    });
+});
+
+router.delete('/routes/uncomplete', (req, res, next) => {
+  const { user, route } = req.body;
+  CompletedRoute.destroy({
+    where: { userId: user.id, climbingRouteId: route.id }
+  })
+    .then(() => res.status(200).send('route un completed'))
+    .catch(e => {
+      console.log('error uncompleting route ', e);
       res.status(400);
       next(e);
     });

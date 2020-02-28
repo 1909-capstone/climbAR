@@ -30,6 +30,7 @@ ClimbingRoute.hasMany(Rating);
 ClimbingRoute.belongsToMany(User, { through: CompletedRoute });
 User.hasMany(ClimbingRoute);
 ClimbingRoute.hasMany(CompletedRoute);
+User.hasMany(CompletedRoute);
 
 ClimbingRoute.belongsToMany(User, { through: LikedRoute });
 ClimbingRoute.hasMany(LikedRoute);

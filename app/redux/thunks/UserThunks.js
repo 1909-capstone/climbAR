@@ -107,3 +107,33 @@ export const unLikeRoute = (user, route) => {
       });
   };
 };
+
+export const markComplete = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .post(`/api/users/routes/complete`, { user, route })
+      .then(res => {
+        console.log('route marked completed');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error marking a route complete', err);
+      });
+  };
+};
+
+export const unComplete = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .delete(`/api/users/routes/uncomplete`, { data: { user, route } })
+      .then(res => {
+        console.log('route marked uncomplete');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error marking a route complete', err);
+      });
+  };
+};
