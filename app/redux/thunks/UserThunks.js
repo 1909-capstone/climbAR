@@ -137,3 +137,17 @@ export const unComplete = (user, route) => {
       });
   };
 };
+
+export const rate = (user, route, rating) => {
+  return function thunk(dispatch) {
+    return axios
+      .post(`api/users/routes/rate`, { user, route, rating })
+      .then(() => {
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error rating a route ', err);
+      });
+  };
+};
