@@ -18,6 +18,7 @@ import Login from './Login';
 import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
 import RouteModel from './RouteModel';
+import { getCookie } from '../utils';
 
 class Root extends Component {
   componentDidMount() {
@@ -38,13 +39,7 @@ class Root extends Component {
           const { fetchUser } = this.props;
           if (document.cookie.split(';')[0].length > 0) {
             console.log('calling fetchUser');
-            fetchUser(
-              document.cookie
-                .split(';')
-                .filter(c => /session_id=/.test(c))[0]
-                .replace(/session_id=/, '')
-                .replace(/ /, '')
-            );
+            fetchUser(getCookie());
           }
         }
       })

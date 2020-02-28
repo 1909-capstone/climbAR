@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const { models } = require('./db/index');
-const { User } = models;
+const { User, LikedRoute } = models;
 const morgan = require('morgan');
 const chalk = require('chalk');
 
@@ -42,7 +42,8 @@ app.use((req, res, next) => {
     User.findOne({
       where: {
         sessionId: req.cookies['session_id']
-      }
+      },
+      include: [{ model: LikedRoute }]
     })
       .then(user => {
         if (!user) {
@@ -57,11 +58,13 @@ app.use((req, res, next) => {
             res.user = user.dataValues;
           });
           req.loggedIn = true;
+          req.user = user.dataValues;
           console.log(chalk.green('user logged in'));
           next();
         }
       })
       .catch(e => {
+        console.log(e);
         res.status(404);
       });
   }

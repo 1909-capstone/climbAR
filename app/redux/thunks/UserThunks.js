@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setUser, statusMessage } from '../actions';
 import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
+import { getCookie } from '../../utils';
+import { fetchClimbingRoutes } from './climbingRoutesThunks';
 
 export const fetchUser = sessionId => {
   return dispatch => {
@@ -25,7 +27,6 @@ export const logInUser = ({ email, password }) => {
     return axios
       .post(`/api/users/login`, { email, password })
       .then(res => {
-        console.log(chalk.green('user is updated'));
         dispatch(setUser(res.data));
       })
       .catch(err => {
@@ -72,6 +73,67 @@ export const logoutUser = userId => {
       })
       .catch(err => {
         console.log('Error logging user out', err);
+      });
+  };
+};
+
+export const likeRoute = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .post(`/api/users/routes/like`, { user, route })
+      .then(res => {
+        console.log('route liked');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error liking a route ', err);
+      });
+  };
+};
+
+export const unLikeRoute = (user, route) => {
+  console.log(user, route);
+  return function thunk(dispatch) {
+    return axios
+      .delete(`/api/users/routes/unlike`, { data: { user, route } })
+      .then(() => {
+        console.log('route unliked');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error unliking a route ', err);
+      });
+  };
+};
+
+export const markComplete = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .post(`/api/users/routes/complete`, { user, route })
+      .then(res => {
+        console.log('route marked completed');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error marking a route complete', err);
+      });
+  };
+};
+
+export const unComplete = (user, route) => {
+  return function thunk(dispatch) {
+    return axios
+      .delete(`/api/users/routes/uncomplete`, { data: { user, route } })
+      .then(res => {
+        console.log('route marked uncomplete');
+        dispatch(fetchUser(getCookie()));
+        dispatch(fetchClimbingRoutes());
+      })
+      .catch(err => {
+        console.log('Error marking a route complete', err);
       });
   };
 };
