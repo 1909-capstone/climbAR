@@ -7,13 +7,14 @@ import RatingButon from './RatingButton';
 import { average } from '../utils';
 
 const RouteTile = ({ route }) => {
+  console.log(route.ratings);
   return (
     <div className="routeTile">
       <div>{route.grade}</div>
       <div>{route.rating}</div>
       <div>Likes: {route.likedRoutes.length}</div>
       <div>Completed: {route.completedRoutes.length}</div>
-      <div>Avg Difficulty Rating: {average(route.ratings)}</div>
+      <div>Avg Difficulty Rating: {average(route.ratings, 'rating')}</div>
       <RatingButon route={route} />
       <LikeButton route={route} />
       <CompleteButton route={route} />

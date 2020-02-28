@@ -17,5 +17,9 @@ export const getCookie = () =>
     .replace(/session_id=/, '')
     .replace(/ /, '');
 
-export const average = arr =>
-  arr.length === 0 ? 0 : arr.reduce((sum, num) => sum + num, 0) / arr.length;
+export const average = (arr, numberProp) =>
+  arr.length === 0
+    ? 'No Ratings'
+    : (arr.reduce((sum, el) => sum + el[numberProp], 0) / arr.length).toFixed(
+        0
+      );
