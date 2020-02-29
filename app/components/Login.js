@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { logInUser } from '../redux/thunks/userThunks';
 
 class Login extends Component {
