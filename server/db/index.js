@@ -9,7 +9,8 @@ const {
   Rating,
   Video,
   Session,
-  RouteModel
+  RouteModel,
+  RouteImage
 } = require('./models/index');
 
 //MODEL ASSOCIATIONS
@@ -43,6 +44,9 @@ User.hasMany(ClimbingRoute);
 Session.hasOne(User);
 User.belongsTo(Session);
 
+RouteImage.belongsToMany(User, { through: ClimbingRoute });
+User.hasMany(RouteImage);
+
 module.exports = {
   db,
   models: {
@@ -55,6 +59,7 @@ module.exports = {
     Rating,
     Video,
     Session,
-    RouteModel
+    RouteModel,
+    RouteImage
   }
 };
