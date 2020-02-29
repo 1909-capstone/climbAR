@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { logInUser } from '../redux/thunks/userThunks';
+import { logInUser } from '../redux/thunks/UserThunks';
 
 class Login extends Component {
   state = {

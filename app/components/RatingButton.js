@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { rate } from '../redux/thunks/userThunks';
+import { rate } from '../redux/thunks/UserThunks';
 import style from '../css/routeTile.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
