@@ -19,6 +19,7 @@ import ClimbingRoutes from './ClimbingRoutes';
 import SingleClimbingRoute from './SingleClimbingRoute';
 import RouteModel from './RouteModel';
 import { getCookie } from '../utils';
+import Profile from './Profile';
 
 class Root extends Component {
   componentDidMount() {
@@ -62,6 +63,7 @@ class Root extends Component {
             <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
             <Route path="/model/:id" component={RouteModel} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/profile" component={Profile} />
             <Redirect to="/" />
           </Switch>
         </div>
