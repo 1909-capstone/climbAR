@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchUser } from '../redux/thunks/userThunks';
+import { fetchUser } from '../redux/thunks/UserThunks';
 import CreateRoute from './CreateRoute';
 import Home from './Home';
 import Navigation from './Navigation';
