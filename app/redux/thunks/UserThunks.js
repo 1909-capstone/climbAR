@@ -4,7 +4,7 @@ import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
 import { getCookie } from '../../utils';
 import { fetchClimbingRoutes } from './climbingRoutesThunks';
-
+//rename userThunks
 export const fetchUser = sessionId => {
   return dispatch => {
     return axios
