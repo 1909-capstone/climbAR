@@ -19,9 +19,8 @@ class Profile extends React.Component {
     if (!user.completedRoutes) return;
     return user.completedRoutes.length === 0 ? (
       <div>
-        You haven't completed any routes yet
-        {<Link to="/climbingroutes">climbingroutes</Link>} View Some Routes and
-        start climbing!
+        You haven't completed any routes yet.{' '}
+        <Link to="/climbingroutes">View Some Routes</Link> and start climbing!
       </div>
     ) : (
       <div>
