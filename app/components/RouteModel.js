@@ -24,7 +24,6 @@ class RouteModel extends React.Component {
             src="https://cdn.aframe.io/a-painter/images/sky.jpg"
           />
         </a-assets>
-        <Entity sloper />
         <Entity
           primitive="a-sky"
           height="2048"
