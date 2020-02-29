@@ -25,7 +25,7 @@ class Navigation extends Component {
                 color: 'white'
               }}
             >
-              Your Climbing Routes
+              {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
             </Nav.Link>
             <Button
               onClick={() => {
@@ -46,7 +46,7 @@ class Navigation extends Component {
                 color: 'white'
               }}
             >
-              Your Climbing Routes
+              {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
             </Nav.Link>
             <Button
               onClick={() => {
