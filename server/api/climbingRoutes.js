@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { ClimbingRoute, RouteModel, CompletedRoute, LikedRoute } = models;
+const {
+  ClimbingRoute,
+  RouteModel,
+  CompletedRoute,
+  LikedRoute,
+  Rating
+} = models;
 
 //finds and gets all the climbing routes in the database
 router.get('/', (req, res, next) => {
@@ -12,7 +18,8 @@ router.get('/', (req, res, next) => {
         model: CompletedRoute,
         required: false
       },
-      { model: LikedRoute, required: false }
+      { model: LikedRoute, required: false },
+      { model: Rating, required: false }
     ]
   })
     .then(allRoutes => res.status(200).send(allRoutes))

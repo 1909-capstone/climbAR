@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./../database');
 
-const { UUID, UUIDV4, STRING } = Sequelize;
+const { UUID, UUIDV4, STRING, INTEGER } = Sequelize;
 
 const Rating = db.define('rating', {
   id: {
@@ -9,12 +9,9 @@ const Rating = db.define('rating', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  content: {
-    type: STRING,
-    validate: {
-        isIn:[['Easy','Just right', 'Difficult']]
-    }
-  },
+  rating: {
+    type: INTEGER
+  }
 });
 
 module.exports = Rating;

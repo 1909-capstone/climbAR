@@ -26,6 +26,7 @@ ClimbingRoute.hasMany(RouteModel);
 ClimbingRoute.belongsToMany(User, { through: Rating });
 User.hasMany(ClimbingRoute);
 ClimbingRoute.hasMany(Rating);
+User.hasMany(Rating);
 
 ClimbingRoute.belongsToMany(User, { through: CompletedRoute });
 User.hasMany(ClimbingRoute);

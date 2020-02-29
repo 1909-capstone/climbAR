@@ -28,7 +28,6 @@ class LikeButton extends React.Component {
     }
   }
   render() {
-    console.log('like button props ', this.props);
     return (
       <div>
         <Button onClick={this.like} variant="info">

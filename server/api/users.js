@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const { models } = require('../db');
-const { User, Session, LikedRoute, CompletedRoute } = models;
+const { User, Session, LikedRoute, CompletedRoute, Rating } = models;
 
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
@@ -215,6 +215,33 @@ router.delete('/routes/uncomplete', (req, res, next) => {
     .catch(e => {
       console.log('error uncompleting route ', e);
       res.status(400);
+      next(e);
+    });
+});
+
+router.post('/routes/rate', (req, res, next) => {
+  const { user, route, rating } = req.body;
+  Rating.findOne({
+    where: { userId: user.id, climbingRouteId: route.id }
+  })
+    .then(foundRating => {
+      if (foundRating) {
+        Rating.destroy({
+          where: { userId: user.id, climbingRouteId: route.id }
+        }).then(() =>
+          Rating.create({ userId: user.id, climbingRouteId: route.id, rating })
+        );
+      } else {
+        return Rating.create({
+          userId: user.id,
+          climbingRouteId: route.id,
+          rating
+        });
+      }
+    })
+    .then(() => res.status(200).send('Rating submitted'))
+    .catch(e => {
+      console.log(e);
       next(e);
     });
 });
