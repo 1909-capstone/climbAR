@@ -12,3 +12,8 @@
 .complete {
   background-color: greenyellow;
 }
+
+.route-tile-row {
+  display: flex;
+  align-items: center;
+}
