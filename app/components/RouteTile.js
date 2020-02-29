@@ -6,7 +6,7 @@ import CompleteButton from './CompleteButton';
 import RatingButon from './RatingButton';
 import { average } from '../utils';
 
-const RouteTile = ({ route }) => {
+const RouteTile = ({ route, user }) => {
   return (
     <div className="routeTile">
       <div>{route.grade}</div>
@@ -14,9 +14,9 @@ const RouteTile = ({ route }) => {
       <div>Likes: {route.likedRoutes.length}</div>
       <div>Completed: {route.completedRoutes.length}</div>
       <div>Avg Difficulty Rating: {average(route.ratings, 'rating')}</div>
-      <RatingButon route={route} />
-      <LikeButton route={route} />
-      <CompleteButton route={route} />
+      {user.userType && <RatingButon route={route} />}
+      {user.userType && <LikeButton route={route} />}
+      {user.userType && <CompleteButton route={route} />}
       <Link key={route.id} to={`/climbingroutes/${route.id}`}>
         {route.id}
       </Link>

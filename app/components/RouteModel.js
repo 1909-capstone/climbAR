@@ -50,14 +50,14 @@ class RouteModel extends React.Component {
           rotation="0 100 0"
           src="../assets/climbing_wall/scene.gltf"
         ></a-gltf-model>
-        {/* <Entity
+        <Entity
           primitive="a-plane"
           src="#groundTexture"
           rotation="0 0 0"
           height={climbingRoute.areaHeight}
           width={climbingRoute.areaWidth}
           position="0 0 -1"
-        /> */}
+        />
         {climbingRoute.routeModels.map(_h => (
           <Entity
             key={`hold-${_h.id}`}

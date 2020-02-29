@@ -9,13 +9,17 @@ class ClimbingRoutes extends React.Component {
     this.props.fetchClimbingRoutes();
   }
   render() {
-    const { climbingRoutes } = this.props;
+    const { climbingRoutes, user } = this.props;
     return (
       <main>
         <div> All Climbing Routes </div>
         <div className="allRoutes">
           {climbingRoutes.map(climbingRoute => (
-            <RouteTile key={climbingRoute.id} route={climbingRoute} />
+            <RouteTile
+              key={climbingRoute.id}
+              route={climbingRoute}
+              user={user}
+            />
           ))}
         </div>
       </main>
@@ -23,7 +27,7 @@ class ClimbingRoutes extends React.Component {
   }
 }
 
-const mapState = ({ climbingRoutes }) => ({ climbingRoutes });
+const mapState = ({ climbingRoutes, user }) => ({ climbingRoutes, user });
 
 const mapDispatch = dispatch => {
   return {
