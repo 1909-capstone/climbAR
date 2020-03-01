@@ -5,7 +5,8 @@ import {
   SET_USER,
   STATUS_MESSAGE,
   SET_CLIMBING_ROUTES,
-  SET_CLIMBING_ROUTE
+  SET_CLIMBING_ROUTE,
+  SET_ROUTE_IMAGE
 } from './constants';
 import { htmlDate } from '../utils';
 import moment from 'moment';
@@ -90,3 +91,12 @@ export const climbingRoute = (state = {}, action) => {
       return state;
   }
 };
+
+export const routeImage = (state = {}, action) => {
+  switch(action.type){
+    case SET_ROUTE_IMAGE:
+      return action.image;
+    default:
+      return state; 
+  }
+}
