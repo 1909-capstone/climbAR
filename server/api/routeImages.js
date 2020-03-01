@@ -15,7 +15,7 @@ router.get('/',(req,res,next) => {
 //Upload Endpoint
 router.post('/',(req,res,next) => {
   if(req.files === null){
-    return res.status(400).json({msg:'No File Upload'})
+    return res.status(400).send({msg:'No File Upload'})
   }
   const file = req.files.file;
   //move that file to this path
@@ -24,8 +24,15 @@ router.post('/',(req,res,next) => {
       console.error(err);
       return res.status(500).send(err);
     }
-    //if no error, send the file name and path
-    res.json({fileName:file.name, filePath:`/uploads/${file.name}`})
+    //if no error,add the image name and send the file name and path back to the client
+    RouteImage.create({
+      fileName:file.name,
+      filePath:`/uploads/${file.name}`
+    })
+    .then(()=> {
+      res.send({fileName:file.name, filePath:`/uploads/${file.name}`})
+    })
   })
 })
+
 module.exports = router; 

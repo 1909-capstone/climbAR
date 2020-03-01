@@ -64,8 +64,8 @@ class Root extends Component {
             <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
             <Route path="/model/:id" component={RouteModel} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/admin/image" component={ImageUpload} /> 
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/admin/upload" component={ImageUpload} /> 
             <Redirect to="/" />
           </Switch>
         </div>

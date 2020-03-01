@@ -9,8 +9,11 @@ const RouteImage = db.define('routeImage', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  image: {
+  fileName: {
     type: STRING,
+  },
+  filePath: {
+    type:STRING
   }
 });
 

@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { uploadRouteImage } from '../redux/thunks/routeImagesThunks';
 
 class ImageUploadForm extends Component {
   state = {
     file: null,
-    fileName: 'Choose File',
-    uploadPercentage: 0
+    fileName: 'Choose File'
   };
   fileSelectedHandler = event => {
     this.setState({
@@ -19,7 +18,7 @@ class ImageUploadForm extends Component {
     e.preventDefault();
     const formData = new FormData();
     //default Javascript Object in order to send a file
-    formData.append('file', this.state.file, this.state.uploadPercentage);
+    formData.append('file', this.state.file);
     this.props.uploadRouteImage(formData)
   };
   render() {
