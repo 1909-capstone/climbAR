@@ -23,7 +23,11 @@ const RouteTile = ({ route, user }) => {
         {user.userType && <LikeButton route={route} />}
         {user.userType && <CompleteButton route={route} />}
       </div>
-      <Link key={route.id} to={`/climbingroutes/${route.id}`}>
+      <Link
+        className="btn btn-info btn-sm"
+        key={route.id}
+        to={`/climbingroutes/${route.id}`}
+      >
         More
       </Link>
     </div>
