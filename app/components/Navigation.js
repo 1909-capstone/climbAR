@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Nav, Navbar, Button, NavDropdown } from 'react-bootstrap';
 import { logoutUser } from '../redux/thunks/UserThunks';
 import { connect } from 'react-redux';
+import style from '../css/navigation.css';
 
 class Navigation extends Component {
   switchNavBar = params => {
@@ -18,43 +19,54 @@ class Navigation extends Component {
             >
               Create Route
             </Nav.Link>
-
-            <Nav.Link
-              href={`/user/${params.id}`}
+            <NavDropdown
+              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+              id="nav-dropdown"
               style={{
                 color: 'white'
               }}
             >
-              Your Climbing Routes
-            </Nav.Link>
-            <Button
-              onClick={() => {
-                logoutUser(user.id);
-              }}
-            >
-              Log Out
-            </Button>
+              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
+                Profile
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item eventKey="4.2">
+                <Button
+                  onClick={() => {
+                    logoutUser(user.id);
+                  }}
+                >
+                  Log Out
+                </Button>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         );
         break;
       case 'Climber':
         return (
           <Nav>
-            <Nav.Link
-              href={`/user/${params.id}`}
+            <NavDropdown
+              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+              id="nav-dropdown"
               style={{
                 color: 'white'
               }}
             >
-              Your Climbing Routes
-            </Nav.Link>
-            <Button
-              onClick={() => {
-                logoutUser(user.id);
-              }}
-            >
-              Log Out
-            </Button>
+              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
+                Profile
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item eventKey="4.2">
+                <Button
+                  onClick={() => {
+                    logoutUser(user.id);
+                  }}
+                >
+                  Log Out
+                </Button>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         );
       default:
