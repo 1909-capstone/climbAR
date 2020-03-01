@@ -12,7 +12,7 @@ class Profile extends React.Component {
     this.mapCompletedRoutes = this.mapCompletedRoutes.bind(this);
   }
   gradeNumber(grade) {
-    return Number(grade.replace(/V/, ''));
+    return grade === 'VB' ? 0 : Number(grade.replace(/V/, ''));
   }
   bestRoute() {
     const {
@@ -33,8 +33,14 @@ class Profile extends React.Component {
         {user.completedRouteInfo
           ? mapCompletedRoutes().reduce((best, route) => {
               console.log(route);
-              return gradeNumber(route.thisRoute.grade) > gradeNumber(best)
-                ? route.grade
+              console.log(gradeNumber(route.thisRoute.grade));
+              console.log(best);
+              console.log(gradeNumber(best));
+              console.log(
+                gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
+              );
+              return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
+                ? route.thisRoute.grade
                 : best;
             }, 'VB')
           : 'None completed'}
