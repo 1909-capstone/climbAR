@@ -92,7 +92,7 @@ export const climbingRoute = (state = {}, action) => {
   }
 };
 
-export const setRouteImage = (state = {}, action) => {
+export const routeImage = (state = {}, action) => {
   switch(action.type){
     case SET_ROUTE_IMAGE:
       return action.image;

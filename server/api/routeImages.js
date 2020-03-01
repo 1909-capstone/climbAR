@@ -12,17 +12,19 @@ router.get('/',(req,res,next) => {
   })
 })
 
+//Upload Endpoint
 router.post('/',(req,res,next) => {
   if(req.files === null){
-    return res.status(400)
+    return res.status(400).json({msg:'No File Upload'})
   }
   const file = req.files.file;
-  console.log('this is the file', file.name);
+  //move that file to this path
   file.mv(path.join(`__dirname/../public/uploads/${file.name}`), err => {
     if(err){
       console.error(err);
       return res.status(500).send(err);
     }
+    //if no error, send the file name and path
     res.json({fileName:file.name, filePath:`/uploads/${file.name}`})
   })
 })

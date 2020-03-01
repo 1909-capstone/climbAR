@@ -9,14 +9,14 @@ export const uploadRouteImage = file => {
     .post('/api/routeimages', file, {
       headers: {
         'Content-Type': 'multipart/form-data'
+      },
+      onUploadProgress: progressEvent => {
+
       }
     })
-      .then(res => {
-        console.log(res)
+      .then((res) => {
+        dispatch(setRouteImage(res.data));
       })
-      // .then(() => {
-      //   dispatch(setRouteImage());
-      // })
       .catch(e => {
         console.error(e);
         dispatch(

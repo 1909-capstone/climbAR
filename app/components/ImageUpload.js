@@ -1,18 +1,27 @@
-import React, { Component, Fragment } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { uploadRouteImage } from '../redux/thunks/routeImagesThunks';
-import ImageUploadForm from './ImageUploadForm'
+import ImageUploadForm from './ImageUploadForm';
 
-const ImageUpload = () => (
-  <div className='container mt-4'> 
-    <ImageUploadForm/> 
-  </div>
-)
+class ImageComponent extends Component {
+  render() {
+    const { routeImage } = this.props;
+    console.log('this is hte the props ', routeImage);
+    return (
+      <div className="container mt-4">
+        <ImageUploadForm />
+        {routeImage ? (
+          <div className="row mt-5">
+            <div className="col-md-6 m-auto">
+              <h3 className="text-center"> {routeImage.fileName} </h3>
+              <img style={{ width: '100%' }} src={routeImage.filePath} />
+            </div>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+}
 
-const mapDispatch = dispatch => {
-  return {
-    uploadRouteImage: file => dispatch(uploadRouteImage(file))
-  };
-};
-export default connect(null, mapDispatch)(ImageUpload);
+const mapState = ({ routeImage }) => ({ routeImage });
+
+export default connect(mapState)(ImageComponent);

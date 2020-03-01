@@ -7,7 +7,7 @@ class ImageUploadForm extends Component {
   state = {
     file: null,
     fileName: 'Choose File',
-    uploadedFile: {}
+    uploadPercentage: 0
   };
   fileSelectedHandler = event => {
     this.setState({
@@ -16,11 +16,11 @@ class ImageUploadForm extends Component {
     });
   };
   handleOnSubmit = e => {
-    //default Javascript Object in order to send a file
     e.preventDefault();
     const formData = new FormData();
-    formData.append('file', this.state.file);
-    this.props.uploadRouteImage(formData);
+    //default Javascript Object in order to send a file
+    formData.append('file', this.state.file, this.state.uploadPercentage);
+    this.props.uploadRouteImage(formData)
   };
   render() {
     const { fileName } = this.state;
