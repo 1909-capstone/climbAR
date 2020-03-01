@@ -22,7 +22,7 @@ const RouteTile = ({ route, user }) => {
       {user.userType && <LikeButton route={route} />}
       {user.userType && <CompleteButton route={route} />}
       <Link key={route.id} to={`/climbingroutes/${route.id}`}>
-        {route.id}
+        More
       </Link>
     </div>
   );
