@@ -9,13 +9,18 @@ class Profile extends React.Component {
     super();
     this.bestRoute = this.bestRoute.bind(this);
     this.userRoutes = this.userRoutes.bind(this);
+    this.mapCompletedRoutes = this.mapCompletedRoutes.bind(this);
   }
   gradeNumber(grade) {
     return Number(grade.replace(/V/, ''));
   }
   bestRoute() {
-    const { user } = this.props;
-    console.log(user);
+    const {
+      props: { user },
+      gradeNumber,
+      mapCompletedRoutes
+    } = this;
+    console.log('user ', user);
     if (!user.completedRoutes) return;
     return user.completedRoutes.length === 0 ? (
       <div>
@@ -25,24 +30,40 @@ class Profile extends React.Component {
     ) : (
       <div>
         Highest Route Completed:
-        {user.completedRoutes.reduce(
-          (best, route) =>
-            gradeNumber(route.grade) > gradeNumber(best) ? route.grade : best,
-          'VB'
-        )}
+        {user.completedRouteInfo
+          ? mapCompletedRoutes().reduce((best, route) => {
+              console.log(route);
+              return gradeNumber(route.thisRoute.grade) > gradeNumber(best)
+                ? route.grade
+                : best;
+            }, 'VB')
+          : 'None completed'}
       </div>
     );
   }
   userRoutes() {
     const { user } = this.props;
-    if (!user.completedRoutes) return;
-    return user.completedRoutes.length === 0 ? null : (
+    console.log('MAP ', this.mapCompletedRoutes());
+    if (!user.completedRouteInfo || !this) return;
+    return this.mapCompletedRoutes().length === 0 ? null : (
       <div>
-        {user.completedRoutes.map(_r => (
-          <RouteTile route={_r} />
+        <div>Your Completed Routes</div>
+        {this.mapCompletedRoutes().map(_r => (
+          <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
         ))}
       </div>
     );
+  }
+  mapCompletedRoutes() {
+    const { user } = this.props;
+    if (!user.completedRouteInfo) return;
+    return user.completedRoutes.reduce((allRoutes, route) => {
+      const thisRoute = user.completedRouteInfo.filter(
+        _r => _r.id === route.climbingRouteId
+      )[0];
+      allRoutes.push({ ...route, thisRoute });
+      return allRoutes;
+    }, []);
   }
   render() {
     const { user } = this.props;
@@ -61,4 +82,4 @@ const mapDispatch = dispatch => {
     logoutUser: userId => dispatch(logoutUser(userId))
   };
 };
-export default connect(mapState)(Profile);
+export default connect(mapState, mapDispatch)(Profile);

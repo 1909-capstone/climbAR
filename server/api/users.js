@@ -2,7 +2,15 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const { models } = require('../db');
-const { User, Session, LikedRoute, CompletedRoute, Rating } = models;
+const {
+  User,
+  Session,
+  LikedRoute,
+  CompletedRoute,
+  Rating,
+  ClimbingRoute,
+  RouteModel
+} = models;
 
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
@@ -14,11 +22,35 @@ router.get('/session/:sessionId', (req, res, next) => {
     include: [{ model: LikedRoute }, { model: CompletedRoute }]
   })
     .then(user => {
-      console.log(
-        chalk.yellow('calling get session api and found user by session id')
-      );
-      console.log(user.dataValues);
-      res.status(200).send(user);
+      Promise.all(
+        user.completedRoutes.map(_r =>
+          ClimbingRoute.findByPk(_r.climbingRouteId, {
+            include: [
+              { model: RouteModel },
+              {
+                model: CompletedRoute,
+                required: false
+              },
+              { model: LikedRoute, required: false },
+              { model: Rating, required: false }
+            ]
+          })
+        )
+      )
+        .then(completedRouteInfo => {
+          return res
+            .cookie('session_id', user.sessionId, {
+              path: '/',
+              expires: new Date(Date.now() + 1000 * 60 * 60)
+            })
+            .status(202)
+            .send({ user, completedRouteInfo });
+        })
+        .catch(e => {
+          console.log(e);
+          res.status(400);
+          next(e);
+        });
     })
     .catch(e => {
       res.status(400);
@@ -33,7 +65,12 @@ router.post('/login', (req, res, next) => {
     where: {
       email: req.body.email
     },
-    include: [{ model: LikedRoute }, { model: CompletedRoute }]
+    include: [
+      { model: LikedRoute },
+      {
+        model: CompletedRoute
+      }
+    ]
   })
     .then(user => {
       if (!user) {
@@ -49,14 +86,35 @@ router.post('/login', (req, res, next) => {
             //user is found in database and given a new cookie
             Session.create().then(session => {
               user.update({ sessionId: session.id }).then(() => {
-                console.log(chalk.green('session id is created'));
-                return res
-                  .cookie('session_id', user.sessionId, {
-                    path: '/',
-                    expires: new Date(Date.now() + 1000 * 60 * 60)
+                Promise.all(
+                  user.completedRoutes.map(_r =>
+                    ClimbingRoute.findByPk(_r.climbingRouteId, {
+                      include: [
+                        { model: RouteModel },
+                        {
+                          model: CompletedRoute,
+                          required: false
+                        },
+                        { model: LikedRoute, required: false },
+                        { model: Rating, required: false }
+                      ]
+                    })
+                  )
+                )
+                  .then(completedRouteInfo => {
+                    return res
+                      .cookie('session_id', user.sessionId, {
+                        path: '/',
+                        expires: new Date(Date.now() + 1000 * 60 * 60)
+                      })
+                      .status(202)
+                      .send({ user, completedRouteInfo });
                   })
-                  .status(202)
-                  .send(user);
+                  .catch(e => {
+                    console.log(e);
+                    res.status(400);
+                    next(e);
+                  });
               });
             });
           } else {
@@ -66,7 +124,8 @@ router.post('/login', (req, res, next) => {
       }
     })
     .catch(e => {
-      res.status(500).send('Internal Error');
+      console.log(e);
+      res.status(500);
       next(e);
     });
 });

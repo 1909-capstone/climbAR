@@ -15,7 +15,8 @@ const RouteTile = ({ route, user }) => {
       <div>Completed: {route.completedRoutes.length}</div>
       <div>Avg Difficulty Rating: {average(route.ratings, 'rating')}</div>
       <div className="route-tile-row">
-        <i class="large material-icons">schedule</i> Expiring On {route.endDate}
+        <i className="large material-icons">schedule</i> Expiring On{' '}
+        {route.endDate}
       </div>
       {user.userType && <RatingButon route={route} />}
       {user.userType && <LikeButton route={route} />}
