@@ -2,23 +2,21 @@ import { setRouteImage, statusMessage } from './../actions';
 import { FAIL, SUCCESS } from './utils';
 import axios from 'axios';
 
-export function uploadRouteImage(file) {
+export const uploadRouteImage = file => {
   return dispatch => {
     console.log('CREATING FILE MODEL');
-    console.log(file);
     return axios
-      .post(`/api/routeimages`, { file })
-      .then(() => {
-        dispatch(setRouteImage());
+    .post('/api/routeimages', file, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(res => {
+        console.log(res)
       })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Image Created'
-          })
-        );
-      })
+      // .then(() => {
+      //   dispatch(setRouteImage());
+      // })
       .catch(e => {
         console.error(e);
         dispatch(
