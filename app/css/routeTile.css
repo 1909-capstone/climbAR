@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+.complete-button:hover {
+  cursor: pointer;
+}
+
 .complete {
   color: greenyellow;
 }

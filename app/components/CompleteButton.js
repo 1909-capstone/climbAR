@@ -29,7 +29,7 @@ class CompleteButon extends React.Component {
   render() {
     return (
       <div>
-        <span onClick={this.complete}>
+        <span onClick={this.complete} className="complete-button">
           {this.completedRoute() ? (
             <i className="large material-icons complete">done</i>
           ) : (

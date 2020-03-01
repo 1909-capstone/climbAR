@@ -20,7 +20,6 @@ class LikeButton extends React.Component {
     );
   }
   like() {
-    console.log('like this route ? ', this.likesThisRoute());
     if (this.likesThisRoute()) {
       this.props.unLikeRoute(this.props.user, this.props.route);
     } else {
