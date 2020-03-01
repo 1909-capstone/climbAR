@@ -18,9 +18,11 @@ const RouteTile = ({ route, user }) => {
         <i className="large material-icons">schedule</i> Expiring On{' '}
         {route.endDate}
       </div>
-      {user.userType && <RatingButon route={route} />}
-      {user.userType && <LikeButton route={route} />}
-      {user.userType && <CompleteButton route={route} />}
+      <div className="route-tile-buttons">
+        {user.userType && <RatingButon route={route} />}
+        {user.userType && <LikeButton route={route} />}
+        {user.userType && <CompleteButton route={route} />}
+      </div>
       <Link key={route.id} to={`/climbingroutes/${route.id}`}>
         More
       </Link>
