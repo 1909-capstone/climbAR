@@ -30,11 +30,13 @@ class LikeButton extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.like} variant="info">
-          <span className={this.likesThisRoute() ? 'heart liked' : 'heart'}>
-            &#9829;
-          </span>
-        </Button>
+        <span onClick={this.like} className="like-button">
+          {this.likesThisRoute() ? (
+            <i className="large material-icons liked">favorite</i>
+          ) : (
+            <i className="large material-icons">favorite_border</i>
+          )}
+        </span>
       </div>
     );
   }

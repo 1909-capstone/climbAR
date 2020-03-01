@@ -6,7 +6,11 @@
 }
 
 .liked {
-  background-color: tomato;
+  color: tomato;
+}
+
+.like-button:hover {
+  cursor: pointer;
 }
 
 .complete {
