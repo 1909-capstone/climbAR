@@ -5,10 +5,21 @@ import {
   SET_USER,
   STATUS_MESSAGE,
   SET_CLIMBING_ROUTES,
-  SET_CLIMBING_ROUTE
+  SET_CLIMBING_ROUTE,
+  SET_ROUTE_FILTERS
 } from './constants';
 import { htmlDate } from '../utils';
 import moment from 'moment';
+
+export const routeFilters = (state = {}, action) => {
+  switch (action.type) {
+    case SET_ROUTE_FILTERS:
+      const newState = { ...state, ...action.filters };
+      return newState;
+    default:
+      return state;
+  }
+};
 
 export const holds = (state = [], action) => {
   switch (action.type) {

@@ -6,8 +6,16 @@ import {
   SET_USER,
   STATUS_MESSAGE,
   SET_CLIMBING_ROUTES,
-  SET_CLIMBING_ROUTE
+  SET_CLIMBING_ROUTE,
+  SET_ROUTE_FILTERS
 } from './constants';
+
+export const setRouteFilters = filters => {
+  return {
+    type: SET_ROUTE_FILTERS,
+    filters
+  };
+};
 
 export const setHold = hold => {
   return {
@@ -55,12 +63,12 @@ export const setClimbingRoutes = routes => {
   return {
     type: SET_CLIMBING_ROUTES,
     routes
-  }
-}
+  };
+};
 
 export const setClimbingRoute = route => {
   return {
     type: SET_CLIMBING_ROUTE,
     route
-  }
-}
+  };
+};
