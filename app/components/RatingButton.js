@@ -28,7 +28,7 @@ class RatingButton extends React.Component {
             </Popover>
           }
         >
-          <Button variant="info">
+          <Button variant="info" size="sm">
             <span>Rate</span>
           </Button>
         </OverlayTrigger>
