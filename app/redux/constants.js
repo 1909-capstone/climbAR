@@ -7,3 +7,4 @@ export const STATUS_MESSAGE = Symbol('STATUS_MESSAGE');
 export const SET_CLIMBING_ROUTES = Symbol('CLIMBING_ROUTES');
 export const SET_CLIMBING_ROUTE = Symbol('CLIMBING_ROUTE');
 export const SET_ROUTE_FILTERS = Symbol('SET_ROUTE_FILTERS');
+export const SET_ROUTE_IMAGE = Symbol('SET_ROUTE_IMAGE');

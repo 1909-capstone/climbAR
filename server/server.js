@@ -6,10 +6,12 @@ const { models } = require('./db/index');
 const { User, LikedRoute } = models;
 const morgan = require('morgan');
 const chalk = require('chalk');
+const fileUpload = require('express-fileupload');
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
 
 app.use(express.static(path.join(__dirname, '../public')));
 

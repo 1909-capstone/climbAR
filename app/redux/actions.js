@@ -7,7 +7,8 @@ import {
   STATUS_MESSAGE,
   SET_CLIMBING_ROUTES,
   SET_CLIMBING_ROUTE,
-  SET_ROUTE_FILTERS
+  SET_ROUTE_FILTERS,
+  SET_ROUTE_IMAGE
 } from './constants';
 
 export const setRouteFilters = filters => {
@@ -70,5 +71,12 @@ export const setClimbingRoute = route => {
   return {
     type: SET_CLIMBING_ROUTE,
     route
+  };
+};
+
+export const setRouteImage = image => {
+  return {
+    type: SET_ROUTE_IMAGE,
+    image
   };
 };

@@ -7,7 +7,8 @@ import {
   statusMessage,
   climbingRoutes,
   climbingRoute,
-  routeFilters
+  routeFilters,
+  routeImage
 } from './reducers';
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
   statusMessage,
   climbingRoutes,
   climbingRoute,
-  routeFilters
+  routeFilters,
+  routeImage
 });
