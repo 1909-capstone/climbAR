@@ -30,7 +30,10 @@ class RouteCanvas extends React.Component {
         </div>
         <div
           className="route_canvas"
-          style={{ width: `${width}em`, height: `${height}em` }}
+          style={{
+            width: `${width}em`,
+            height: `${height}em`
+          }}
         >
           {Array.from({ length: height }).map((_row, r) =>
             Array.from({ length: width }).map((_col, c) => (

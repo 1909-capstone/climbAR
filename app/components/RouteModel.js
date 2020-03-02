@@ -81,7 +81,7 @@ class RouteModel extends React.Component {
           />
         ))}
         <Entity primitive="a-camera" position="0 1.7 1">
-          <Entity
+          {/* <Entity
             primitive="a-cursor"
             animation__click={{
               property: 'scale',
@@ -90,9 +90,8 @@ class RouteModel extends React.Component {
               to: '1 1 1',
               dur: 150
             }}
-          />
+          /> */}
         </Entity>
-
         <Entity
           primitive="a-plane"
           color="#929292"
