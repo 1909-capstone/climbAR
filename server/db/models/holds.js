@@ -12,8 +12,13 @@ const Hold = db.define('hold', {
   holdType: {
     type: STRING,
     validate: {
-      isIn: [['footHold', 'pocket', 'jug', 'sloper', 'pinch', 'crimper']]
+      isIn: [
+        ['footHold', 'pocket', 'jug', 'sloper', 'pinch', 'plate', 'crimper']
+      ]
     }
+  },
+  modelType: {
+    type: STRING
   }
 });
 

@@ -20,28 +20,25 @@ class RouteModel extends React.Component {
             src="https://cdn.aframe.io/a-painter/images/floor.jpg"
           />
           <img
-            id="skyTexture"
-            src="https://cdn.aframe.io/a-painter/images/sky.jpg"
+            id="wallTexture"
+            src="https://thumbs.dreamstime.com/b/wood-wall-plank-vertical-texture-background-82973047.jpg"
           />
+          <img id="skyTexture" src="../assets/6048567041_693f07f6f6_o.jpg" />
         </a-assets>
         <Entity
           primitive="a-sky"
           height="2048"
           radius="30"
           src="#skyTexture"
-          theta-length="90"
+          theta-length="180"
           width="2048"
         />
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
           primitive="a-light"
           type="point"
-          intensity="2"
-          position="2 4 4"
-        />
-        <Entity
-          text={{ value: 'ClimbAr!', align: 'center' }}
-          position={{ x: 0, y: 2, z: -1 }}
+          intensity="1.6"
+          position="2 5 5"
         />
         <a-gltf-model
           id="wall"
@@ -51,7 +48,8 @@ class RouteModel extends React.Component {
         ></a-gltf-model>
         <Entity
           primitive="a-plane"
-          src="#groundTexture"
+          src="#wallTexture"
+          color="#756b37"
           rotation="0 0 0"
           height={climbingRoute.areaHeight}
           width={climbingRoute.areaWidth}
@@ -60,21 +58,44 @@ class RouteModel extends React.Component {
         {climbingRoute.routeModels.map(_h => (
           <Entity
             key={`hold-${_h.id}`}
-            primitive="a-box"
+            primitive={_h.holdModelType}
             position={{
-              x: _h.coordinateX - 1,
-              y: _h.coordinateY,
-              z: _h.coordinateZ
+              x: _h.positionX - 1,
+              y: _h.positionY,
+              z: _h.positionZ
             }}
-            scale={{ x: 0.05, y: 0.05, z: 0.05 }}
+            rotation={{
+              x: _h.rotationX - 1,
+              y: _h.rotationY,
+              z: _h.rotationZ
+            }}
+            scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
+            roughness={_h.roughness}
+            color={_h.modelColor}
+            radius={_h.radius}
+            radius-tubular={_h.radiusTubular}
+            arc={_h.arc}
+            theta-length={_h.thetaLength}
+            theta-start={_h.thetaStart}
+            height={_h.height}
           />
         ))}
-        <Entity primitive="a-camera" position="0 1.75 0">
-          {/* <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/> */}
+        <Entity primitive="a-camera" position="0 1.7 1">
+          <Entity
+            primitive="a-cursor"
+            animation__click={{
+              property: 'scale',
+              startEvents: 'click',
+              from: '0.1 0.1 0.1',
+              to: '1 1 1',
+              dur: 150
+            }}
+          />
         </Entity>
+
         <Entity
           primitive="a-plane"
-          src="#groundTexture"
+          color="#929292"
           rotation="-90 0 0"
           height="100"
           width="100"
