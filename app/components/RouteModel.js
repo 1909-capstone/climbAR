@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
 
+//TO DO: load actual gym floor image for ground
+//TO DO: create a database for actual sky/gym env image for each wall/climbing route,
+//make sure each climbing route is on the center of different gym location
 class RouteModel extends React.Component {
   componentDidMount() {
     const paramsId = this.props.match.params.id;
@@ -23,15 +26,23 @@ class RouteModel extends React.Component {
             id="wallTexture"
             src="https://thumbs.dreamstime.com/b/wood-wall-plank-vertical-texture-background-82973047.jpg"
           />
-          <img id="skyTexture" src="../assets/6048567041_693f07f6f6_o.jpg" />
+          <img id="skyTexture" src="../assets/IMG_5194.JPG" />
         </a-assets>
         <Entity
           primitive="a-sky"
-          height="2048"
-          radius="30"
           src="#skyTexture"
-          theta-length="180"
+          height="2048"
           width="2048"
+          radius="10"
+          theta-length="180"
+          position="0 0 8.5"
+        />
+        <Entity
+          primitive="a-plane"
+          color="#929292"
+          rotation="-90 0 0"
+          height="10"
+          width="50"
         />
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
@@ -92,13 +103,6 @@ class RouteModel extends React.Component {
             }}
           /> */}
         </Entity>
-        <Entity
-          primitive="a-plane"
-          color="#929292"
-          rotation="-90 0 0"
-          height="100"
-          width="100"
-        />
       </Scene>
     );
   }
