@@ -29,11 +29,13 @@ class CompleteButon extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.complete} variant="info">
-          <span className={this.completedRoute() ? 'check complete' : 'check'}>
-            &#10003;
-          </span>
-        </Button>
+        <span onClick={this.complete} className="complete-button">
+          {this.completedRoute() ? (
+            <i className="large material-icons complete">done</i>
+          ) : (
+            <i className="large material-icons">done</i>
+          )}
+        </span>
       </div>
     );
   }
