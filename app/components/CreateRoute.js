@@ -11,7 +11,6 @@ import { createRouteModel } from '../redux/thunks/routeModelThunks';
 class CreateRoute extends React.Component {
   render() {
     const { createRouteModel, routeModel } = this.props;
-    console.log(createRouteModel);
     return (
       <div>
         <div className="create_route">

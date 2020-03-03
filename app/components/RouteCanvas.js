@@ -2,8 +2,10 @@ import React from 'react';
 import style from '../css/routeCanvas.css';
 import CanvasSlot from './CanvasSlot';
 import { connect } from 'react-redux';
-import { setNewHold } from '../redux/thunks/routeModelThunks';
-import RouteCanvasForm from './RouteCanvasForm';
+import {
+  setNewHold,
+  setNewDraggingHold
+} from '../redux/thunks/routeModelThunks';
 
 class RouteCanvas extends React.Component {
   constructor() {
@@ -20,14 +22,11 @@ class RouteCanvas extends React.Component {
   render() {
     const {
       state: { width, height },
-      props: { routeModel, setNewHold }
+      props: { routeModel, setNewHold, setNewDraggingHold }
     } = this;
     return (
       <div>
-        <div>
-          Canvas
-          <RouteCanvasForm />
-        </div>
+        <div>Canvas</div>
         <div
           className="route_canvas"
           style={{ width: `${width}em`, height: `${height}em` }}
@@ -41,6 +40,7 @@ class RouteCanvas extends React.Component {
                 width={width}
                 holds={routeModel.sorted_holds}
                 setNewHold={setNewHold}
+                setNewDraggingHold={setNewDraggingHold}
                 holdColor={routeModel.holdColor}
               />
             ))
@@ -56,7 +56,8 @@ const mapState = ({ routeModel }) => ({
 });
 const mapDispatch = dispatch => {
   return {
-    setNewHold: hold => dispatch(setNewHold(hold))
+    setNewHold: hold => dispatch(setNewHold(hold)),
+    setNewDraggingHold: hold => dispatch(setNewDraggingHold(hold))
   };
 };
 export default connect(mapState, mapDispatch)(RouteCanvas);
