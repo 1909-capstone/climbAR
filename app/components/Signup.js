@@ -3,18 +3,88 @@ import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 const { Group, Label, Control, Text, Row, Col } = Form;
 import { createUser } from '../redux/thunks/UserThunks';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
   state = {
     email: '',
     userType: 'Climber',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    errors: {
+      emailError: '',
+      passwordError: '',
+      confirmPasswordError: ''
+    }
   };
-  handleOnChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+  //form handling error function
+  validate = (field, value) => {
+    const { errors } = this.state;
+    switch (field) {
+      case 'email':
+        //using regex to check the email that must have the '@' and '.'
+        if (!value.match(/\S+@\S+\.\S+/)) {
+          this.setState({
+            errors: {
+              ...errors,
+              emailError: 'This is not a valid email'
+            }
+          });
+        } else if (!value) {
+          this.setState({
+            errors: {
+              ...errors,
+              emailError: 'Required field'
+            }
+          });
+        } else {
+          this.setState({
+            errors: {
+              ...errors,
+              emailError: ''
+            }
+          });
+        }
+        break;
+      case 'password':
+        if (!value) {
+          this.setState({
+            errors: {
+              ...errors,
+              passwordError: 'Required field'
+            }
+          });
+        } else {
+          this.setState({
+            errors: {
+              ...errors,
+              passwordError: ''
+            }
+          });
+        }
+        break;
+      case 'confirmPassword':
+        if (value !== this.state.password) {
+          this.setState({
+            errors: {
+              ...errors,
+              confirmPasswordError: 'Passwords must match'
+            }
+          });
+        } else {
+          this.setState({
+            errors: {
+              ...errors,
+              confirmPasswordError: ''
+            }
+          });
+        }
+      default:
+        break;
+    }
+  };
+  handleOnChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value }, () => this.validate(name, value));
   };
   handleOnSubmit = event => {
     event.preventDefault();
@@ -23,14 +93,27 @@ class Signup extends Component {
     this.setState({
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     });
   };
   render() {
-    const { email, password, confirmPassword } = this.state;
+    const {
+      email,
+      password,
+      confirmPassword,
+      errors: { emailError, passwordError, confirmPasswordError }
+    } = this.state;
     return (
       <div>
-        <Form>
+        <Form
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <h2> Create your account for climbAR</h2>
           <Group
             controlId="email"
             style={{
@@ -46,7 +129,11 @@ class Signup extends Component {
               name="email"
               value={email}
               onChange={this.handleOnChange}
+              isInvalid={!!emailError}
             />
+            <Control.Feedback type="invalid" className="text-danger">
+              {emailError}
+            </Control.Feedback>
           </Group>
           <Group
             controlId="password"
@@ -54,13 +141,20 @@ class Signup extends Component {
               width: '50%'
             }}
           >
-            <Label>PASSWORD</Label>
+            <Label>
+              Password
+              <span style={{ color: 'red', fontSize: '10px' }}>*required</span>
+            </Label>
             <Control
               type="password"
               name="password"
               value={password}
               onChange={this.handleOnChange}
+              isInvalid={!!passwordError}
             />
+            <Control.Feedback type="invalid" className="text-danger">
+              {passwordError}
+            </Control.Feedback>
           </Group>
           <Group
             controlId="confirmPassword"
@@ -68,15 +162,34 @@ class Signup extends Component {
               width: '50%'
             }}
           >
-            <Label>CONFIRM PASSWORD</Label>
+            <Label>Confirm Password</Label>
             <Control
               type="password"
               name="confirmPassword"
               value={confirmPassword}
               onChange={this.handleOnChange}
+              isInvalid={!!confirmPasswordError}
             />
+            <Control.Feedback type="invalid" className="text-danger">
+              {confirmPasswordError}
+            </Control.Feedback>
           </Group>
-          <Button onClick={this.handleOnSubmit}>Sign Up</Button>
+          <div>
+            Already a user? <Link to={'/login'}>Login</Link>
+          </div>
+          <Button
+            disabled={
+              !email ||
+              !password ||
+              !confirmPassword ||
+              emailError ||
+              passwordError ||
+              confirmPasswordError
+            }
+            onClick={this.handleOnSubmit}
+          >
+            Sign Up
+          </Button>
         </Form>
       </div>
     );
