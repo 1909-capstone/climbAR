@@ -4,4 +4,8 @@
   border: 1px solid;
   display: flex;
   flex-wrap: wrap;
+  background-image: url(https://images-na.ssl-images-amazon.com/images/I/51D4oWOPwiL._AC_SX425_.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }

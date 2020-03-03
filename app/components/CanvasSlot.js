@@ -38,7 +38,7 @@ const CanvasSlot = ({
         height: '1em'
       }}
     >
-      <div className="canvas_slot"></div>
+      <div className="canvas_slot" style={{ opacity: 0 }}></div>
       {isOver && (
         <div
           style={{
