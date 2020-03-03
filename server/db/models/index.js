@@ -8,6 +8,7 @@ const Rating = require('./ratings');
 const Video = require('./videos');
 const Session = require('./sessions');
 const RouteModel = require('./routeModel');
+const RouteImage = require('./routeImages');
 
 module.exports = {
   User,
@@ -19,5 +20,6 @@ module.exports = {
   Rating,
   Video,
   Session,
-  RouteModel
+  RouteModel,
+  RouteImage
 };

@@ -1,4 +1,8 @@
-import { setClimbingRoutes, setClimbingRoute } from '../actions';
+import {
+  setClimbingRoutes,
+  setClimbingRoute,
+  setRouteFilters
+} from '../actions';
 import axios from 'axios';
 
 export const fetchClimbingRoutes = () => {
@@ -19,5 +23,11 @@ export const fetchSingleClimbingRoute = id => {
       .get(`/api/climbingroutes/${id}`)
       .then(res => dispatch(setClimbingRoute(res.data)))
       .catch(e => console.error(e));
+  };
+};
+
+export const dispatchRouteFilters = filters => {
+  return dispatch => {
+    dispatch(setRouteFilters(filters));
   };
 };

@@ -20,6 +20,7 @@ import SingleClimbingRoute from './SingleClimbingRoute';
 import RouteModel from './RouteModel';
 import { getCookie } from '../utils';
 import Profile from './Profile';
+import ImageUpload from './ImageUpload';
 
 class Root extends Component {
   componentDidMount() {
@@ -64,6 +65,7 @@ class Root extends Component {
             <Route path="/model/:id" component={RouteModel} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/admin/upload" component={ImageUpload} /> 
             <Redirect to="/" />
           </Switch>
         </div>

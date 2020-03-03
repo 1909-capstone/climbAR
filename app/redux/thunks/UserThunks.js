@@ -9,7 +9,11 @@ export const fetchUser = sessionId => {
   return dispatch => {
     return axios
       .get(`/api/users/session/${sessionId}`)
-      .then(res => dispatch(setUser(res.data)))
+      .then(res => {
+        const { user, completedRouteInfo } = res.data;
+        user['completedRouteInfo'] = completedRouteInfo;
+        dispatch(setUser(user));
+      })
       .catch(e => {
         console.error(e);
         dispatch(
@@ -27,7 +31,9 @@ export const logInUser = ({ email, password }) => {
     return axios
       .post(`/api/users/login`, { email, password })
       .then(res => {
-        dispatch(setUser(res.data));
+        const { user, completedRouteInfo } = res.data;
+        user['completedRouteInfo'] = completedRouteInfo;
+        dispatch(setUser(user));
       })
       .catch(err => {
         console.log(err);
