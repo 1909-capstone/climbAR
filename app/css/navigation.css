@@ -1,5 +1,8 @@
 #nav-dropdown {
   color: #e45720;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .navbar-light {
@@ -16,4 +19,11 @@
 
 .dropdown-toggle {
   color: #e45720;
+}
+.dropdown-item {
+  color: #e45720;
+}
+
+.dropdown-menu.show {
+  background-color: #070707;
 }

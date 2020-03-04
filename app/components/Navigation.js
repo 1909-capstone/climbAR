@@ -18,6 +18,7 @@ class Navigation extends Component {
               title={
                 <span id="nav-dropdown">
                   {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  <i className="material-icons">arrow_drop_down</i>
                 </span>
               }
             >
@@ -26,13 +27,14 @@ class Navigation extends Component {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
-                <Button
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     logoutUser(user.id);
                   }}
                 >
                   Log Out
-                </Button>
+                </span>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
