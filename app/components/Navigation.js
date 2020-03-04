@@ -10,7 +10,7 @@ class Navigation extends Component {
     switch (params.userType) {
       case 'Admin':
         return (
-          <Nav>
+          <Nav id="nav-admin">
             <Nav.Link
               href="/admin/create"
               style={{
@@ -45,7 +45,7 @@ class Navigation extends Component {
         break;
       case 'Climber':
         return (
-          <Nav>
+          <Nav id="nav-climber">
             <NavDropdown
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
@@ -71,7 +71,7 @@ class Navigation extends Component {
         );
       default:
         return (
-          <Nav>
+          <Nav id="nav-guest">
             <Nav.Link
               href="/login"
               style={{
@@ -96,10 +96,10 @@ class Navigation extends Component {
     const { user } = this.props;
     return (
       <Navbar
-        bg="dark"
+        id="navbar"
         style={{
           height: '7rem',
-          backgroundColor: 'black',
+          backgroundColor: '#070707',
           fontWeight: '100',
           padding: '0 5rem'
         }}
