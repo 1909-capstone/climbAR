@@ -31,6 +31,7 @@ class RouteCanvas extends React.Component {
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOff = this.handleMouseOff.bind(this);
     this.rotateY = this.rotateY.bind(this);
+    this.rotateX = this.rotateX.bind(this);
   }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -60,6 +61,10 @@ class RouteCanvas extends React.Component {
     const { cubePos } = this.state;
     this.setState({ cubePos: { ...cubePos, y: e.target.value } });
   }
+  rotateX(e) {
+    const { cubePos } = this.state;
+    this.setState({ cubePos: { ...cubePos, x: e.target.value } });
+  }
   render() {
     const {
       state: {
@@ -71,7 +76,8 @@ class RouteCanvas extends React.Component {
       props: { routeModel, setNewHold, setNewDraggingHold },
       handleMouseOver,
       handleMouseOff,
-      rotateY
+      rotateY,
+      rotateX
     } = this;
     return (
       <div>
@@ -84,7 +90,7 @@ class RouteCanvas extends React.Component {
               height: '300px',
               position: 'relative',
               transformStyle: 'preserve-3d',
-              transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg)`
+              transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg) rotateX(${cubePos.x}deg)`
             }}
           >
             <div
@@ -142,6 +148,15 @@ class RouteCanvas extends React.Component {
           value={cubePos.y}
         />
         <div>Rotation on Y Axis: {cubePos.y} deg</div>
+        <input
+          onChange={rotateX}
+          type="range"
+          min="0"
+          max="360"
+          step="1"
+          value={cubePos.x}
+        />
+        <div>Rotation on X Axis: {cubePos.x} deg</div>
       </div>
     );
   }
