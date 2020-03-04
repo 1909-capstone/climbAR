@@ -21,6 +21,7 @@ import RouteModel from './RouteModel';
 import { getCookie } from '../utils';
 import Profile from './Profile';
 import ImageUpload from './ImageUpload';
+import CreateRouteForm from './CreateRouteForm'; 
 
 class Root extends Component {
   componentDidMount() {
@@ -66,6 +67,7 @@ class Root extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/admin/upload" component={ImageUpload} /> 
+            <Route exact path="/admin/createrouteform" component={CreateRouteForm}/>
             <Redirect to="/" />
           </Switch>
         </div>
