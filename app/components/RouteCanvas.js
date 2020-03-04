@@ -64,33 +64,46 @@ class RouteCanvas extends React.Component {
     return (
       <div>
         <div>Canvas</div>
-        <div
-          className="route_canvas"
-          style={{ width: `${width}em`, height: `${height}em` }}
-          onMouseOver={handleMouseOver}
-          onMouseLeave={handleMouseOff}
-        >
-          <CoordinateTooltip
-            left={left}
-            x={x}
-            y={y}
-            top={top}
-            display={display}
-          />
-          {Array.from({ length: height }).map((_row, r) =>
-            Array.from({ length: width }).map((_col, c) => (
-              <CanvasSlot
-                key={`row-${r}-col${c}`}
-                x={height - r}
-                y={width - c}
-                width={width}
-                holds={routeModel.sorted_holds}
-                setNewHold={setNewHold}
-                setNewDraggingHold={setNewDraggingHold}
-                holdColor={routeModel.holdColor}
-              />
-            ))
-          )}
+        <div id="canvas">
+          <div id="canvas-cube" className="show-front">
+            <div
+              className="route_canvas cube__face cube__face--front"
+              // style={{ width: `${width}em`, height: `${height}em` }}
+              onMouseOver={handleMouseOver}
+              onMouseLeave={handleMouseOff}
+            >
+              <div
+                style={{ postion: 'relative', width: '100%', height: '100%' }}
+              >
+                <CoordinateTooltip
+                  left={left}
+                  x={x}
+                  y={y}
+                  top={top}
+                  display={display}
+                />
+                {Array.from({ length: height }).map((_row, r) =>
+                  Array.from({ length: width }).map((_col, c) => (
+                    <CanvasSlot
+                      key={`row-${r}-col${c}`}
+                      x={height - r}
+                      y={width - c}
+                      width={width}
+                      holds={routeModel.sorted_holds}
+                      setNewHold={setNewHold}
+                      setNewDraggingHold={setNewDraggingHold}
+                      holdColor={routeModel.holdColor}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+            <div className="cube__face cube__face--back">back</div>
+            <div className="cube__face cube__face--right">right</div>
+            <div className="cube__face cube__face--left">left</div>
+            <div className="cube__face cube__face--top">top</div>
+            <div className="cube__face cube__face--bottom">bottom</div>
+          </div>
         </div>
       </div>
     );

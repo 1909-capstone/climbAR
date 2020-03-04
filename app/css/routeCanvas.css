@@ -1,18 +1,85 @@
 .route_canvas {
-  width: 10em;
-  height: 15em;
+  width: 200px;
+  height: 200px;
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
-  position: relative;
+  position: absolute;
   background-image: url(https://images-na.ssl-images-amazon.com/images/I/51D4oWOPwiL._AC_SX425_.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
+#canvas {
+  width: 300px;
+  height: 200px;
+  perspective: 500px;
+}
 .coordinate-tooltip {
   background-color: white;
   width: 3em;
   height: 1.2em;
   position: absolute;
+}
+
+#canvas-cube {
+  width: 200px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-50px);
+}
+
+.cube__face {
+  position: absolute;
+  background-image: url(https://images-na.ssl-images-amazon.com/images/I/51D4oWOPwiL._AC_SX425_.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.cube__face--front {
+  transform: rotateY(0deg) translateZ(50px);
+  width: 300px;
+  height: 200px;
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(50px);
+  width: 300px;
+  height: 200px;
+}
+
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(150px);
+  width: 100px;
+  height: 200px;
+  left: 100px;
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(150px);
+  width: 100px;
+  height: 200px;
+  left: 100px;
+}
+
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(100px);
+  width: 300px;
+  height: 100px;
+  top: 50px;
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+  width: 300px;
+  height: 100px;
+  top: 50px;
+}
+
+.show-front {
+  transform: translateZ(-50px) rotateY(0deg);
+}
+
+.cube {
+  transition: transform 1s;
 }
