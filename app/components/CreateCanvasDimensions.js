@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import { setRouteModel } from '../redux/actions';
 
 class CreateCanvasDimensions extends Component {
   continue = e => {
@@ -7,7 +9,7 @@ class CreateCanvasDimensions extends Component {
     this.props.nextStep();
   };
   render() {
-    const { values, handleChange } = this.props;
+    const { handleChange, values } = this.props;
     return (
       <div>
         <h2> Enter Canvas Dimensions</h2>

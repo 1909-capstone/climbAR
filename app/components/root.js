@@ -22,6 +22,7 @@ import { getCookie } from '../utils';
 import Profile from './Profile';
 import ImageUpload from './ImageUpload';
 import CreateRouteForm from './CreateRouteForm'; 
+import CreateRouteOptions from './CreateRouteOptions';
 
 class Root extends Component {
   componentDidMount() {
@@ -60,14 +61,14 @@ class Root extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route exact path="/" component={Home} />
-            <Route exact path="/admin/create" component={CreateRouteForm} />
+            <Route exact path="/admin/create" component={CreateRouteOptions}/>
             <Route exact path="/climbingroutes" component={ClimbingRoutes} />
             <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
             <Route path="/model/:id" component={RouteModel} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/admin/upload" component={ImageUpload} /> 
-            {/* <Route exact path="/admin/createrouteform" component={CreateRouteForm}/> */}
+            <Route exact path="/admin/create/form" component={CreateRouteForm} />
             <Redirect to="/" />
           </Switch>
         </div>

@@ -14,10 +14,9 @@ class CreateRouteGrade extends Component {
     const { values, handleChange } = this.props;
     return (
       <div>
-        <h2> Enter Difficulty Level of Climbing Route</h2>
         <div>
           <Form.Group>
-            <Form.Label htmlFor="grade">Grade</Form.Label>
+            <Form.Label htmlFor="grade">Enter Difficulty Level Grade of Climbing Route</Form.Label>
             <Form.Control
               as="select"
               id="grade"

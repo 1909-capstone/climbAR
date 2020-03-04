@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { htmlDate } from '../utils';
+import { connect } from 'react-redux';
 import CreateCanvasDimensions from './CreateCanvasDimensions';
 import CreateRouteGrade from './CreateRouteGrade';
 import CreateRouteExpiration from './CreateRouteExpiration';
@@ -13,7 +14,7 @@ class CreateRouteForm extends Component {
     areaWidth: 10,
     grade: '',
     endDate: htmlDate(14),
-    holdColor: 'Red'
+    holdColor: ''
   };
   //Proceed to the next step
   nextStep = () => {
@@ -92,6 +93,4 @@ class CreateRouteForm extends Component {
   }
 }
 
-const mapState = ({ routeModel }) => ({ routeModel });
-
-export default connect(mapState)(CreateRouteForm);
+export default CreateRouteForm;

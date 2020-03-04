@@ -27,7 +27,7 @@ class CreateRoute extends React.Component {
         <Button onClick={this.previous}> Previous </Button> 
           <Button
             onClick={() => {
-              createRouteModel(routeModel);
+              createRouteModel(values);
             }}
           >
             Save New Route 
