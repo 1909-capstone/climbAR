@@ -36,9 +36,9 @@ class CompleteButon extends React.Component {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span onClick={this.complete} className="complete-button">
           {this.completedRoute() ? (
-            <i className="large material-icons complete">done</i>
+            <i className="complete-icon large material-icons complete">done</i>
           ) : (
-            <i className="large material-icons">done</i>
+            <i className="complete-icon large material-icons">done</i>
           )}
         </span>
         <span>{route.completedRoutes.length}</span>
