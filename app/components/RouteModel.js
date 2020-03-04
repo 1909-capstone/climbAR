@@ -22,11 +22,8 @@ class RouteModel extends React.Component {
             id="groundTexture"
             src="https://cdn.aframe.io/a-painter/images/floor.jpg"
           />
-          <img
-            id="wallTexture"
-            src="https://thumbs.dreamstime.com/b/wood-wall-plank-vertical-texture-background-82973047.jpg"
-          />
-          <img id="skyTexture" src="../assets/IMG_5194.JPG" />
+          <img id="wallTexture" src="../assets/wall-background-far.JPG.jpeg" />
+          <img id="skyTexture" src="../assets/360-middle.jpeg" />
         </a-assets>
         <Entity
           primitive="a-sky"
