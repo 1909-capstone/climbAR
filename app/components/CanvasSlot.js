@@ -2,6 +2,7 @@ import React from 'react';
 import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
 import HoldDropped from './HoldDropped';
+import CoordinateTooltip from './CoordinateTooltip';
 
 const CanvasSlot = ({
   x,
@@ -42,18 +43,21 @@ const CanvasSlot = ({
     >
       <div className="canvas_slot" style={{ opacity: 0 }}></div>
       {isOver && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'yellow'
-          }}
-        />
+        <div>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '100%',
+              zIndex: 1,
+              opacity: 0.5,
+              backgroundColor: 'yellow'
+            }}
+          />
+          <CoordinateTooltip left={0} top={-80} display={true} x={x} y={y} />
+        </div>
       )}
       {holdAtThisPosition && (
         <HoldDropped
