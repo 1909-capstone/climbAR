@@ -1,9 +1,18 @@
-import { setHold, setRouteModels , statusMessage } from '../actions.js';
+import {
+  setHold,
+  setRouteModels,
+  statusMessage,
+  setDraggingHold
+} from '../actions.js';
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
 
 export function setNewHold(hold) {
   return dispatch => dispatch(setHold(hold));
+}
+
+export function setNewDraggingHold(hold) {
+  return dispatch => dispatch(setDraggingHold(hold));
 }
 
 export function createRouteModel(model) {
@@ -14,7 +23,8 @@ export function createRouteModel(model) {
       .post(`/api/routemodels/new`, model)
       .then(() => {
         dispatch(fetchRouteModels());
-      }).then(() => {
+      })
+      .then(() => {
         dispatch(
           statusMessage({
             status: SUCCESS,
@@ -24,10 +34,12 @@ export function createRouteModel(model) {
       })
       .catch(e => {
         console.error(e);
-        dispatch(statusMessage({
-          status: FAIL,
-          text: 'Cannot create route '
-        }))        
+        dispatch(
+          statusMessage({
+            status: FAIL,
+            text: 'Cannot create route '
+          })
+        );
       });
   };
 }
