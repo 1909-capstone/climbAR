@@ -5,9 +5,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
 
-//TO DO: load actual gym floor image for ground
-//TO DO: create a database for actual sky/gym env image for each wall/climbing route,
-//make sure each climbing route is on the center of different gym location
 class RouteModel extends React.Component {
   componentDidMount() {
     const paramsId = this.props.match.params.id;
@@ -18,50 +15,32 @@ class RouteModel extends React.Component {
     return (
       <Scene>
         <a-assets>
-          <img
-            id="groundTexture"
-            src="https://cdn.aframe.io/a-painter/images/floor.jpg"
-          />
-          <img id="wallTexture" src="../assets/wall-background-far.JPG.jpeg" />
-          <img id="skyTexture" src="../assets/360-middle.jpeg" />
+          <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
+          <img id="skyTextureRight" src="../assets/360-right-clean.JPG" />
+          <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
         </a-assets>
         <Entity
           primitive="a-sky"
-          src="#skyTexture"
-          height="2048"
-          width="2048"
+          src="#skyTextureMiddle"
+          height="2304"
+          width="2304"
           radius="10"
           theta-length="180"
-          position="0 0 8.5"
+          position="0 2 4"
+          rotation="0 -90 0"
         />
-        <Entity
+        {/* <Entity
           primitive="a-plane"
-          color="#929292"
-          rotation="-90 0 0"
-          height="10"
-          width="50"
-        />
+          src="#wallTexture"
+          rotation="0 0 90"
+          position="0 0.5 0"
+        /> */}
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
           primitive="a-light"
           type="point"
           intensity="1.6"
           position="2 5 5"
-        />
-        <a-gltf-model
-          id="wall"
-          position="0 0 -3"
-          rotation="0 100 0"
-          src="../assets/climbing_wall/scene.gltf"
-        ></a-gltf-model>
-        <Entity
-          primitive="a-plane"
-          src="#wallTexture"
-          color="#756b37"
-          rotation="0 0 0"
-          height={climbingRoute.areaHeight}
-          width={climbingRoute.areaWidth}
-          position="0 0 -1"
         />
         {climbingRoute.routeModels.map(_h => (
           <Entity
@@ -70,12 +49,12 @@ class RouteModel extends React.Component {
             position={{
               x: _h.positionX - 1,
               y: _h.positionY,
-              z: _h.positionZ
+              z: _h.positionZ - 3
             }}
             rotation={{
               x: _h.rotationX - 1,
               y: _h.rotationY,
-              z: _h.rotationZ
+              z: _h.rotationZ - 3
             }}
             scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
             roughness={_h.roughness}
