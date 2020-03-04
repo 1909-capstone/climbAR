@@ -20,6 +20,10 @@ class CompleteButon extends React.Component {
     );
   }
   complete() {
+    if (!this.props.user.userType) {
+      alert('Log in to complete a route!');
+      return;
+    }
     if (this.completedRoute()) {
       this.props.unComplete(this.props.user, this.props.route);
     } else {
@@ -27,8 +31,9 @@ class CompleteButon extends React.Component {
     }
   }
   render() {
+    const { route } = this.props;
     return (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <span onClick={this.complete} className="complete-button">
           {this.completedRoute() ? (
             <i className="large material-icons complete">done</i>
@@ -36,6 +41,7 @@ class CompleteButon extends React.Component {
             <i className="large material-icons">done</i>
           )}
         </span>
+        <span>{route.completedRoutes.length}</span>
       </div>
     );
   }

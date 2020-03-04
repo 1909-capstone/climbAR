@@ -11,7 +11,15 @@ class Navigation extends Component {
       case 'Admin':
         return (
           <Nav>
-            <Nav.Link href="/admin/create" style={{ color: '#e45720' }}>
+            <Nav.Link
+              href="/admin/create"
+              id="create-route"
+              style={{
+                color: '#f0eae3',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
               Create Route
             </Nav.Link>
             <NavDropdown
@@ -90,11 +98,18 @@ class Navigation extends Component {
       >
         <Navbar.Brand id="logo">Climbar</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link
+            href="/"
+            style={{
+              color: '#f0eae3'
+            }}
+          >
+            Home
+          </Nav.Link>
           <Nav.Link
             href="/climbingroutes"
             style={{
-              color: 'white'
+              color: '#f0eae3'
             }}
           >
             Climbing Routes

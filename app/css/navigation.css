@@ -1,8 +1,12 @@
 #nav-dropdown {
-  color: #e45720;
+  color: #f0eae3;
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+#create-route {
+  color: #f0eae3;
 }
 
 .navbar-light {
@@ -18,10 +22,10 @@
 }
 
 .dropdown-toggle {
-  color: #e45720;
+  display: flex;
 }
 .dropdown-item {
-  color: #e45720;
+  color: #f0eae3;
 }
 
 .dropdown-menu.show {

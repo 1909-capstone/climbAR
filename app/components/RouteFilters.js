@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import { dispatchRouteFilters } from '../redux/thunks/climbingRoutesThunks';
+import style from '../css/routeFilters.css';
 
 class RouteFilters extends React.Component {
   constructor() {
@@ -21,9 +22,10 @@ class RouteFilters extends React.Component {
     } = this;
     return (
       <div className="route-filters-container">
-        <Form.Group>
-          <Form.Label>Grade</Form.Label>
+        <Form.Group id="grade-filter">
+          <Form.Label id="grade-label">Grade</Form.Label>
           <Form.Control
+            id="grade-select"
             onChange={handleInput}
             name="grade"
             as="select"
@@ -51,21 +53,23 @@ class RouteFilters extends React.Component {
         </Form.Group>
         <div>
           {user.userType ? (
-            <div>
-              <Form.Group>
+            <div className="logedin-filters">
+              <Form.Group id="complete-filter">
+                <Form.Label id="complete-label">Completed</Form.Label>
                 <Form.Check
+                  id="complete-check"
                   onChange={handleInput}
                   name="completed"
                   type="checkbox"
-                  label="Completed"
                 />
               </Form.Group>
-              <Form.Group>
+              <Form.Group id="like-filter">
+                <Form.Label id="like-label">Liked</Form.Label>
                 <Form.Check
+                  id="like-check"
                   onChange={handleInput}
                   name="liked"
                   type="checkbox"
-                  label="Liked"
                 />
               </Form.Group>
             </div>
