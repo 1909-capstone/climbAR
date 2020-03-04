@@ -37,6 +37,8 @@ const CanvasSlot = ({
         width: `${100 / width}%`,
         height: '1em'
       }}
+      x={x}
+      y={y}
     >
       <div className="canvas_slot" style={{ opacity: 0 }}></div>
       {isOver && (

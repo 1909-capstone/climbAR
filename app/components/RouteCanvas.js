@@ -6,23 +6,54 @@ import {
   setNewHold,
   setNewDraggingHold
 } from '../redux/thunks/routeModelThunks';
+import CoordinateTooltip from './CoordinateTooltip';
 
 class RouteCanvas extends React.Component {
   constructor() {
     super();
     this.state = {
       width: 15,
-      height: 20
+      height: 20,
+      tooltip: {
+        left: 0,
+        top: 0,
+        display: false,
+        x: 0,
+        y: 0
+      }
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
   }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  handleMouseOver(e) {
+    const {
+      target,
+      target: { offsetParent }
+    } = e;
+    const xPos = e.screenX - offsetParent.offsetLeft;
+    const yPos = e.screenY - offsetParent.offsetHeight;
+    this.setState({
+      tooltip: {
+        left: xPos,
+        top: yPos,
+        display: true,
+        x: target.getAttribute('x'),
+        y: target.getAttribute('y')
+      }
+    });
+  }
   render() {
     const {
-      state: { width, height },
-      props: { routeModel, setNewHold, setNewDraggingHold }
+      state: {
+        width,
+        height,
+        tooltip: { left, top, display, x, y }
+      },
+      props: { routeModel, setNewHold, setNewDraggingHold },
+      handleMouseOver
     } = this;
     return (
       <div>
@@ -30,7 +61,15 @@ class RouteCanvas extends React.Component {
         <div
           className="route_canvas"
           style={{ width: `${width}em`, height: `${height}em` }}
+          onMouseOver={handleMouseOver}
         >
+          <CoordinateTooltip
+            left={left}
+            x={x}
+            y={y}
+            top={top}
+            display={display}
+          />
           {Array.from({ length: height }).map((_row, r) =>
             Array.from({ length: width }).map((_col, c) => (
               <CanvasSlot

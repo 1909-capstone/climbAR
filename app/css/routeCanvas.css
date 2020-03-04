@@ -4,8 +4,16 @@
   border: 1px solid;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   background-image: url(https://images-na.ssl-images-amazon.com/images/I/51D4oWOPwiL._AC_SX425_.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.coordinate-tooltip {
+  background-color: white;
+  width: 3em;
+  height: 1.2em;
+  position: absolute;
 }
