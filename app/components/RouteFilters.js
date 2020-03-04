@@ -29,7 +29,7 @@ class RouteFilters extends React.Component {
             onChange={handleInput}
             name="grade"
             as="select"
-            value={routeFilters.grade || 'VB'}
+            value={routeFilters.grade || ''}
           >
             <option value="">All</option>
             <option value="VB">VB</option>
