@@ -1,5 +1,6 @@
 import {
   SET_HOLD,
+  SET_DRAGGING_HOLD,
   SET_HOLDS,
   SET_ROUTE_MODELS,
   SET_ROUTE_MODEL,
@@ -21,6 +22,13 @@ export const setRouteFilters = filters => {
 export const setHold = hold => {
   return {
     type: SET_HOLD,
+    hold
+  };
+};
+
+export const setDraggingHold = hold => {
+  return {
+    type: SET_DRAGGING_HOLD,
     hold
   };
 };

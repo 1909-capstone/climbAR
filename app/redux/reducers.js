@@ -1,6 +1,7 @@
 import {
   SET_HOLD,
   SET_HOLDS,
+  SET_DRAGGING_HOLD,
   SET_ROUTE_MODEL,
   SET_USER,
   STATUS_MESSAGE,
@@ -22,6 +23,15 @@ export const routeFilters = (state = {}, action) => {
   }
 };
 
+export const draggingHold = (state = {}, action) => {
+  switch (action.type) {
+    case SET_DRAGGING_HOLD:
+      return action.hold;
+    default:
+      return state;
+  }
+};
+
 export const holds = (state = [], action) => {
   switch (action.type) {
     case SET_HOLDS:
@@ -34,6 +44,7 @@ export const holds = (state = [], action) => {
 export const routeModel = (
   state = {
     holds: [],
+    draggingHold: {},
     sorted_holds: {},
     grade: 'VB',
     holdColor: 'Red',
@@ -49,19 +60,32 @@ export const routeModel = (
       return { ...state, ...action.model };
     case SET_HOLD:
       const hold = action.hold;
-      const sorted_holds = state.sorted_holds;
+      const { sorted_holds, draggingHold } = state;
       const xy = `${hold.coordinateX.toString()}-${hold.coordinateY.toString()}`;
-      const filteredState = state.holds.filter(
-        _h => _h.coordinateX !== hold.x && _h.coordinateY !== hold.y
+      const filteredHolds = state.holds.filter(
+        _h =>
+          _h.id !== state.draggingHold.id &&
+          _h.coordinateX !== hold.x &&
+          _h.coordinateY !== hold.y
       );
+      const newDraggingHold = hold.id === draggingHold.id ? {} : draggingHold;
+      if (hold.id === draggingHold.id) {
+        delete sorted_holds[
+          `${draggingHold.coordinateX.toString()}-${draggingHold.coordinateY.toString()}`
+        ];
+      }
       if (!sorted_holds[xy]) {
         sorted_holds[xy] = hold;
+        return {
+          ...state,
+          holds: [...filteredHolds, hold],
+          sorted_holds: { ...sorted_holds },
+          newDraggingHold
+        };
       }
-      return {
-        ...state,
-        holds: [...filteredState, hold],
-        sorted_holds: { ...sorted_holds }
-      };
+      return state;
+    case SET_DRAGGING_HOLD:
+      return { ...state, draggingHold: action.hold };
     default:
       return state;
   }

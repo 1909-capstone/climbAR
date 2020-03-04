@@ -1,11 +1,21 @@
 import React from 'react';
 import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
+import HoldDropped from './HoldDropped';
+import CoordinateTooltip from './CoordinateTooltip';
 
-const CanvasSlot = ({ x, y, width, holds, setNewHold, holdColor }) => {
+const CanvasSlot = ({
+  x,
+  y,
+  width,
+  holds,
+  setNewHold,
+  holdColor,
+  setNewDraggingHold
+}) => {
   const holdAtThisPosition = holds[`${x.toString()}-${y.toString()}`];
   const [{ isOver, hasHold, holdData }, drop] = useDrop({
-    accept: ItemTypes.HOLD,
+    accept: [ItemTypes.HOLD, ItemTypes.DROPPED_HOLD],
     drop: monitor => {
       setNewHold({
         ...monitor.holdData,
@@ -28,28 +38,34 @@ const CanvasSlot = ({ x, y, width, holds, setNewHold, holdColor }) => {
         width: `${100 / width}%`,
         height: '1em'
       }}
+      x={x}
+      y={y}
     >
-      <div className="canvas_slot"></div>
+      <div className="canvas_slot" style={{ opacity: 0 }}></div>
       {isOver && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'yellow'
-          }}
-        />
+        <div>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '100%',
+              zIndex: 1,
+              opacity: 0.5,
+              backgroundColor: 'yellow'
+            }}
+          />
+          <CoordinateTooltip left={0} top={-80} display={true} x={x} y={y} />
+        </div>
       )}
-      {hasHold && (
-        <div
+      {holdAtThisPosition && (
+        <HoldDropped
+          hold={holdAtThisPosition}
+          holdColor={holdColor}
           className="hold"
-          id={holdAtThisPosition.holdType}
-          style={{ backgroundColor: holdColor, height: '100%', width: '100%' }}
-        ></div>
+          setNewDraggingHold={setNewDraggingHold}
+        ></HoldDropped>
       )}
     </div>
   );

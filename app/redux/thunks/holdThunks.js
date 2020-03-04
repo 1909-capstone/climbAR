@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export function fetchHolds() {
   return dispatch => {
-    console.log('feching holds');
     return axios
       .get(`/api/holds`)
       .then(res => {
