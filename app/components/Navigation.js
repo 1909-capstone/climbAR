@@ -10,21 +10,16 @@ class Navigation extends Component {
     switch (params.userType) {
       case 'Admin':
         return (
-          <Nav id="nav-admin">
-            <Nav.Link
-              href="/admin/create"
-              style={{
-                color: 'white'
-              }}
-            >
+          <Nav>
+            <Nav.Link href="/admin/create" style={{ color: '#e45720' }}>
               Create Route
             </Nav.Link>
             <NavDropdown
-              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
-              id="nav-dropdown"
-              style={{
-                color: 'white'
-              }}
+              title={
+                <span id="nav-dropdown">
+                  {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                </span>
+              }
             >
               <NavDropdown.Item eventKey="4.1" href={`/profile`}>
                 Profile
@@ -49,9 +44,6 @@ class Navigation extends Component {
             <NavDropdown
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
-              style={{
-                color: 'white'
-              }}
             >
               <NavDropdown.Item eventKey="4.1" href={`/profile`}>
                 Profile
@@ -72,20 +64,10 @@ class Navigation extends Component {
       default:
         return (
           <Nav id="nav-guest">
-            <Nav.Link
-              href="/login"
-              style={{
-                color: 'white'
-              }}
-            >
+            <Nav.Link href="/login" style={{ color: '#e45720' }}>
               Log In
             </Nav.Link>
-            <Nav.Link
-              href="/signup"
-              style={{
-                color: 'white'
-              }}
-            >
+            <Nav.Link href="/signup" style={{ color: '#e45720' }}>
               Sign Up
             </Nav.Link>
           </Nav>
@@ -104,16 +86,9 @@ class Navigation extends Component {
           padding: '0 5rem'
         }}
       >
-        <Navbar.Brand>Logo</Navbar.Brand>
+        <Navbar.Brand id="logo">Climbar</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link
-            href="/"
-            style={{
-              color: 'white'
-            }}
-          >
-            Home
-          </Nav.Link>
+          <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link
             href="/climbingroutes"
             style={{

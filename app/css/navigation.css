@@ -1,5 +1,5 @@
 #nav-dropdown {
-  color: white;
+  color: #e45720;
 }
 
 .navbar-light {
@@ -8,4 +8,12 @@
 
 #navbar {
   background-color: #070707;
+}
+
+#logo {
+  color: #e45720;
+}
+
+.dropdown-toggle {
+  color: #e45720;
 }
