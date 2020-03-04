@@ -9,6 +9,13 @@ import { average } from '../utils';
 
 const RouteTile = ({ route, user }) => {
   const avgRating = average(route.ratings, 'rating');
+  const daysToExpire = () => {
+    const expDate = new Date(route.endDate).getTime();
+    const today = new Date().getTime();
+    const hoursToExpire = Math.floor((expDate - today) / (1000 * 60 * 60));
+    if (hoursToExpire <= 24) return 'Today';
+    return `In ${Math.floor(hoursToExpire / 24)} days`;
+  };
   const darkColor = route =>
     ['black', 'green', 'purple'].indexOf(route.holdColor) !== -1;
   return (
@@ -40,8 +47,8 @@ const RouteTile = ({ route, user }) => {
         {user.userType && <RatingButon route={route} />}
       </div>
       <div>
-        <i className="large material-icons">schedule</i> Expiring On{' '}
-        {route.endDate}
+        <i className="large material-icons">schedule</i> Expiring{' '}
+        {daysToExpire()}
       </div>
       <Link
         className="btn btn-info btn-sm"
