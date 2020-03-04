@@ -32,13 +32,6 @@ class Profile extends React.Component {
         Highest Route Completed:
         {user.completedRouteInfo
           ? mapCompletedRoutes().reduce((best, route) => {
-              console.log(route);
-              console.log(gradeNumber(route.thisRoute.grade));
-              console.log(best);
-              console.log(gradeNumber(best));
-              console.log(
-                gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
-              );
               return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
                 ? route.thisRoute.grade
                 : best;
@@ -54,9 +47,11 @@ class Profile extends React.Component {
     return this.mapCompletedRoutes().length === 0 ? null : (
       <div>
         <div>Your Completed Routes</div>
-        {this.mapCompletedRoutes().map(_r => (
-          <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
-        ))}
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {this.mapCompletedRoutes().map(_r => (
+            <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
+          ))}
+        </div>
       </div>
     );
   }
