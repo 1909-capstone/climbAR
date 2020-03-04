@@ -24,6 +24,7 @@ class RouteCanvas extends React.Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOff = this.handleMouseOff.bind(this);
   }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -45,6 +46,10 @@ class RouteCanvas extends React.Component {
       }
     });
   }
+  handleMouseOff() {
+    const { tooltip } = this.state;
+    this.setState({ tooltip: { ...tooltip, display: false } });
+  }
   render() {
     const {
       state: {
@@ -53,7 +58,8 @@ class RouteCanvas extends React.Component {
         tooltip: { left, top, display, x, y }
       },
       props: { routeModel, setNewHold, setNewDraggingHold },
-      handleMouseOver
+      handleMouseOver,
+      handleMouseOff
     } = this;
     return (
       <div>
@@ -62,6 +68,7 @@ class RouteCanvas extends React.Component {
           className="route_canvas"
           style={{ width: `${width}em`, height: `${height}em` }}
           onMouseOver={handleMouseOver}
+          onMouseLeave={handleMouseOff}
         >
           <CoordinateTooltip
             left={left}
@@ -74,8 +81,8 @@ class RouteCanvas extends React.Component {
             Array.from({ length: width }).map((_col, c) => (
               <CanvasSlot
                 key={`row-${r}-col${c}`}
-                x={r}
-                y={c}
+                x={height - r}
+                y={width - c}
                 width={width}
                 holds={routeModel.sorted_holds}
                 setNewHold={setNewHold}

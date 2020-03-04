@@ -7,7 +7,7 @@ const CoordinateTooltip = ({ left, top, display, x, y }) => {
       {display && (
         <div
           className="coordinate-tooltip"
-          style={{ left: `${left}px`, top: `${top}px` }}
+          style={{ left: `${left}px`, top: `${top + 50}px` }}
         >{`${x}, ${y}`}</div>
       )}
     </div>
