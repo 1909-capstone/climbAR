@@ -9,7 +9,9 @@ const RatingDisplay = ({ avgRating }) => {
         height: '1em',
         border: '1px solid',
         background: 'linear-gradient(0.25turn, green, yellow, red',
-        position: 'relative'
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'flex-end'
       }}
     >
       <div
