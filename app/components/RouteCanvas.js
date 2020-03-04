@@ -20,11 +20,17 @@ class RouteCanvas extends React.Component {
         display: false,
         x: 0,
         y: 0
+      },
+      cubePos: {
+        z: -50,
+        y: 0,
+        x: 0
       }
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOff = this.handleMouseOff.bind(this);
+    this.rotateY = this.rotateY.bind(this);
   }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -50,30 +56,51 @@ class RouteCanvas extends React.Component {
     const { tooltip } = this.state;
     this.setState({ tooltip: { ...tooltip, display: false } });
   }
+  rotateY(e) {
+    const { cubePos } = this.state;
+    this.setState({ cubePos: { ...cubePos, y: e.target.value } });
+  }
   render() {
     const {
       state: {
         width,
         height,
-        tooltip: { left, top, display, x, y }
+        tooltip: { left, top, display, x, y },
+        cubePos
       },
       props: { routeModel, setNewHold, setNewDraggingHold },
       handleMouseOver,
-      handleMouseOff
+      handleMouseOff,
+      rotateY
     } = this;
     return (
       <div>
         <div>Canvas</div>
         <div id="canvas">
-          <div id="canvas-cube" className="show-front">
+          <div
+            id="canvas-cube"
+            style={{
+              width: '200px',
+              height: '300px',
+              position: 'relative',
+              transformStyle: 'preserve-3d',
+              transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg)`
+            }}
+          >
             <div
               className="route_canvas cube__face cube__face--front"
               // style={{ width: `${width}em`, height: `${height}em` }}
-              onMouseOver={handleMouseOver}
-              onMouseLeave={handleMouseOff}
             >
               <div
-                style={{ postion: 'relative', width: '100%', height: '100%' }}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  flexWrap: 'wrap'
+                }}
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseOff}
               >
                 <CoordinateTooltip
                   left={left}
@@ -89,6 +116,7 @@ class RouteCanvas extends React.Component {
                       x={height - r}
                       y={width - c}
                       width={width}
+                      height={height}
                       holds={routeModel.sorted_holds}
                       setNewHold={setNewHold}
                       setNewDraggingHold={setNewDraggingHold}
@@ -105,6 +133,15 @@ class RouteCanvas extends React.Component {
             <div className="cube__face cube__face--bottom">bottom</div>
           </div>
         </div>
+        <input
+          onChange={rotateY}
+          type="range"
+          min="0"
+          max="360"
+          step="1"
+          value={cubePos.y}
+        />
+        <div>Rotation on Y Axis: {cubePos.y} deg</div>
       </div>
     );
   }

@@ -4,7 +4,6 @@
   position: absolute;
   display: flex;
   flex-wrap: wrap;
-  position: absolute;
   background-image: url(https://images-na.ssl-images-amazon.com/images/I/51D4oWOPwiL._AC_SX425_.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -21,14 +20,6 @@
   width: 3em;
   height: 1.2em;
   position: absolute;
-}
-
-#canvas-cube {
-  width: 200px;
-  height: 300px;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: translateZ(-50px);
 }
 
 .cube__face {
