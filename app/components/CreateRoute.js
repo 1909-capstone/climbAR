@@ -9,8 +9,12 @@ import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
 
 class CreateRoute extends React.Component {
+  previous = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  }
   render() {
-    const { createRouteModel, routeModel } = this.props;
+    const { createRouteModel, routeModel, values } = this.props;
     return (
       <div>
         <div className="create_route">
@@ -20,12 +24,13 @@ class CreateRoute extends React.Component {
           </DndProvider>
         </div>
         <div className="button_container">
+        <Button onClick={this.previous}> Previous </Button> 
           <Button
             onClick={() => {
               createRouteModel(routeModel);
             }}
           >
-            SAVE NEW ROUTE
+            Save New Route 
           </Button>
         </div>
       </div>

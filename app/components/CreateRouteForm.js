@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import CreateCanvasDimensions from './CreateCanvasDimensions';
 import { htmlDate } from '../utils';
-import e from 'express';
+import CreateCanvasDimensions from './CreateCanvasDimensions';
+import CreateRouteGrade from './CreateRouteGrade';
+import CreateRouteExpiration from './CreateRouteExpiration';
+import CreateRouteHoldsColor from './CreateRouteHoldsColor';
+import CreateRoute from './CreateRoute';
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
     areaHeight: 15,
     areaWidth: 10,
-    grade: 'VB',
+    grade: '',
     endDate: htmlDate(14),
     holdColor: 'Red'
   };
@@ -27,12 +30,9 @@ class CreateRouteForm extends Component {
     });
   };
   // handles the fields change, each input will have its own state
-  handleChange = input => event => {
-    this.setState({ [input]: event.target.value });
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
-  // handleInput = e => {
-  //   this.setState({[e.target.name]: e.target.value})
-  // }
   render() {
     const {
       step,
@@ -44,26 +44,54 @@ class CreateRouteForm extends Component {
     } = this.state;
     //able to pass the values into the next/previous component
     const values = { step, areaHeight, areaWidth, grade, endDate, holdColor };
-
     switch (step) {
       case 1:
         return (
           <CreateCanvasDimensions
             nextStep={this.nextStep}
-            // handleChange={this.handleInput}
+            handleChange={this.handleInput}
             values={values}
           />
         );
       case 2:
-        return <h2> Select the Difficulty </h2>;
+        return (
+          <CreateRouteGrade
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleInput}
+            values={values}
+          />
+        );
       case 3:
-        return <h2> Select the expiration date </h2>;
+        return (
+          <CreateRouteExpiration
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleInput}
+            values={values}
+          />
+        );
       case 4:
-        return <h2> Select the color </h2>;
+        return (
+          <CreateRouteHoldsColor
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleInput}
+            values={values}
+          />
+        );
       case 5:
-        return <h2> Canvas </h2>;
+        return (
+          <CreateRoute
+            prevStep={this.prevStep}
+            handleChange={this.handleInput}
+            values={values}
+          />
+        );
     }
   }
 }
 
-export default CreateRouteForm;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+export default connect(mapState)(CreateRouteForm);
