@@ -5,10 +5,14 @@ import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
 
 class SingleClimbingRoute extends React.Component {
-  state = {
-    file: null,
-    fileName: 'Choose File'
-  };
+  constructor() {
+    super();
+    this.state = {
+      file: null,
+      fileName: 'Choose File'
+    };
+    this.betaVideos = this.betaVideos.bind(this);
+  }
   fileSelectedHandler = event => {
     this.setState({
       file: event.target.files[0],
@@ -18,19 +22,27 @@ class SingleClimbingRoute extends React.Component {
   handleOnSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
-    //default Javascript Object in order to send a file
     formData.append('file', this.state.file);
-    this.props.uploadRouteImage(formData);
+    console.log('form data = ', formData);
+    //this.props.uploadRouteVideo(formData);
   };
   componentDidMount() {
     const paramsId = this.props.match.params.id;
     this.props.fetchSingleClimbingRoute(paramsId);
   }
+  betaVideos(route) {
+    if (!route || !route.videos) return '';
+    return route.videos.length === 0
+      ? 'No beta videos yet for this route :('
+      : route.videos.map(_v => <div>{_v.id}</div>);
+  }
   render() {
     const {
       props: { climbingRoute },
-      state: { fileName }
+      state: { fileName },
+      betaVideos
     } = this;
+    console.log('climbing route = ', climbingRoute);
     return (
       <main className="single-route">
         <div> Grade: {climbingRoute.grade}</div>
@@ -61,8 +73,7 @@ class SingleClimbingRoute extends React.Component {
           </form>
         </Fragment>
         <div>Beta Videos</div>
-        {climbingRoute.videos &&
-          climbingRoute.videos.map(_v => <div>{_v.id}</div>)}
+        {betaVideos(climbingRoute)}
       </main>
     );
   }
