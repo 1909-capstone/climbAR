@@ -19,6 +19,7 @@
 
 #logo {
   color: #e45720;
+  font-size: 1.35em;
 }
 
 .dropdown-toggle {
@@ -26,6 +27,7 @@
 }
 .dropdown-item {
   color: #f0eae3;
+  text-align: center;
 }
 
 .dropdown-menu.show {

@@ -2,7 +2,18 @@ import React, { Component } from 'react';
 
 class Home extends Component {
   render() {
-    return <div>Connect Collaborate &amp; Create Amazing Climbing Routes</div>;
+    return (
+      <div
+        style={{
+          width: '100%',
+          textAlign: 'center',
+          fontSize: '2em',
+          marginTop: '5em'
+        }}
+      >
+        Connect Collaborate &amp; Create Amazing Climbing Routes
+      </div>
+    );
   }
 }
 
