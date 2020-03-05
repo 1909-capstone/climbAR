@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 class CreateRouteGrade extends Component {
   continue = e => {
@@ -9,14 +10,16 @@ class CreateRouteGrade extends Component {
   previous = e => {
     e.preventDefault();
     this.props.prevStep();
-  }
+  };
   render() {
-    const { values, handleChange } = this.props;
+    const { routeModel, handleChange } = this.props;
     return (
       <div>
         <div>
           <Form.Group>
-            <Form.Label htmlFor="grade">Enter Difficulty Level Grade of Climbing Route</Form.Label>
+            <Form.Label htmlFor="grade">
+              Enter Difficulty Level Grade of Climbing Route
+            </Form.Label>
             <Form.Control
               as="select"
               id="grade"
@@ -24,7 +27,7 @@ class CreateRouteGrade extends Component {
               type="select"
               onChange={handleChange}
             >
-              <option value=""> {values.grade}</option>
+              <option value=""> {routeModel.grade}</option>
               <option value="VB">VB</option>
               <option value="V1">V1</option>
               <option value="V2">V2</option>
@@ -45,7 +48,9 @@ class CreateRouteGrade extends Component {
             </Form.Control>
           </Form.Group>
         </div>
-        <Button label="previous" onClick={this.previous}>Previous</Button>
+        <Button label="previous" onClick={this.previous}>
+          Previous
+        </Button>
         <Button label="continue" onClick={this.continue}>
           Continue
         </Button>
@@ -54,4 +59,6 @@ class CreateRouteGrade extends Component {
   }
 }
 
-export default CreateRouteGrade;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+export default connect(mapState, null)(CreateRouteGrade);

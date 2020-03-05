@@ -8,14 +8,19 @@ class CreateCanvasDimensions extends Component {
     e.preventDefault();
     this.props.nextStep();
   };
+  handleInput(e) {
+    this.props.setRouteModel({ [e.target.name]: e.target.value });
+  }
   render() {
-    const { handleChange, values } = this.props;
+    const { handleChange, routeModel } = this.props;
     return (
       <div>
         <h2> Enter Canvas Dimensions</h2>
         <div>
           <Form.Group>
-            <Form.Label htmlFor="height"> Select the Height of the Canvas </Form.Label>
+            <Form.Label htmlFor="height">
+              Select the Height of the Canvas{' '}
+            </Form.Label>
             <Form.Control
               id="height"
               name="areaHeight"
@@ -23,11 +28,13 @@ class CreateCanvasDimensions extends Component {
               min="0"
               max="7"
               onChange={handleChange}
-              defaultValue={values.areaHeight}
+              defaultValue={routeModel.areaHeight}
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label htmlFor="width"> Select the Width of the Canvas</Form.Label>
+            <Form.Label htmlFor="width">
+              Select the Width of the Canvas
+            </Form.Label>
             <Form.Control
               id="width"
               name="areaWidth"
@@ -35,7 +42,7 @@ class CreateCanvasDimensions extends Component {
               min="0"
               max="3"
               onChange={handleChange}
-              defaultValue={values.areaWidth}
+              defaultValue={routeModel.areaWidth}
             />
           </Form.Group>
         </div>
@@ -47,4 +54,6 @@ class CreateCanvasDimensions extends Component {
   }
 }
 
-export default CreateCanvasDimensions;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+export default connect(mapState, null)(CreateCanvasDimensions);

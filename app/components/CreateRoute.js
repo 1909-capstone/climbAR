@@ -12,7 +12,7 @@ class CreateRoute extends React.Component {
   previous = e => {
     e.preventDefault();
     this.props.prevStep();
-  }
+  };
   render() {
     const { createRouteModel, routeModel, values } = this.props;
     return (
@@ -24,13 +24,13 @@ class CreateRoute extends React.Component {
           </DndProvider>
         </div>
         <div className="button_container">
-        <Button onClick={this.previous}> Previous </Button> 
+          <Button onClick={this.previous}> Previous </Button>
           <Button
             onClick={() => {
-              createRouteModel(values);
+              createRouteModel(routeModel);
             }}
           >
-            Save New Route 
+            Save New Route
           </Button>
         </div>
       </div>

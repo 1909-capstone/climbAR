@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { htmlDate } from '../utils';
+import { connect } from 'react-redux';
 
 class CreateRouteExpiration extends Component {
   continue = e => {
@@ -12,7 +13,7 @@ class CreateRouteExpiration extends Component {
     this.props.prevStep();
   };
   render() {
-    const { values, handleChange } = this.props;
+    const { routeModel, handleChange } = this.props;
     return (
       <div>
         <div>
@@ -25,7 +26,7 @@ class CreateRouteExpiration extends Component {
                 id="endDate"
                 name="endDate"
                 type="date"
-                defaultValue={values.endDate}
+                defaultValue={routeModel.endDate}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -42,4 +43,6 @@ class CreateRouteExpiration extends Component {
   }
 }
 
-export default CreateRouteExpiration;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+export default connect(mapState, null)(CreateRouteExpiration);

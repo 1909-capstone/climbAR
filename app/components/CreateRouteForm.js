@@ -6,12 +6,13 @@ import CreateRouteGrade from './CreateRouteGrade';
 import CreateRouteExpiration from './CreateRouteExpiration';
 import CreateRouteHoldsColor from './CreateRouteHoldsColor';
 import CreateRoute from './CreateRoute';
+import { setRouteModel } from '../redux/actions';
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
-    areaHeight: 15,
-    areaWidth: 10,
+    areaHeight: '',
+    areaWidth: '',
     grade: '',
     endDate: htmlDate(14),
     holdColor: ''
@@ -31,9 +32,9 @@ class CreateRouteForm extends Component {
     });
   };
   // handles the fields change, each input will have its own state
-  handleInput = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  handleInput = (e) => {
+    this.props.setRouteModel({ [e.target.name]: e.target.value });
+  }
   render() {
     const {
       step,
@@ -93,4 +94,11 @@ class CreateRouteForm extends Component {
   }
 }
 
-export default CreateRouteForm;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+const mapDispatch = dispatch => {
+  return {
+    setRouteModel: model => dispatch(setRouteModel(model))
+  };
+};
+export default connect(mapState, mapDispatch)(CreateRouteForm);

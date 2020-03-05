@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 class CreateRouteHoldsColor extends Component {
   continue = e => {
@@ -16,21 +17,24 @@ class CreateRouteHoldsColor extends Component {
     });
   }
   render() {
-    const { values, handleChange } = this.props;
+    const { routeModel, handleChange } = this.props;
     return (
       <div>
         <Form.Group>
-          <Form.Label htmlFor="holdColor">Please select the hold color</Form.Label>
+          <Form.Label htmlFor="holdColor">
+            Please select the hold color
+          </Form.Label>
           <Form.Control
             as="select"
             id="holdColor"
             name="holdColor"
             type="select"
             onChange={e => {
-              handleChange
+              handleChange(e)
               this.changeHoldColor(e.target.value);
             }}
           >
+            <option value="">{routeModel.holdColor}</option>
             <option value="Red">Red</option>
             <option value="Orange">Orange</option>
             <option value="Yellow">Yellow</option>
@@ -54,4 +58,7 @@ class CreateRouteHoldsColor extends Component {
   }
 }
 
-export default CreateRouteHoldsColor;
+const mapState = ({ routeModel }) => ({ routeModel });
+
+export default connect(mapState, null)(CreateRouteHoldsColor);
+
