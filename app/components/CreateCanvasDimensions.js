@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { setRouteModel } from '../redux/actions';
+import Progressbar from './Progressbar';
 
 class CreateCanvasDimensions extends Component {
   continue = e => {

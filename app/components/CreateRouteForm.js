@@ -7,10 +7,13 @@ import CreateRouteExpiration from './CreateRouteExpiration';
 import CreateRouteHoldsColor from './CreateRouteHoldsColor';
 import CreateRoute from './CreateRoute';
 import { setRouteModel } from '../redux/actions';
+import Progressbar from './Progressbar';
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
+    //passing the percentage to the progress bar
+    percentage: 0,
     areaHeight: '',
     areaWidth: '',
     grade: '',
@@ -21,20 +24,22 @@ class CreateRouteForm extends Component {
   nextStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step + 1
+      step: step + 1,
+      percentage: this.state.percentage + 20
     });
   };
   //Go back to the previous step
   prevStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step - 1
+      step: step - 1,
+      percentage: this.state.percentage - 20
     });
   };
   // handles the fields change, each input will have its own state
-  handleInput = (e) => {
+  handleInput = e => {
     this.props.setRouteModel({ [e.target.name]: e.target.value });
-  }
+  };
   render() {
     const {
       step,
@@ -49,46 +54,58 @@ class CreateRouteForm extends Component {
     switch (step) {
       case 1:
         return (
-          <CreateCanvasDimensions
-            nextStep={this.nextStep}
-            handleChange={this.handleInput}
-            values={values}
-          />
+          <div>
+            <Progressbar percentage={this.state.percentage} />
+            <CreateCanvasDimensions
+              nextStep={this.nextStep}
+              handleChange={this.handleInput}
+            />
+          </div>
         );
       case 2:
         return (
-          <CreateRouteGrade
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleInput}
-            values={values}
-          />
+          <div>
+            <Progressbar percentage={this.state.percentage} />
+            <CreateRouteGrade
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+            />
+          </div>
         );
       case 3:
         return (
-          <CreateRouteExpiration
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleInput}
-            values={values}
-          />
+          <div>
+            <Progressbar percentage={this.state.percentage} />
+            <CreateRouteExpiration
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+            />
+          </div>
         );
       case 4:
         return (
-          <CreateRouteHoldsColor
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleInput}
-            values={values}
-          />
+          <div>
+            <Progressbar percentage={this.state.percentage} />
+            <CreateRouteHoldsColor
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+            />
+          </div>
         );
       case 5:
         return (
-          <CreateRoute
-            prevStep={this.prevStep}
-            handleChange={this.handleInput}
-            values={values}
-          />
+          <div>
+            <Progressbar percentage={this.state.percentage} />
+            <CreateRoute
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+              values={values}
+              nextStep={this.nextStep}
+            />
+          </div>
         );
     }
   }
