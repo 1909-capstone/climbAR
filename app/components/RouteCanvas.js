@@ -141,8 +141,9 @@ class RouteCanvas extends React.Component {
                 <div className="cube__face cube__face--bottom">bottom</div>
               </div>
             </div>
-            <div>
+            <div style={{ marginTop: '3em', zIndex: '100' }}>
               <input
+                style={{ zIndex: '100' }}
                 onChange={rotateY}
                 type="range"
                 min="0"
@@ -157,7 +158,7 @@ class RouteCanvas extends React.Component {
             <input
               onChange={rotateX}
               type="range"
-              min="0"
+              min="-360"
               max="360"
               step="1"
               value={cubePos.x}
