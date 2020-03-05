@@ -20,6 +20,10 @@ class LikeButton extends React.Component {
     );
   }
   like() {
+    if (!this.props.user.userType) {
+      alert('Log in to like a route');
+      return;
+    }
     if (this.likesThisRoute()) {
       this.props.unLikeRoute(this.props.user, this.props.route);
     } else {
@@ -27,8 +31,9 @@ class LikeButton extends React.Component {
     }
   }
   render() {
+    const { route } = this.props;
     return (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <span onClick={this.like} className="like-button">
           {this.likesThisRoute() ? (
             <i className="large material-icons liked">favorite</i>
@@ -36,6 +41,7 @@ class LikeButton extends React.Component {
             <i className="large material-icons">favorite_border</i>
           )}
         </span>
+        <span>{route.likedRoutes.length}</span>
       </div>
     );
   }

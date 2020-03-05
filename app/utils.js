@@ -19,7 +19,7 @@ export const getCookie = () =>
 
 export const average = (arr, numberProp) =>
   arr.length === 0
-    ? 'No Ratings'
+    ? 0
     : (arr.reduce((sum, el) => sum + el[numberProp], 0) / arr.length).toFixed(
         0
       );
