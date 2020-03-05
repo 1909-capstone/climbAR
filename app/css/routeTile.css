@@ -4,6 +4,7 @@
   width: 20em;
   position: relative;
   flex-grow: 1;
+  max-width: 20em;
 }
 
 .route-tile-buttons {
