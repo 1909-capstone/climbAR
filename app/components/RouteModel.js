@@ -18,6 +18,7 @@ class RouteModel extends React.Component {
           <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
           <img id="skyTextureRight" src="../assets/360-right-clean.JPG" />
           <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
+          <img id="wallTexture" src="../assets/wall-background-close.JPG" />
         </a-assets>
         <Entity
           primitive="a-sky"
@@ -29,12 +30,14 @@ class RouteModel extends React.Component {
           position="0 2 4"
           rotation="0 -90 0"
         />
-        {/* <Entity
+        <Entity
           primitive="a-plane"
           src="#wallTexture"
           rotation="0 0 90"
-          position="0 0.5 0"
-        /> */}
+          position="0 2 -3"
+          height={climbingRoute.areaHeight}
+          width={climbingRoute.areaWidth}
+        />
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
           primitive="a-light"
@@ -49,12 +52,12 @@ class RouteModel extends React.Component {
             position={{
               x: _h.positionX - 1,
               y: _h.positionY,
-              z: _h.positionZ - 3
+              z: _h.positionZ - 2
             }}
             rotation={{
               x: _h.rotationX - 1,
               y: _h.rotationY,
-              z: _h.rotationZ - 3
+              z: _h.rotationZ - 2
             }}
             scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
             roughness={_h.roughness}
@@ -65,6 +68,8 @@ class RouteModel extends React.Component {
             theta-length={_h.thetaLength}
             theta-start={_h.thetaStart}
             height={_h.height}
+            width={_h.width}
+            depth={_h.depth}
           />
         ))}
         <Entity primitive="a-camera" position="0 1.7 1">

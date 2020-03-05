@@ -32,6 +32,7 @@ const seed = async () => {
       });
     })
   );
+
   newusers.forEach(async _u => {
     await Promise.all(
       newRoutes.map(_r =>
