@@ -89,9 +89,9 @@ class Navigation extends Component {
     return (
       <Navbar
         id="navbar"
+        bg="dark"
         style={{
           height: '7rem',
-          backgroundColor: '#070707',
           fontWeight: '100',
           padding: '0 5rem'
         }}
