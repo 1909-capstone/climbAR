@@ -5,7 +5,8 @@ const {
   RouteModel,
   CompletedRoute,
   LikedRoute,
-  Rating
+  Rating,
+  Video
 } = models;
 
 //finds and gets all the climbing routes in the database
@@ -19,7 +20,8 @@ router.get('/', (req, res, next) => {
         required: false
       },
       { model: LikedRoute, required: false },
-      { model: Rating, required: false }
+      { model: Rating, required: false },
+      { model: Video, required: false }
     ]
   })
     .then(allRoutes => res.status(200).send(allRoutes))
