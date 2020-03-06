@@ -11,9 +11,14 @@ const {
 const seed = async () => {
   const newusers = await Promise.all(users.map(user => User.create(user)));
   const newHolds = await Promise.all(holds.map(hold => Hold.create(hold)));
-  const newRoutes = await Promise.all(
+  let newRoutes = await Promise.all(
     climbingRoutes.map(climbingRoute => ClimbingRoute.create(climbingRoute))
   );
+  newRoutes = newRoutes.sort((a, b) => {
+    if (Number(a.grade[1]) > Number(b.grade[1])) return 1;
+    if (Number(a.grade[1]) < Number(b.grade[1])) return -1;
+    return 0;
+  });
   //climbingRoute Id is found by matching grade and color
   //hold Id is found by matching hold type
   let currentClimbingRoute = 0;

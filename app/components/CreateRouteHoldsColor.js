@@ -30,21 +30,19 @@ class CreateRouteHoldsColor extends Component {
             name="holdColor"
             type="select"
             onChange={e => {
-              handleChange(e)
+              handleChange(e);
               this.changeHoldColor(e.target.value);
             }}
           >
             <option value="">{routeModel.holdColor}</option>
-            <option value="Red">Red</option>
-            <option value="Orange">Orange</option>
-            <option value="Yellow">Yellow</option>
-            <option value="Green">Green</option>
-            <option value="Blue">Blue</option>
-            <option value="Purple">Purple</option>
-            <option value="Black">Black</option>
-            <option value="Brown">Brown</option>
-            <option value="White">White</option>
-            <option value="Tan">Tan</option>
+            <option value="#a61901">Red</option>
+            <option value="#ce7801">Orange</option>
+            <option value="#fffe06">Yellow</option>
+            <option value="#48ac10">Green</option>
+            <option value="#0433ff">Blue</option>
+            <option value="#531b93">Purple</option>
+            <option value="#565656">Black</option>
+            <option value="#ededed">White</option>
           </Form.Control>
         </Form.Group>
         <Button label="previous" onClick={this.previous}>
@@ -61,4 +59,3 @@ class CreateRouteHoldsColor extends Component {
 const mapState = ({ routeModel }) => ({ routeModel });
 
 export default connect(mapState, null)(CreateRouteHoldsColor);
-
