@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const climbingRouteId = req.params.id;
   ClimbingRoute.findByPk(climbingRouteId, {
-    include: [{ model: RouteModel }, , { model: Video, required: false }]
+    include: [{ model: RouteModel }, { model: Video, required: false }]
   })
     .then(route => {
       console.log('route models = ', route.dataValues.routeModels);
