@@ -16,10 +16,12 @@ class ImageUploadForm extends Component {
   };
   handleOnSubmit = e => {
     e.preventDefault();
+
     const formData = new FormData();
     //default Javascript Object in order to send a file
     formData.append('file', this.state.file);
-    this.props.uploadRouteImage(formData)
+    formData.append('user', this.props.user);
+    this.props.uploadRouteImage(formData);
   };
   render() {
     const { fileName } = this.state;
@@ -47,10 +49,12 @@ class ImageUploadForm extends Component {
     );
   }
 }
+const mapState = ({ user }) => ({ user });
 
 const mapDispatch = dispatch => {
   return {
-    uploadRouteImage: file => dispatch(uploadRouteImage(file))
+    uploadRouteImage: (file ) =>
+      dispatch(uploadRouteImage(file))
   };
 };
 export default connect(null, mapDispatch)(ImageUploadForm);

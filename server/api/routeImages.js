@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { RouteImage } = models;
+const { RouteImage , ClimbingRoute } = models;
 const path = require('path');
 
 router.get('/', (req, res, next) => {
@@ -37,10 +37,11 @@ router.post('/', (req, res, next) => {
       //if no error,add the image name and send the file name and path back to the client
       RouteImage.create({
         fileName: file.name,
-        filePath: `/uploads/${file.name}`
+        filePath: `/uploads/${file.name}`,
+        userId: req.user.id,
       }).then(() => {
         res.send({ fileName: file.name, filePath: `/uploads/${file.name}` });
-      });
+      })
     }
   );
 });

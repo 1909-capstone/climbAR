@@ -2,17 +2,22 @@ import { setRouteImage, statusMessage } from './../actions';
 import { FAIL, SUCCESS } from './utils';
 import axios from 'axios';
 
-export const uploadRouteImage = file  => {
+export const uploadRouteImage = file => {
   return dispatch => {
     return axios
-    .post('/api/routeimages', file, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then((res) => {
+      .post(
+        '/api/routeimages',
+        file,   
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
+      .then(res => {
         dispatch(setRouteImage(res.data));
-      }).then(() => {
+      })
+      .then(() => {
         dispatch(
           statusMessage({
             status: SUCCESS,
@@ -30,4 +35,4 @@ export const uploadRouteImage = file  => {
         );
       });
   };
-}
+};
