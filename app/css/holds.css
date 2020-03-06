@@ -51,4 +51,5 @@
   width: 15px;
   height: 10px;
   transform: skew(30deg);
+  border-radius: 5px;
 }

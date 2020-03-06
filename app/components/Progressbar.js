@@ -8,7 +8,7 @@ import style from '../css/progressbar.css';
 const Track = styled.div`
   width: 100%;
   height: 20px;
-  background-color: black;
+  background-color: white;
   border-radius: 10px;
 `;
 
@@ -18,18 +18,21 @@ const Thumb = styled.div`
   background-color: lightsalmon;
   border-radius: 8px;
   transition: width 0.3s ease-in-out;
+  role:'progressbar';
+  className:'progress-bar progress-bar-striped';
 `;
 
 class Progressbar extends Component {
   state = {
-    percentage: {}
+    percentage: {},
+    label: {}
   };
   render() {
     return (
       <div className="containerWrapper">
         <div className="progressbarContainer">
-          <Track>
-            <Thumb percentage={this.props.percentage} />
+          <Track> {this.props.label}
+            <Thumb percentage={this.props.percentage}/> 
           </Track>
         </div>
       </div>
@@ -39,6 +42,6 @@ class Progressbar extends Component {
 
 //Need a way to handle the percentage so take the class and define the prop types 'percentage as number' with the library 'prop-types'
 Progressbar.propTypes = {
-  percentage: PropTypes.number 
+  percentage: PropTypes.number, 
 }
 export default Progressbar;

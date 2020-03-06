@@ -13,6 +13,10 @@ class CreateRoute extends React.Component {
     e.preventDefault();
     this.props.prevStep();
   };
+  continue = e => {
+    e.preventDefault();
+    this.props.nextStep();
+  };
   render() {
     const { createRouteModel, routeModel, values } = this.props;
     return (

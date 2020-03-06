@@ -7,13 +7,14 @@ import CreateRouteExpiration from './CreateRouteExpiration';
 import CreateRouteHoldsColor from './CreateRouteHoldsColor';
 import CreateRoute from './CreateRoute';
 import { setRouteModel } from '../redux/actions';
-import Progressbar from './Progressbar';
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
     //passing the percentage to the progress bar
-    percentage: 0,
+    percentage: 20,
+    label: 'Dimensions',
     areaHeight: '',
     areaWidth: '',
     grade: '',
@@ -54,8 +55,9 @@ class CreateRouteForm extends Component {
     switch (step) {
       case 1:
         return (
-          <div>
-            <Progressbar percentage={this.state.percentage} />
+            <div> 
+            <ProgressBar className="progressBar "variant="warning" animated now={this.state.percentage} label={'Dimensions'} />
+            
             <CreateCanvasDimensions
               nextStep={this.nextStep}
               handleChange={this.handleInput}
@@ -65,7 +67,7 @@ class CreateRouteForm extends Component {
       case 2:
         return (
           <div>
-            <Progressbar percentage={this.state.percentage} />
+            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Route Grade'}/>
             <CreateRouteGrade
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -76,7 +78,7 @@ class CreateRouteForm extends Component {
       case 3:
         return (
           <div>
-            <Progressbar percentage={this.state.percentage} />
+            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Expiration Date'}/>
             <CreateRouteExpiration
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -87,7 +89,7 @@ class CreateRouteForm extends Component {
       case 4:
         return (
           <div>
-            <Progressbar percentage={this.state.percentage} />
+            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Hold Color'}/>
             <CreateRouteHoldsColor
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -98,7 +100,7 @@ class CreateRouteForm extends Component {
       case 5:
         return (
           <div>
-            <Progressbar percentage={this.state.percentage} />
+            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Create Model'}/>
             <CreateRoute
               prevStep={this.prevStep}
               handleChange={this.handleInput}
@@ -107,6 +109,9 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
+        case 6: return (
+          this.props.history.push('/')
+        )
     }
   }
 }
