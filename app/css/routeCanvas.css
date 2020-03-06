@@ -70,7 +70,3 @@
 .show-front {
   transform: translateZ(-50px) rotateY(0deg);
 }
-
-.cube {
-  transition: transform 1s;
-}
