@@ -33,7 +33,7 @@ class RouteModel extends React.Component {
         <Entity
           primitive="a-plane"
           src="#wallTexture"
-          rotation="0 0 90"
+          rotation="0 0 0"
           position="0 1.7 -2"
           height={climbingRoute.areaHeight}
           width={climbingRoute.areaWidth}
@@ -44,7 +44,7 @@ class RouteModel extends React.Component {
           type="point"
           color="#929292"
           intensity="1.5"
-          position="2 5 5"
+          position="-4 5 5"
         />
         {climbingRoute.routeModels.map(_h => (
           <Entity
