@@ -1,32 +1,89 @@
 const Sequelize = require('sequelize');
 const db = require('./../database');
 
-const { UUID, UUIDV4, DECIMAL, BOOLEAN } = Sequelize;
+const { UUID, UUIDV4, DECIMAL, STRING } = Sequelize;
 
-//TO DO: define holding surface direction?
 const RouteModel = db.define('routeModel', {
   id: {
     primaryKey: true,
     type: UUID,
     defaultValue: UUIDV4
   },
-  coordinateX: {
+  routeGrade: {
+    type: STRING,
+    allowNull: false
+  },
+  holdColor: {
+    type: STRING,
+    allowNull: false
+  },
+  holdType: {
+    type: STRING,
+    allowNull: false
+  },
+  holdModelType: {
+    type: STRING,
+    allowNull: false
+  },
+  positionX: {
     type: DECIMAL,
     allowNull: false
   },
-  coordinateY: {
+  positionY: {
     type: DECIMAL,
     allowNull: false
   },
-  coordinateZ: {
+  positionZ: {
     type: DECIMAL,
     allowNull: false
   },
-  isStart: {
-    type: BOOLEAN
+  rotationX: {
+    type: DECIMAL
   },
-  isFinish: {
-    type: BOOLEAN
+  rotationY: {
+    type: DECIMAL
+  },
+  rotationZ: {
+    type: DECIMAL
+  },
+  scaleX: {
+    type: DECIMAL
+  },
+  scaleY: {
+    type: DECIMAL
+  },
+  scaleZ: {
+    type: DECIMAL
+  },
+  roughness: {
+    type: DECIMAL
+  },
+  modelColor: {
+    type: STRING
+  },
+  radius: {
+    type: DECIMAL
+  },
+  arc: {
+    type: DECIMAL
+  },
+  radiusTubular: {
+    type: DECIMAL
+  },
+  thetaLength: {
+    type: DECIMAL
+  },
+  thetaStart: {
+    type: DECIMAL
+  },
+  depth: {
+    type: DECIMAL
+  },
+  height: {
+    type: DECIMAL
+  },
+  width: {
+    type: DECIMAL
   }
 });
 

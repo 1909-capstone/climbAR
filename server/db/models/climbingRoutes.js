@@ -10,9 +10,11 @@ const ClimbingRoute = db.define('climbingRoute', {
     defaultValue: UUIDV4
   },
   grade: {
+    allowNull: false,
     type: STRING
   },
   holdColor: {
+    allowNull: false,
     type: STRING
   },
   areaHeight: {
@@ -29,6 +31,9 @@ const ClimbingRoute = db.define('climbingRoute', {
   },
   endDate: {
     type: DATEONLY
+  },
+  wallLocation: {
+    type: STRING
   }
 });
 
