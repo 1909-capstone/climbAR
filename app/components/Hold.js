@@ -3,7 +3,7 @@ import style from '../css/holds.css';
 import { ItemTypes } from '../draggable';
 import { useDrag } from 'react-dnd';
 
-const Hold = ({ hold }) => {
+const Hold = ({ hold, color }) => {
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.HOLD, holdData: hold },
     collect: monitor => {
@@ -22,7 +22,8 @@ const Hold = ({ hold }) => {
         ref={drag}
         style={{
           opacity: isDragging ? 0.5 : 1,
-          cursor: 'move'
+          cursor: 'move',
+          backgroundColor: color
         }}
       ></div>
     </div>
