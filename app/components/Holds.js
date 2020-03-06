@@ -9,12 +9,13 @@ class Holds extends React.Component {
     this.props.fetchHolds();
   }
   render() {
-    const { holds, routeModel  } = this.props;
+    const { holds, routeModel } = this.props;
+    console.log('route model??', routeModel);
     return (
       <div>
         <div>Holds</div>
         <div className="holds_container">
-        {holds.map((h, i) => (
+          {holds.map((h, i) => (
             <Hold color={routeModel.holdColor} hold={h} key={`hold-${i}`} />
           ))}
         </div>
