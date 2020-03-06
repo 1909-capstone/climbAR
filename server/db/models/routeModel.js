@@ -9,18 +9,6 @@ const RouteModel = db.define('routeModel', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  routeGrade: {
-    type: STRING,
-    allowNull: false
-  },
-  holdColor: {
-    type: STRING,
-    allowNull: false
-  },
-  holdType: {
-    type: STRING,
-    allowNull: false
-  },
   holdModelType: {
     type: STRING,
     allowNull: false
