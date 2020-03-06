@@ -1,0 +1,8 @@
+.containerWrapper{
+  display:flex;
+  justify-content: center; 
+}
+
+.progressbarContainer{
+  width:600px;
+}

@@ -11,8 +11,6 @@
   width: 1em;
   height: 1em;
   margin: 0.5em;
-  background-color: red;
-  cursor: move;
 }
 
 #sloper {
@@ -24,7 +22,7 @@
 #footHold {
   width: 15px;
   height: 12px;
-  transform: skew(-30deg); 
+  transform: skew(-30deg);
   border-radius: 5px;
 }
 
@@ -51,4 +49,5 @@
   width: 15px;
   height: 10px;
   transform: skew(30deg);
+  border-radius: 5px;
 }
