@@ -60,7 +60,6 @@ router.get('/session/:sessionId', (req, res, next) => {
 
 // log in
 router.post('/login', (req, res, next) => {
-  console.log(chalk.yellow('calling post login api'));
   User.findOne({
     where: {
       email: req.body.email
@@ -74,10 +73,8 @@ router.post('/login', (req, res, next) => {
   })
     .then(user => {
       if (!user) {
-        console.log(chalk.green('user not found'));
         return res.status(401).send('User not found');
       } else {
-        console.log(chalk.green('found user in database'));
         bcrypt.compare(req.body.password, user.password, (err, result) => {
           if (err) {
             console.log(err);
@@ -172,7 +169,6 @@ router.post('/', (req, res, next) => {
     .then(user => {
       Session.create().then(session => {
         user.update({ sessionId: session.id }).then(() => {
-          console.log('new user with session id is created');
           return res
             .cookie('session_id', user.sessionId, {
               path: '/',
@@ -231,7 +227,6 @@ router.get('/:id', (req, res, next) => {
 //like a route
 router.post('/routes/like', (req, res, next) => {
   const { user, route } = req.body;
-  console.log('liking route ', route, ' for user ', user);
   LikedRoute.create({ climbingRouteId: route.id, userId: user.id })
     .then(() => res.status(201).send('route liked'))
     .catch(e => {
@@ -244,7 +239,6 @@ router.post('/routes/like', (req, res, next) => {
 //mark a route completed
 router.post('/routes/complete', (req, res, next) => {
   const { user, route } = req.body;
-  console.log('marking route complete', route, ' for user ', user);
   CompletedRoute.create({ climbingRouteId: route.id, userId: user.id })
     .then(() => res.status(201).send('route marked complete'))
     .catch(e => {

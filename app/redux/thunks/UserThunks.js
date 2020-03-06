@@ -74,7 +74,6 @@ export const logoutUser = userId => {
     return axios
       .post(`/api/users/logout/${userId}`)
       .then(res => {
-        console.log('user logged out');
         dispatch(setUser(res.data));
       })
       .catch(err => {
@@ -88,7 +87,6 @@ export const likeRoute = (user, route) => {
     return axios
       .post(`/api/users/routes/like`, { user, route })
       .then(res => {
-        console.log('route liked');
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
       })
@@ -99,12 +97,10 @@ export const likeRoute = (user, route) => {
 };
 
 export const unLikeRoute = (user, route) => {
-  console.log(user, route);
   return function thunk(dispatch) {
     return axios
       .delete(`/api/users/routes/unlike`, { data: { user, route } })
       .then(() => {
-        console.log('route unliked');
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
       })
@@ -119,7 +115,6 @@ export const markComplete = (user, route) => {
     return axios
       .post(`/api/users/routes/complete`, { user, route })
       .then(res => {
-        console.log('route marked completed');
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
       })
@@ -134,7 +129,6 @@ export const unComplete = (user, route) => {
     return axios
       .delete(`/api/users/routes/uncomplete`, { data: { user, route } })
       .then(res => {
-        console.log('route marked uncomplete');
         dispatch(fetchUser(getCookie()));
         dispatch(fetchClimbingRoutes());
       })

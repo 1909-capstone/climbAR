@@ -20,7 +20,6 @@ class Profile extends React.Component {
       gradeNumber,
       mapCompletedRoutes
     } = this;
-    console.log('user ', user);
     if (!user.completedRoutes) return;
     return user.completedRoutes.length === 0 ? (
       <div>
@@ -42,7 +41,6 @@ class Profile extends React.Component {
   }
   userRoutes() {
     const { user } = this.props;
-    console.log('MAP ', this.mapCompletedRoutes());
     if (!user.completedRouteInfo || !this) return;
     return this.mapCompletedRoutes().length === 0 ? null : (
       <div>

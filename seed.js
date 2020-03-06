@@ -53,7 +53,6 @@ const seed = async () => {
         CompletedRoute.create({ userId: _u.id, climbingRouteId: _r.id })
       )
     );
-    console.log('seeded complted routes for ', _u.email);
   });
 };
 
