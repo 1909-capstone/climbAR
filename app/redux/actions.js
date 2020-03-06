@@ -9,8 +9,16 @@ import {
   SET_CLIMBING_ROUTES,
   SET_CLIMBING_ROUTE,
   SET_ROUTE_FILTERS,
-  SET_ROUTE_IMAGE
+  SET_ROUTE_IMAGE,
+  SET_ROUTE_VIDEO
 } from './constants';
+
+export const setRouteVideo = video => {
+  return {
+    type: SET_ROUTE_VIDEO,
+    video
+  };
+};
 
 export const setRouteFilters = filters => {
   return {

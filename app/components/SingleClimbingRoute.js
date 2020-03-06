@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
+import { uploadRouteVideo } from '../redux/thunks/routeVideoThunks.js';
 import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
+import { user } from '../redux/reducers';
 
 class SingleClimbingRoute extends React.Component {
   constructor() {
@@ -12,6 +14,7 @@ class SingleClimbingRoute extends React.Component {
       fileName: 'Choose File'
     };
     this.betaVideos = this.betaVideos.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
   fileSelectedHandler = event => {
     this.setState({
@@ -21,10 +24,13 @@ class SingleClimbingRoute extends React.Component {
   };
   handleOnSubmit = e => {
     e.preventDefault();
+    const { climbingRoute, user, uploadRouteVideo } = this.props;
     const formData = new FormData();
     formData.append('file', this.state.file);
-    console.log('form data = ', formData);
-    //this.props.uploadRouteVideo(formData);
+    formData.append('climbingRouteId', climbingRoute.id);
+    formData.append('userId', user.id);
+    console.log('video form data = ', formData);
+    uploadRouteVideo(formData);
   };
   componentDidMount() {
     const paramsId = this.props.match.params.id;
@@ -34,11 +40,11 @@ class SingleClimbingRoute extends React.Component {
     if (!route || !route.videos) return '';
     return route.videos.length === 0
       ? 'No beta videos yet for this route :('
-      : route.videos.map(_v => <div>{_v.id}</div>);
+      : route.videos.map(_v => <div key={_v.id}>{_v.id}</div>);
   }
   render() {
     const {
-      props: { climbingRoute },
+      props: { climbingRoute, user },
       state: { fileName },
       betaVideos
     } = this;
@@ -51,27 +57,33 @@ class SingleClimbingRoute extends React.Component {
         <Link to={`/model/${climbingRoute.id}`} style={{ color: '#e4572e' }}>
           View Model
         </Link>
-        <div>Share Your Beta</div>
-        <Fragment>
-          <form onSubmit={this.handleOnSubmit}>
-            <div className="custom-file mb-4">
-              <input
-                type="file"
-                className="custom-file-input"
-                id="customFile"
-                onChange={this.fileSelectedHandler}
-              />
-              <label className="custom-file-label" htmlFor="customFile">
-                {fileName}
-              </label>
+        <div>
+          {user.userType && (
+            <div>
+              <div>Share Your Beta</div>
+              <Fragment>
+                <form onSubmit={this.handleOnSubmit}>
+                  <div className="custom-file mb-4">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="customFile"
+                      onChange={this.fileSelectedHandler}
+                    />
+                    <label className="custom-file-label" htmlFor="customFile">
+                      {fileName}
+                    </label>
+                  </div>
+                  <input
+                    type="submit"
+                    value="Upload"
+                    className="btn btn-primary btn-block mt-4"
+                  />
+                </form>
+              </Fragment>
             </div>
-            <input
-              type="submit"
-              value="Upload"
-              className="btn btn-primary btn-block mt-4"
-            />
-          </form>
-        </Fragment>
+          )}
+        </div>
         <div>Beta Videos</div>
         {betaVideos(climbingRoute)}
       </main>
@@ -79,11 +91,12 @@ class SingleClimbingRoute extends React.Component {
   }
 }
 
-const mapState = ({ climbingRoute }) => ({ climbingRoute });
+const mapState = ({ climbingRoute, user }) => ({ climbingRoute, user });
 
 const mapDispatch = dispatch => {
   return {
-    fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id))
+    fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
+    uploadRouteVideo: videoData => dispatch(uploadRouteVideo(videoData))
   };
 };
 
