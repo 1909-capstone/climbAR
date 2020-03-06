@@ -38,6 +38,10 @@ const holds = [
     modelType: 'a-sphere'
   },
   {
+    holdType: 'sloper',
+    modelType: 'a-box'
+  },
+  {
     holdType: 'jug',
     modelType: 'a-sphere'
   },
@@ -59,7 +63,7 @@ const climbingRoutes = [
   {
     grade: 'V4',
     holdColor: 'Purple',
-    areaHeight: 4,
+    areaHeight: 3,
     areaWidth: 4,
     status: 'installed',
     endDate: moment('2020-05-01'),
@@ -68,8 +72,8 @@ const climbingRoutes = [
   {
     grade: 'V0',
     holdColor: 'White',
-    areaHeight: 5,
-    areaWidth: 2,
+    areaHeight: 3,
+    areaWidth: 4,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'middle'
@@ -77,8 +81,8 @@ const climbingRoutes = [
   {
     grade: 'V2',
     holdColor: 'Green',
-    areaHeight: 5,
-    areaWidth: 2,
+    areaHeight: 3,
+    areaWidth: 4,
     status: 'pending',
     endDate: moment('2020-07-01'),
     wallLocation: 'left'
@@ -86,8 +90,8 @@ const climbingRoutes = [
   {
     grade: 'V1',
     holdColor: 'Yellow',
-    areaHeight: 5,
-    areaWidth: 2,
+    areaHeight: 3,
+    areaWidth: 4,
     status: 'expired',
     endDate: moment('2020-03-01'),
     wallLocation: 'left'
@@ -95,8 +99,8 @@ const climbingRoutes = [
   {
     grade: 'V3',
     holdColor: 'Black',
-    areaHeight: 5,
-    areaWidth: 2,
+    areaHeight: 3,
+    areaWidth: 4,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'right'
@@ -104,8 +108,8 @@ const climbingRoutes = [
   {
     grade: 'V4',
     holdColor: 'Green',
-    areaHeight: 5,
-    areaWidth: 2,
+    areaHeight: 3,
+    areaWidth: 4,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'right'
@@ -139,42 +143,42 @@ const routeModels = [
     routeGrade: 'V4',
     holdColor: 'Purple',
     holdType: 'sloper',
-    holdModelType: 'a-sphere',
+    holdModelType: 'a-box',
     positionX: 0.5,
     positionY: 2.2,
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: 90,
+    rotationZ: 0,
     scaleX: 1,
     scaleY: 1,
-    scaleZ: 2,
+    scaleZ: 1,
     roughness: 2,
     modelColor: '#531b93',
-    radius: 0.2,
-    thetaLength: 120,
-    thetaStart: 90
+    depth: 0.2,
+    height: 0.3,
+    width: 0.2
   },
   //v4 purple 3
   {
     routeGrade: 'V4',
     holdColor: 'Purple',
     holdType: 'sloper',
-    holdModelType: 'a-sphere',
+    holdModelType: 'a-box',
     positionX: 1.5,
     positionY: 2.2,
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: -90,
+    rotationZ: 0,
     scaleX: 1,
     scaleY: 1,
-    scaleZ: 2,
+    scaleZ: 1,
     roughness: 2,
     modelColor: '#531b93',
-    radius: 0.3,
-    thetaLength: 120,
-    thetaStart: 90
+    depth: 0.2,
+    height: 0.4,
+    width: 0.2
   },
   //v4 purple 4
   {
@@ -192,11 +196,10 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.12,
     modelColor: '#531b93',
     depth: 0.05,
     height: 0.1,
-    width: 0.1
+    width: 0.15
   },
   //v4 purple 5
   {
@@ -205,7 +208,7 @@ const routeModels = [
     holdType: 'pinch',
     holdModelType: 'a-box',
     positionX: 2,
-    positionY: 2.8,
+    positionY: 3,
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
@@ -214,11 +217,10 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.12,
     modelColor: '#531b93',
     depth: 0.05,
     height: 0.1,
-    width: 0.1
+    width: 0.15
   },
   //v4 purple 6
   {
@@ -269,12 +271,12 @@ const routeModels = [
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: 100,
+    rotationZ: 110,
     scaleX: 1,
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.15,
     thetaLength: 120,
     thetaStart: 90
@@ -290,12 +292,12 @@ const routeModels = [
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: 70,
+    rotationZ: 140,
     scaleX: 1,
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.12,
     thetaLength: 120,
     thetaStart: 90
@@ -316,7 +318,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.12,
     thetaLength: 120,
     thetaStart: 90
@@ -337,7 +339,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.12,
     thetaLength: 120,
     thetaStart: 90
@@ -348,7 +350,7 @@ const routeModels = [
     holdColor: 'White',
     holdType: 'jug',
     holdModelType: 'a-sphere',
-    positionX: 1.2,
+    positionX: 1.4,
     positionY: 2.8,
     positionZ: -0.95,
     rotationX: 0,
@@ -358,7 +360,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.12,
     thetaLength: 120,
     thetaStart: 90
@@ -379,7 +381,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.03
   },
   //v0 white 7
@@ -398,7 +400,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.03
   },
   //v0 white 8
@@ -407,7 +409,7 @@ const routeModels = [
     holdColor: 'White',
     holdType: 'footHold',
     holdModelType: 'a-octahedron',
-    positionX: 0.5,
+    positionX: 0.2,
     positionY: 0.55,
     positionZ: -0.95,
     rotationX: 0,
@@ -417,7 +419,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.03
   },
   //v0 white 9
@@ -426,7 +428,7 @@ const routeModels = [
     holdColor: 'White',
     holdType: 'footHold',
     holdModelType: 'a-octahedron',
-    positionX: 1.2,
+    positionX: 1.6,
     positionY: 1.4,
     positionZ: -0.95,
     rotationX: 0,
@@ -436,7 +438,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#d6d6d6',
+    modelColor: '#ededed',
     radius: 0.03
   },
   //v2 green 1
@@ -455,7 +457,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.06,
     thetaLength: 120,
     thetaStart: 90
@@ -476,7 +478,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.06,
     thetaLength: 120,
     thetaStart: 90
@@ -497,7 +499,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1.8,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.05,
     radiusTubular: 0.009,
     arc: 360
@@ -518,7 +520,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1.8,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.05,
     radiusTubular: 0.009,
     arc: 360
@@ -539,8 +541,8 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.6,
     roughness: 2,
-    modelColor: '#06722d',
-    radius: 0.03,
+    modelColor: '#48ac10',
+    radius: 0.05,
     thetaLength: 120,
     thetaStart: 90
   },
@@ -555,12 +557,12 @@ const routeModels = [
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: 20,
+    rotationZ: -20,
     scaleX: 1,
     scaleY: 1,
     scaleZ: 0.6,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.08,
     thetaLength: 120,
     thetaStart: 90
@@ -581,7 +583,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.03
   },
   //v2 green 8
@@ -600,7 +602,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.03
   },
   //v2 green 9
@@ -619,7 +621,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     radius: 0.03
   },
   //v1 yellow 1
@@ -638,8 +640,8 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#7c7a01',
-    radius: 0.04,
+    modelColor: '#fffe06',
+    radius: 0.05,
     thetaLength: 120,
     thetaStart: 90
   },
@@ -659,8 +661,8 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#7c7a01',
-    radius: 0.04,
+    modelColor: '#fffe06',
+    radius: 0.05,
     thetaLength: 120,
     thetaStart: 90
   },
@@ -680,9 +682,9 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#7c7a01',
-    radius: 0.05,
-    radiusTubular: 0.009,
+    modelColor: '#fffe06',
+    radius: 0.13,
+    radiusTubular: 0.025,
     arc: 360
   },
   //v1 yellow 4
@@ -701,8 +703,8 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#7c7a01',
-    radius: 0.1,
+    modelColor: '#fffe06',
+    radius: 0.15,
     thetaLength: 120,
     thetaStart: 90
   },
@@ -722,7 +724,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.05,
     thetaLength: 360,
     thetaStart: 0
@@ -743,8 +745,8 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#7c7a01',
-    radius: 0.06,
+    modelColor: '#fffe06',
+    radius: 0.07,
     thetaLength: 120,
     thetaStart: 90
   },
@@ -764,7 +766,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.06,
     thetaLength: 120,
     thetaStart: 90
@@ -785,7 +787,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 9
@@ -804,7 +806,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 10
@@ -823,7 +825,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 11
@@ -842,7 +844,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 12
@@ -861,7 +863,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 13
@@ -880,7 +882,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v1 yellow 14
@@ -899,7 +901,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#7c7a01',
+    modelColor: '#fffe06',
     radius: 0.03
   },
   //v3 black 1
@@ -918,7 +920,7 @@ const routeModels = [
     scaleY: 1.5,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.2,
     thetaLength: 120,
     thetaStart: 90
@@ -939,7 +941,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.04,
     thetaLength: 360,
     thetaStart: 0
@@ -960,7 +962,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.06,
     thetaLength: 360,
     thetaStart: 0
@@ -981,7 +983,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.03,
     thetaLength: 120,
     thetaStart: 90
@@ -1002,7 +1004,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.15,
     thetaLength: 120,
     thetaStart: 90
@@ -1023,7 +1025,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 0.8,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.06,
     thetaLength: 120,
     thetaStart: 90
@@ -1044,7 +1046,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.06,
     thetaLength: 360,
     thetaStart: 0
@@ -1065,7 +1067,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.06,
     thetaLength: 360,
     thetaStart: 0
@@ -1086,7 +1088,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.03
   },
   //v3 black 10
@@ -1105,7 +1107,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.03
   },
   //v3 black 11
@@ -1124,7 +1126,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.03
   },
   //v3 black 12
@@ -1138,12 +1140,12 @@ const routeModels = [
     positionZ: -0.95,
     rotationX: 0,
     rotationY: 0,
-    rotationZ: -20,
-    scaleX: 1.3,
-    scaleY: 1,
+    rotationZ: -30,
+    scaleX: 1,
+    scaleY: 0.6,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.08,
     thetaLength: 360,
     thetaStart: 0
@@ -1164,7 +1166,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.05,
     thetaLength: 360,
     thetaStart: 0
@@ -1185,7 +1187,7 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 2,
     roughness: 2,
-    modelColor: '#2b2b2b',
+    modelColor: '#565656',
     radius: 0.05,
     thetaLength: 360,
     thetaStart: 0
@@ -1207,7 +1209,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1229,7 +1231,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1251,7 +1253,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1273,7 +1275,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1295,7 +1297,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.1,
     width: 0.05
@@ -1317,7 +1319,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1339,7 +1341,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1361,7 +1363,7 @@ const routeModels = [
     scaleZ: 2,
     roughness: 2,
     radius: 0.08,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     thetaLength: 360,
     thetaStart: 0
   },
@@ -1382,7 +1384,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.1,
     width: 0.05
@@ -1404,7 +1406,7 @@ const routeModels = [
     scaleZ: 1,
     roughness: 2,
     radius: 0.06,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
     width: 0.1
@@ -1426,7 +1428,7 @@ const routeModels = [
     scaleZ: 2,
     roughness: 2,
     radius: 0.08,
-    modelColor: '#06722d',
+    modelColor: '#48ac10',
     thetaLength: 360,
     thetaStart: 0
   }

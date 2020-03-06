@@ -15,8 +15,8 @@ class RouteModel extends React.Component {
     return (
       <Scene>
         <a-assets>
-          <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
-          <img id="skyTextureRight" src="../assets/360-right-clean.JPG" />
+          {/* <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
+          <img id="skyTextureRight" src="../assets/360-right-clean.JPG" /> */}
           <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
           <img id="wallTexture" src="../assets/wall-background-close.JPG" />
         </a-assets>
@@ -25,24 +25,25 @@ class RouteModel extends React.Component {
           src="#skyTextureMiddle"
           height="2304"
           width="2304"
-          radius="10"
+          radius="7"
           theta-length="180"
-          position="0 2 4"
+          position="0 1 4"
           rotation="0 -90 0"
         />
         <Entity
           primitive="a-plane"
           src="#wallTexture"
           rotation="0 0 90"
-          position="0 2 -3"
+          position="0 1.7 -2"
           height={climbingRoute.areaHeight}
           width={climbingRoute.areaWidth}
         />
-        <Entity primitive="a-light" type="ambient" color="#445451" />
+        <Entity primitive="a-light" type="ambient" color="#625230" />
         <Entity
           primitive="a-light"
           type="point"
-          intensity="1.6"
+          color="#929292"
+          intensity="1.5"
           position="2 5 5"
         />
         {climbingRoute.routeModels.map(_h => (
@@ -52,12 +53,12 @@ class RouteModel extends React.Component {
             position={{
               x: _h.positionX - 1,
               y: _h.positionY,
-              z: _h.positionZ - 2
+              z: _h.positionZ - 1
             }}
             rotation={{
               x: _h.rotationX - 1,
               y: _h.rotationY,
-              z: _h.rotationZ - 2
+              z: _h.rotationZ - 1
             }}
             scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
             roughness={_h.roughness}
