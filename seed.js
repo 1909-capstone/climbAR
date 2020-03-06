@@ -14,7 +14,7 @@ const seed = async () => {
     climbingRoutes.map(climbingRoute => ClimbingRoute.create(climbingRoute))
   );
   //climbingRoute Id is found by matching grade and color
-  //hold Id is found by matching hold type and model type
+  //hold Id is found by matching hold type
   await Promise.all(
     routeModels.map((_r, i) => {
       return RouteModel.create({
@@ -25,9 +25,7 @@ const seed = async () => {
           );
         })[0].id,
         holdId: newHolds.filter(hold => {
-          return (
-            hold.holdType === _r.holdType && hold.modelType === _r.holdModelType
-          );
+          return hold.holdType === _r.holdType;
         })[0].id
       });
     })

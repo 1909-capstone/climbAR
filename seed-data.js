@@ -30,15 +30,11 @@ const holds = [
     modelType: 'a-octahedron'
   },
   {
-    holdType: 'footHold',
+    holdType: 'sloper (sphere)',
     modelType: 'a-sphere'
   },
   {
-    holdType: 'sloper',
-    modelType: 'a-sphere'
-  },
-  {
-    holdType: 'sloper',
+    holdType: 'sloper (box)',
     modelType: 'a-box'
   },
   {
@@ -55,7 +51,7 @@ const holds = [
   },
   {
     holdType: 'crimper',
-    modelType: 'a-square'
+    modelType: 'a-box'
   }
 ];
 
@@ -142,7 +138,7 @@ const routeModels = [
   {
     routeGrade: 'V4',
     holdColor: 'Purple',
-    holdType: 'sloper',
+    holdType: 'sloper (box)',
     holdModelType: 'a-box',
     positionX: 0.5,
     positionY: 2.2,
@@ -152,7 +148,7 @@ const routeModels = [
     rotationZ: 0,
     scaleX: 1,
     scaleY: 1,
-    scaleZ: 1,
+    scaleZ: 2,
     roughness: 2,
     modelColor: '#531b93',
     depth: 0.2,
@@ -163,7 +159,7 @@ const routeModels = [
   {
     routeGrade: 'V4',
     holdColor: 'Purple',
-    holdType: 'sloper',
+    holdType: 'sloper (box)',
     holdModelType: 'a-box',
     positionX: 1.5,
     positionY: 2.2,
@@ -173,7 +169,7 @@ const routeModels = [
     rotationZ: 0,
     scaleX: 1,
     scaleY: 1,
-    scaleZ: 1,
+    scaleZ: 2,
     roughness: 2,
     modelColor: '#531b93',
     depth: 0.2,
@@ -712,7 +708,7 @@ const routeModels = [
   {
     routeGrade: 'V1',
     holdColor: 'Yellow',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.8,
     positionY: 2.1,
@@ -929,7 +925,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.5,
     positionY: 1.3,
@@ -950,7 +946,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.6,
     positionY: 1.55,
@@ -1034,7 +1030,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.8,
     positionY: 2.7,
@@ -1055,7 +1051,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.4,
     positionY: 3.1,
@@ -1133,7 +1129,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'footHold',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.4,
     positionY: 0.7,
@@ -1154,7 +1150,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'footHold',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 1.3,
     positionY: 1,
@@ -1175,7 +1171,7 @@ const routeModels = [
   {
     routeGrade: 'V3',
     holdColor: 'Black',
-    holdType: 'footHold',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 1.4,
     positionY: 1.2,
@@ -1208,7 +1204,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1230,7 +1225,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1252,7 +1246,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1274,7 +1267,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1296,7 +1288,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.1,
@@ -1318,7 +1309,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1340,7 +1330,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1350,7 +1339,7 @@ const routeModels = [
   {
     routeGrade: 'V4',
     holdColor: 'Green',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.5,
     positionY: 2.3,
@@ -1383,7 +1372,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.1,
@@ -1405,7 +1393,6 @@ const routeModels = [
     scaleY: 1,
     scaleZ: 1,
     roughness: 2,
-    radius: 0.06,
     modelColor: '#48ac10',
     depth: 0.05,
     height: 0.2,
@@ -1415,7 +1402,7 @@ const routeModels = [
   {
     routeGrade: 'V4',
     holdColor: 'Green',
-    holdType: 'sloper',
+    holdType: 'sloper (sphere)',
     holdModelType: 'a-sphere',
     positionX: 0.9,
     positionY: 3.1,

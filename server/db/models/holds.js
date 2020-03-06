@@ -13,12 +13,25 @@ const Hold = db.define('hold', {
     type: STRING,
     allowNull: false,
     validate: {
-      isIn: [['footHold', 'pocket', 'jug', 'sloper', 'pinch', 'crimper']]
+      isIn: [
+        [
+          'footHold',
+          'pocket',
+          'jug',
+          'sloper (sphere)',
+          'sloper (box)',
+          'pinch',
+          'crimper'
+        ]
+      ]
     }
   },
   modelType: {
     allowNull: false,
-    type: STRING
+    type: STRING,
+    validate: {
+      isIn: [['a-octahedron', 'a-sphere', 'a-box', 'a-torus']]
+    }
   }
 });
 
