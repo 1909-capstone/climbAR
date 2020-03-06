@@ -1,4 +1,5 @@
-const { users, holds, climbingRoutes, routeModels } = require('./seed-data.js');
+const { users, holds, climbingRoutes } = require('./seed-data.js');
+const { routeModels } = require('./rm.js');
 const {
   User,
   Hold,
@@ -13,15 +14,34 @@ const seed = async () => {
   const newRoutes = await Promise.all(
     climbingRoutes.map(climbingRoute => ClimbingRoute.create(climbingRoute))
   );
+  //climbingRoute Id is found by matching grade and color
+  //hold Id is found by matching hold type
+  let currentClimbingRoute = 0;
+  let currentGrade = 'V0';
   await Promise.all(
     routeModels.map((_r, i) => {
+      if (_r.routeGrade !== currentGrade) {
+        currentGrade = _r.routeGrade;
+        currentClimbingRoute++;
+      }
+      const holdId = newHolds.filter(hold => {
+        return hold.holdType === _r.holdType;
+      })[0].id;
+      const climbingRouteId = newRoutes[currentClimbingRoute].id;
+      let newR = {};
+      Object.keys(_r).forEach(key => {
+        if (key !== 'holdType' && key !== 'routeGrade') {
+          newR[key] = _r[key];
+        }
+      });
       return RouteModel.create({
-        ..._r,
-        climbingRouteId: newRoutes[0].id,
-        holdId: newHolds[0].id
+        ...newR,
+        climbingRouteId,
+        holdId
       });
     })
   );
+
   newusers.forEach(async _u => {
     await Promise.all(
       newRoutes.map(_r =>

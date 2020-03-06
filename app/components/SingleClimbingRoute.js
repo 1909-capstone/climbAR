@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class SingleClimbingRoute extends React.Component {
   componentDidMount() {
@@ -14,8 +14,11 @@ class SingleClimbingRoute extends React.Component {
       <main>
         <div> Name: {climbingRoute.id}</div>
         <div> Grade: {climbingRoute.grade}</div>
-        <div> Hold Color: {climbingRoute.areaHeight}</div> 
-        <div> Height {climbingRoute.areaHeight} Width: {climbingRoute.areaWidth}</div>
+        <div> Hold Color: {climbingRoute.holdColor}</div>
+        <div>
+          {' '}
+          Height {climbingRoute.areaHeight} Width: {climbingRoute.areaWidth}
+        </div>
         <div> End Date: {climbingRoute.endDate}</div>
         <Link to={`/model/${climbingRoute.id}`}>View Model</Link>
       </main>
