@@ -13,31 +13,36 @@ class Navigation extends Component {
           <Nav>
             <Nav.Link
               href="/admin/create"
+              id="create-route"
               style={{
-                color: 'white'
+                color: '#f0eae3',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
               Create Route
             </Nav.Link>
             <NavDropdown
-              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
-              id="nav-dropdown"
-              style={{
-                color: 'white'
-              }}
+              title={
+                <span id="nav-dropdown">
+                  {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  <i className="material-icons">arrow_drop_down</i>
+                </span>
+              }
             >
               <NavDropdown.Item eventKey="4.1" href={`/profile`}>
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
-                <Button
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     logoutUser(user.id);
                   }}
                 >
                   Log Out
-                </Button>
+                </span>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -45,13 +50,10 @@ class Navigation extends Component {
         break;
       case 'Climber':
         return (
-          <Nav>
+          <Nav id="nav-climber">
             <NavDropdown
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
-              style={{
-                color: 'white'
-              }}
             >
               <NavDropdown.Item eventKey="4.1" href={`/profile`}>
                 Profile
@@ -71,21 +73,11 @@ class Navigation extends Component {
         );
       default:
         return (
-          <Nav>
-            <Nav.Link
-              href="/login"
-              style={{
-                color: 'white'
-              }}
-            >
+          <Nav id="nav-guest">
+            <Nav.Link href="/login" style={{ color: '#e45720' }}>
               Log In
             </Nav.Link>
-            <Nav.Link
-              href="/signup"
-              style={{
-                color: 'white'
-              }}
-            >
+            <Nav.Link href="/signup" style={{ color: '#e45720' }}>
               Sign Up
             </Nav.Link>
           </Nav>
@@ -96,20 +88,20 @@ class Navigation extends Component {
     const { user } = this.props;
     return (
       <Navbar
+        id="navbar"
         bg="dark"
         style={{
           height: '7rem',
-          backgroundColor: 'black',
           fontWeight: '100',
           padding: '0 5rem'
         }}
       >
-        <Navbar.Brand>Logo</Navbar.Brand>
+        <Navbar.Brand id="logo">Climbar</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link
             href="/"
             style={{
-              color: 'white'
+              color: '#f0eae3'
             }}
           >
             Home
@@ -117,7 +109,7 @@ class Navigation extends Component {
           <Nav.Link
             href="/climbingroutes"
             style={{
-              color: 'white'
+              color: '#f0eae3'
             }}
           >
             Climbing Routes

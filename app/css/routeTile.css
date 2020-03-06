@@ -1,18 +1,24 @@
 .routeTile {
   border: 1px solid;
-  padding: 1em;
-  margin: 0.5em 0 0.5em 0;
-  width: 90%;
+  margin: 1em;
+  width: 20em;
   position: relative;
+  flex-grow: 1;
+  max-width: 20em;
 }
 
 .route-tile-buttons {
   position: absolute;
-  display: flex;
   justify-content: space-around;
   top: 0.5em;
   left: 60%;
   width: 40%;
+}
+
+.route-metrics {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .liked {
@@ -34,4 +40,9 @@
 .route-tile-row {
   display: flex;
   align-items: center;
+}
+
+.complete-icon {
+  border: 1px solid;
+  border-radius: 50%;
 }

@@ -8,6 +8,7 @@ const CanvasSlot = ({
   x,
   y,
   width,
+  height,
   holds,
   setNewHold,
   holdColor,
@@ -36,7 +37,7 @@ const CanvasSlot = ({
       style={{
         position: 'relative',
         width: `${100 / width}%`,
-        height: '1em'
+        height: `${100 / height}%`
       }}
       x={x}
       y={y}
