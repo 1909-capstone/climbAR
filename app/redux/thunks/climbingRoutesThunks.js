@@ -10,7 +10,6 @@ export const fetchClimbingRoutes = () => {
     return axios
       .get(`/api/climbingroutes`)
       .then(res => {
-        console.log('climbing routes from the server ', res.data);
         dispatch(setClimbingRoutes(res.data));
       })
       .catch(e => console.error(e));

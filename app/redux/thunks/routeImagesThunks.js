@@ -5,6 +5,7 @@ import axios from 'axios';
 export const uploadRouteImage = file => {
   return dispatch => {
     return axios
+<<<<<<< HEAD
       .post(
         '/api/routeimages',
         file,   
@@ -14,6 +15,13 @@ export const uploadRouteImage = file => {
           }
         }
       )
+=======
+      .post('/api/routeimages', file, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+>>>>>>> a2b18ed1dcd00579937ec51db5079fcf1d243112
       .then(res => {
         dispatch(setRouteImage(res.data));
       })

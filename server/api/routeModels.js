@@ -1,12 +1,20 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { RouteModel, ClimbingRoute } = models;
+const { RouteModel, ClimbingRoute, Hold } = models;
 
 //get all climbing routes
 router.get('/', (req, res, next) => {
   RouteModel.findAll()
-    .then(m => res.status(200).send(m))
+    .then(models =>
+      Holds.findAll().then(({ dataValues }) =>
+        res
+          .status(200)
+          .send(models.map((_m, i) => ({ ..._m, hold: dataValues[i] })))
+      )
+    )
     .catch(e => {
+      console.log('error loading route models');
+      console.log(e);
       res.status(400);
       next(e);
     });
@@ -14,8 +22,6 @@ router.get('/', (req, res, next) => {
 
 //create a new climbing route
 router.post('/new', (req, res, next) => {
-  console.log('POSTING NEW ROUTE');
-  console.log(req.body);
   const {
     areaWidth,
     areaHeight,
@@ -34,18 +40,17 @@ router.post('/new', (req, res, next) => {
     holdColor
   })
     .then(newRoute => {
+<<<<<<< HEAD
       console.log('NEW CLIMBING ROUTE CREATED');
-      console.log(newRoute);
-      console.log(RouteModel);
+=======
+>>>>>>> 7e620f31756d72cd3c77319276b81e516ddc5b02
       const routeModels = Promise.all(
         holds.map(_hold =>
           RouteModel.create({
             holdId: _hold.id,
-            coordinateX: _hold.coordinateX,
-            coordinateY: _hold.coordinateY,
-            coordinateZ: _hold.coordinateZ,
-            isStart: false,
-            isFinish: false,
+            positionX: _hold.coordinateX,
+            positionY: _hold.coordinateY,
+            positionZ: _hold.coordinateZ,
             climbingRouteId: newRoute.id
           })
         )

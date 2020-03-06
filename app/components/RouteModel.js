@@ -15,69 +15,75 @@ class RouteModel extends React.Component {
     return (
       <Scene>
         <a-assets>
-          <img
-            id="groundTexture"
-            src="https://cdn.aframe.io/a-painter/images/floor.jpg"
-          />
-          <img
-            id="skyTexture"
-            src="https://cdn.aframe.io/a-painter/images/sky.jpg"
-          />
+          {/* <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
+          <img id="skyTextureRight" src="../assets/360-right-clean.JPG" /> */}
+          <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
+          <img id="wallTexture" src="../assets/wall-background-close.JPG" />
         </a-assets>
         <Entity
-          primitive="a-plane"
-          src="#groundTexture"
-          rotation="-90 0 0"
-          height="100"
-          width="100"
+          primitive="a-sky"
+          src="#skyTextureMiddle"
+          height="2304"
+          width="2304"
+          radius="7"
+          theta-length="180"
+          position="0 1 4"
+          rotation="0 -90 0"
         />
-        <Entity primitive="a-light" type="ambient" color="#445451" />
+        <Entity
+          primitive="a-plane"
+          src="#wallTexture"
+          rotation="0 0 0"
+          position="0 1.7 -2"
+          height={climbingRoute.areaHeight}
+          width={climbingRoute.areaWidth}
+        />
+        <Entity primitive="a-light" type="ambient" color="#625230" />
         <Entity
           primitive="a-light"
           type="point"
-          intensity="2"
-          position="2 4 4"
-        />
-        <Entity
-          primitive="a-sky"
-          height="2048"
-          radius="30"
-          src="#skyTexture"
-          theta-length="90"
-          width="2048"
-        />
-        <Entity
-          text={{ value: 'ClimbAr!', align: 'center' }}
-          position={{ x: 0, y: 2, z: -1 }}
-        />
-        <a-gltf-model
-          id="wall"
-          position="0 0 -3"
-          rotation="0 100 0"
-          src="../assets/climbing_wall/scene.gltf"
-        ></a-gltf-model>
-        <Entity
-          primitive="a-plane"
-          src="#groundTexture"
-          rotation="0 0 0"
-          height={climbingRoute.areaHeight}
-          width={climbingRoute.areaWidth}
-          position="0 0 -1"
+          color="#929292"
+          intensity="1.5"
+          position="-4 5 5"
         />
         {climbingRoute.routeModels.map(_h => (
           <Entity
             key={`hold-${_h.id}`}
-            primitive="a-box"
+            primitive={_h.hold.modelType}
             position={{
-              x: _h.coordinateX - 1,
-              y: _h.coordinateY,
-              z: _h.coordinateZ
+              x: _h.positionX - 1,
+              y: _h.positionY,
+              z: _h.positionZ - 1
             }}
-            scale={{ x: 0.05, y: 0.05, z: 0.05 }}
+            rotation={{
+              x: _h.rotationX - 1,
+              y: _h.rotationY,
+              z: _h.rotationZ - 1
+            }}
+            scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
+            roughness={_h.roughness}
+            color={climbingRoute.holdColor}
+            radius={_h.radius}
+            radius-tubular={_h.radiusTubular}
+            arc={_h.arc}
+            theta-length={_h.thetaLength}
+            theta-start={_h.thetaStart}
+            height={_h.height}
+            width={_h.width}
+            depth={_h.depth}
           />
         ))}
-        <Entity primitive="a-camera" position="0 1.75 0">
-          {/* <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/> */}
+        <Entity primitive="a-camera" position="0 1.7 1">
+          {/* <Entity
+            primitive="a-cursor"
+            animation__click={{
+              property: 'scale',
+              startEvents: 'click',
+              from: '0.1 0.1 0.1',
+              to: '1 1 1',
+              dur: 150
+            }}
+          /> */}
         </Entity>
       </Scene>
     );

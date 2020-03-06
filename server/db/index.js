@@ -38,7 +38,8 @@ ClimbingRoute.hasMany(LikedRoute);
 User.hasMany(LikedRoute);
 
 ClimbingRoute.belongsToMany(User, { through: Video });
-User.hasMany(ClimbingRoute);
+ClimbingRoute.hasMany(Video);
+User.hasMany(Video);
 
 Session.hasOne(User);
 User.belongsTo(Session);

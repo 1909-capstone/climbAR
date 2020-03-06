@@ -17,7 +17,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // api endpoint for react to check its login status
 app.get('/auth', (req, res, next) => {
-  console.log(chalk.yellow('calling auth api'));
   const body = { loggedIn: false };
   User.findOne({ where: { sessionId: req.cookies['session_id'] } })
     .then(user => {
@@ -35,12 +34,9 @@ app.use((req, res, next) => {
   if (!req.cookies['session_id'] || !req.cookies) {
     //status: user doesn't have a cookie id
     req.loggedIn = false;
-    console.log(chalk.green('no cookie'));
     next();
   } else {
     //status: user has a cookie, but not sure if it's active
-    console.log(chalk.green('yes cookie'));
-
     User.findOne({
       where: {
         sessionId: req.cookies['session_id']
@@ -61,7 +57,6 @@ app.use((req, res, next) => {
           });
           req.loggedIn = true;
           req.user = user.dataValues;
-          console.log(chalk.green('user logged in'));
           next();
         }
       })
@@ -75,7 +70,6 @@ app.use((req, res, next) => {
 app.use('/api', require('./api'));
 
 app.get('*', (req, res) => {
-  console.log(chalk.green('all routes'));
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
