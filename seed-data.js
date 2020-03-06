@@ -58,7 +58,7 @@ const holds = [
 const climbingRoutes = [
   {
     grade: 'V4',
-    holdColor: 'Purple',
+    holdColor: '#531b93',
     areaHeight: 4,
     areaWidth: 3,
     status: 'installed',
@@ -67,7 +67,7 @@ const climbingRoutes = [
   },
   {
     grade: 'V0',
-    holdColor: 'White',
+    holdColor: '#ededed',
     areaHeight: 4,
     areaWidth: 3,
     status: 'installed',
@@ -76,7 +76,7 @@ const climbingRoutes = [
   },
   {
     grade: 'V2',
-    holdColor: 'Green',
+    holdColor: '#48ac10',
     areaHeight: 4,
     areaWidth: 3,
     status: 'pending',
@@ -85,7 +85,7 @@ const climbingRoutes = [
   },
   {
     grade: 'V1',
-    holdColor: 'Yellow',
+    holdColor: '#fffe06',
     areaHeight: 4,
     areaWidth: 3,
     status: 'expired',
@@ -94,7 +94,7 @@ const climbingRoutes = [
   },
   {
     grade: 'V3',
-    holdColor: 'Black',
+    holdColor: '#565656',
     areaHeight: 4,
     areaWidth: 3,
     status: 'installed',
@@ -103,7 +103,7 @@ const climbingRoutes = [
   },
   {
     grade: 'V4',
-    holdColor: 'Green',
+    holdColor: '#48ac10',
     areaHeight: 4,
     areaWidth: 3,
     status: 'installed',

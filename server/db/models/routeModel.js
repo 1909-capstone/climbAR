@@ -9,10 +9,6 @@ const RouteModel = db.define('routeModel', {
     type: UUID,
     defaultValue: UUIDV4
   },
-  holdModelType: {
-    type: STRING,
-    allowNull: false
-  },
   positionX: {
     type: DECIMAL,
     allowNull: false

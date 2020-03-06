@@ -49,7 +49,7 @@ class RouteModel extends React.Component {
         {climbingRoute.routeModels.map(_h => (
           <Entity
             key={`hold-${_h.id}`}
-            primitive={_h.holdModelType}
+            primitive={_h.hold.modelType}
             position={{
               x: _h.positionX - 1,
               y: _h.positionY,
@@ -62,7 +62,7 @@ class RouteModel extends React.Component {
             }}
             scale={{ x: _h.scaleX, y: _h.scaleY, z: _h.scaleZ }}
             roughness={_h.roughness}
-            color={_h.modelColor}
+            color={climbingRoute.holdColor}
             radius={_h.radius}
             radius-tubular={_h.radiusTubular}
             arc={_h.arc}
