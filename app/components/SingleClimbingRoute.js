@@ -39,7 +39,14 @@ class SingleClimbingRoute extends React.Component {
     if (!route || !route.videos) return '';
     return route.videos.length === 0
       ? 'No beta videos yet for this route :('
-      : route.videos.map(_v => <div key={_v.id}>{_v.id}</div>);
+      : route.videos.map(_v => (
+          <div key={_v.id}>
+            <video width="400" controls>
+              <source src={_v.url} type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+        ));
   }
   render() {
     const {

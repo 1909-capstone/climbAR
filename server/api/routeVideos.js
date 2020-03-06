@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
       //if no error,add the video name and send the file name and path back to the client
       Video.create({
         fileName: file.name,
-        filePath: `/uploads/${file.name}`,
+        url: `./public/uploads/${file.name}`,
         userId: req.body.userId,
         climbingRouteId: req.body.climbingRouteId
       })
