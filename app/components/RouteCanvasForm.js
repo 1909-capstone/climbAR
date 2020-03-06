@@ -25,7 +25,6 @@ class RouteCanvasForm extends React.Component {
     });
   }
   render() {
-    console.log('HOLD COLOR IS ', this.props.routeModel.holdColor);
     return (
       <div>
         <Form.Group>

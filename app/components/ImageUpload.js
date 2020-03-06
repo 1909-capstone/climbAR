@@ -5,7 +5,6 @@ import ImageUploadForm from './ImageUploadForm';
 class ImageComponent extends Component {
   render() {
     const { routeImage } = this.props;
-    console.log('this is hte the props ', routeImage);
     return (
       <div className="container mt-4">
         <ImageUploadForm />

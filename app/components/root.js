@@ -42,7 +42,6 @@ class Root extends Component {
         } else {
           const { fetchUser } = this.props;
           if (document.cookie.split(';')[0].length > 0) {
-            console.log('calling fetchUser');
             fetchUser(getCookie());
           }
         }

@@ -1,23 +1,24 @@
-import { setRouteImage, statusMessage } from './../actions';
+import { statusMessage } from './../actions';
+import { fetchSingleClimbingRoute } from './climbingRoutesThunks';
 import { FAIL, SUCCESS } from './utils';
 import axios from 'axios';
 
-export const uploadRouteImage = file => {
+export const uploadRouteVideo = videoData => {
   return dispatch => {
     return axios
-      .post('/api/routeimages', file, {
+      .post('/api/routevideos', videoData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
       .then(res => {
-        dispatch(setRouteImage(res.data));
+        dispatch(fetchSingleClimbingRoute(res.data.climbingRouteId));
       })
       .then(() => {
         dispatch(
           statusMessage({
             status: SUCCESS,
-            text: 'Image has been uploaded successfully'
+            text: 'Video has been uploaded successfully'
           })
         );
       })
@@ -26,7 +27,7 @@ export const uploadRouteImage = file => {
         dispatch(
           statusMessage({
             status: FAIL,
-            text: 'Cannot upload the following image'
+            text: 'Cannot upload video'
           })
         );
       });
