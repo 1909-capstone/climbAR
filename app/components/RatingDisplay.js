@@ -1,7 +1,6 @@
 import React from 'react';
 
 const RatingDisplay = ({ avgRating }) => {
-  console.log('average', avgRating);
   return (
     <div
       style={{

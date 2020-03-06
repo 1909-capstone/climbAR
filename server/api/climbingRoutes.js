@@ -11,7 +11,6 @@ const {
 
 //finds and gets all the climbing routes in the database
 router.get('/', (req, res, next) => {
-  console.log('requesting climbing routes for user = ', req.user);
   ClimbingRoute.findAll({
     include: [
       { model: RouteModel },

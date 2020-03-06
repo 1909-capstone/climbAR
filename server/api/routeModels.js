@@ -14,8 +14,6 @@ router.get('/', (req, res, next) => {
 
 //create a new climbing route
 router.post('/new', (req, res, next) => {
-  console.log('POSTING NEW ROUTE');
-  console.log(req.body);
   const {
     areaWidth,
     areaHeight,
@@ -34,9 +32,6 @@ router.post('/new', (req, res, next) => {
     holdColor
   })
     .then(newRoute => {
-      console.log('NEW CLIMBING ROUTE CREATED');
-      console.log(newRoute);
-      console.log(RouteModel);
       const routeModels = Promise.all(
         holds.map(_hold =>
           RouteModel.create({

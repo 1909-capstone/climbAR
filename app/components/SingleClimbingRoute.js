@@ -29,7 +29,6 @@ class SingleClimbingRoute extends React.Component {
     formData.append('file', this.state.file);
     formData.append('climbingRouteId', climbingRoute.id);
     formData.append('userId', user.id);
-    console.log('video form data = ', formData);
     uploadRouteVideo(formData);
   };
   componentDidMount() {
@@ -48,7 +47,6 @@ class SingleClimbingRoute extends React.Component {
       state: { fileName },
       betaVideos
     } = this;
-    console.log('climbing route = ', climbingRoute);
     return (
       <main className="single-route">
         <div> Grade: {climbingRoute.grade}</div>

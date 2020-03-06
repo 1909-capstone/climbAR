@@ -12,7 +12,6 @@ export const uploadRouteVideo = videoData => {
         }
       })
       .then(res => {
-        console.log('video res = ', res.data);
         dispatch(fetchSingleClimbingRoute(res.data.climbingRouteId));
       })
       .then(() => {

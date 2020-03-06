@@ -17,8 +17,6 @@ export function setNewDraggingHold(hold) {
 
 export function createRouteModel(model) {
   return dispatch => {
-    console.log('CREATING ROUTE MODEL');
-    console.log(model);
     return axios
       .post(`/api/routemodels/new`, model)
       .then(() => {
@@ -51,8 +49,6 @@ export function fetchRouteModels() {
       .then(res => {
         dispatch(setRouteModels(res.data));
       })
-      .catch(e => {
-        console.log('error fetching route models ', e);
-      });
+      .catch(e => {});
   };
 }

@@ -16,8 +16,6 @@ router.get('/', (req, res, next) => {
 
 //Upload Endpoint
 router.post('/', (req, res, next) => {
-  console.log('files = ', req.files);
-  console.log('body = ', req.body);
   if (req.files === null) {
     return res.status(400).send({ msg: 'No File Upload' });
   }
