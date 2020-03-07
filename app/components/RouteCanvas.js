@@ -185,7 +185,7 @@ class RouteCanvas extends React.Component {
                 <i
                   className="material-icons"
                   onClick={() => {
-                    rotateX(-5);
+                    rotateX(-20);
                   }}
                 >
                   keyboard_arrow_left
@@ -193,7 +193,7 @@ class RouteCanvas extends React.Component {
                 <i
                   className="material-icons"
                   onClick={() => {
-                    rotateX(5);
+                    rotateX(20);
                   }}
                 >
                   keyboard_arrow_right
@@ -204,7 +204,7 @@ class RouteCanvas extends React.Component {
               <i
                 className="material-icons"
                 onClick={() => {
-                  rotateY(-5);
+                  rotateY(-20);
                 }}
               >
                 keyboard_arrow_left
@@ -212,7 +212,7 @@ class RouteCanvas extends React.Component {
               <i
                 className="material-icons"
                 onClick={() => {
-                  rotateY(5);
+                  rotateY(20);
                 }}
               >
                 keyboard_arrow_right
