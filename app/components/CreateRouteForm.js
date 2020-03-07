@@ -13,7 +13,7 @@ class CreateRouteForm extends Component {
   state = {
     step: 1,
     //passing the percentage to the progress bar
-    percentage: 20,
+    percentage: 25,
     label: 'Dimensions',
     areaHeight: '',
     areaWidth: '',
@@ -26,7 +26,7 @@ class CreateRouteForm extends Component {
     const { step } = this.state;
     this.setState({
       step: step + 1,
-      percentage: this.state.percentage + 20
+      percentage: this.state.percentage + 25
     });
   };
   //Go back to the previous step
@@ -34,7 +34,7 @@ class CreateRouteForm extends Component {
     const { step } = this.state;
     this.setState({
       step: step - 1,
-      percentage: this.state.percentage - 20
+      percentage: this.state.percentage - 25
     });
   };
   // handles the fields change, each input will have its own state
@@ -55,17 +55,6 @@ class CreateRouteForm extends Component {
     switch (step) {
       case 1:
         return (
-            <div> 
-            <ProgressBar className="progressBar "variant="warning" animated now={this.state.percentage} label={'Dimensions'} />
-            
-            <CreateCanvasDimensions
-              nextStep={this.nextStep}
-              handleChange={this.handleInput}
-            />
-          </div>
-        );
-      case 2:
-        return (
           <div>
             <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Route Grade'}/>
             <CreateRouteGrade
@@ -75,7 +64,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 3:
+      case 2:
         return (
           <div>
             <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Expiration Date'}/>
@@ -86,7 +75,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 4:
+      case 3:
         return (
           <div>
             <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Hold Color'}/>
@@ -97,7 +86,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 5:
+      case 4:
         return (
           <div>
             <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Create Model'}/>
@@ -109,9 +98,11 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-        case 6: return (
-          this.props.history.push('/')
-        )
+      //   case 5: return (
+      //     <div>
+      //     <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Create Model'}/>
+      //   </div>
+      // )
     }
   }
 }
