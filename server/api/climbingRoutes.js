@@ -39,7 +39,7 @@ router.get('/:id', (req, res, next) => {
     include: [{ model: RouteModel }, { model: Video, required: false }]
   })
     .then(route => {
-      console.log('route models = ', route.dataValues.routeModels);
+      // console.log('route models = ', route.dataValues.routeModels);
       Hold.findAll().then(hold => {
         return res.status(200).send({
           ...route.dataValues,

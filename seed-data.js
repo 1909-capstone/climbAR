@@ -59,8 +59,6 @@ const climbingRoutes = [
   {
     grade: 'V4',
     holdColor: '#531b93',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'middle'
@@ -68,8 +66,6 @@ const climbingRoutes = [
   {
     grade: 'V0',
     holdColor: '#ededed',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'middle'
@@ -77,8 +73,6 @@ const climbingRoutes = [
   {
     grade: 'V2',
     holdColor: '#48ac10',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'pending',
     endDate: moment('2020-07-01'),
     wallLocation: 'left'
@@ -86,8 +80,6 @@ const climbingRoutes = [
   {
     grade: 'V1',
     holdColor: '#fffe06',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'expired',
     endDate: moment('2020-03-01'),
     wallLocation: 'left'
@@ -95,8 +87,6 @@ const climbingRoutes = [
   {
     grade: 'V3',
     holdColor: '#565656',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'right'
@@ -104,8 +94,6 @@ const climbingRoutes = [
   {
     grade: 'V4',
     holdColor: '#48ac10',
-    areaHeight: 4,
-    areaWidth: 3,
     status: 'installed',
     endDate: moment('2020-05-01'),
     wallLocation: 'right'

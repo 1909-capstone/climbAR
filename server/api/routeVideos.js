@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
       //if no error,add the video name and send the file name and path back to the client
       Video.create({
         fileName: file.name,
-        url: `./public/uploads/${file.name}`,
+        url: `/uploads/${file.name}`,
         userId: req.body.userId,
         climbingRouteId: req.body.climbingRouteId
       })
@@ -53,6 +53,16 @@ router.post('/', (req, res, next) => {
         });
     }
   );
+});
+
+router.delete('/:id', (req, res, next) => {
+  Video.findByPk(req.params.id)
+    .then(video => video.destroy())
+    .then(() => res.status(202).send('video is deleted'))
+    .catch(e => {
+      res.status(404);
+      next(e);
+    });
 });
 
 module.exports = router;

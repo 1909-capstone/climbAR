@@ -1,0 +1,61 @@
+#pinch-scene {
+  width: 30px;
+  height: 20px;
+  perspective: 50px;
+}
+
+#pinch-scene:hover {
+  cursor: move;
+}
+
+#pinch-container {
+  width: 20px;
+  height: 30px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(0px) rotate3d(1, 1, 1, 180deg);
+}
+
+.box__face--front,
+.box__face--back {
+  width: 30px;
+  height: 20px;
+  position: absolute;
+}
+
+.box__face--right,
+.box__face--left {
+  width: 10px;
+  height: 20px;
+  position: absolute;
+  left: 10px;
+}
+
+.box__face--top,
+.box__face--bottom {
+  width: 30px;
+  height: 10px;
+  position: absolute;
+  top: 5px;
+}
+
+.box__face--front {
+  transform: rotateY(0deg) translateZ(5px);
+}
+.box__face--back {
+  transform: rotateY(180deg) translateZ(5px);
+}
+
+.box__face--right {
+  transform: rotateY(90deg) translateZ(15px);
+}
+.box__face--left {
+  transform: rotateY(-90deg) translateZ(15px);
+}
+
+.box__face--top {
+  transform: rotateX(90deg) translateZ(10px);
+}
+.box__face--bottom {
+  transform: rotateX(-90deg) translateZ(10px);
+}

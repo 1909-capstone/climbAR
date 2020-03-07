@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { htmlDate } from '../utils';
 import { connect } from 'react-redux';
-import CreateCanvasDimensions from './CreateCanvasDimensions';
 import CreateRouteGrade from './CreateRouteGrade';
 import CreateRouteExpiration from './CreateRouteExpiration';
 import CreateRouteHoldsColor from './CreateRouteHoldsColor';
@@ -17,8 +16,6 @@ class CreateRouteForm extends Component {
     //passing the percentage to the progress bar
     percentage: 20,
     label: 'Dimensions',
-    areaHeight: '',
-    areaWidth: '',
     grade: '',
     endDate: htmlDate(14),
     holdColor: ''
@@ -59,16 +56,9 @@ class CreateRouteForm extends Component {
     this.setState({[e.target.name]: e.target.value})
   };
   render() {
-    const {
-      step,
-      areaHeight,
-      areaWidth,
-      grade,
-      endDate,
-      holdColor
-    } = this.state;
+    const { step, grade, endDate, holdColor } = this.state;
     //able to pass the values into the next/previous component
-    const values = { step, areaHeight, areaWidth, grade, endDate, holdColor };
+    const values = { step, grade, endDate, holdColor };
     switch (step) {
       case 1:
         return (
@@ -106,7 +96,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 3:
+      case 2:
         return (
           <div>
             <ProgressBar
@@ -124,7 +114,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 4:
+      case 3:
         return (
           <div>
             <ProgressBar
@@ -142,7 +132,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 5:
+      case 4:
         return (
           <div>
             <ProgressBar

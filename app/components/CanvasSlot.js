@@ -3,6 +3,7 @@ import { ItemTypes } from '../draggable';
 import { useDrop } from 'react-dnd';
 import HoldDropped from './HoldDropped';
 import CoordinateTooltip from './CoordinateTooltip';
+import Pinch from './Pinch';
 
 const CanvasSlot = ({
   x,
