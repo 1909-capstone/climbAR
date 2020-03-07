@@ -46,7 +46,7 @@ User.belongsTo(Session);
 
 //Image Association
 ClimbingRoute.belongsToMany(User, { through: RouteImage });
-ClimbingRoute.hasMany(RouteImage);
+ClimbingRoute.hasOne(RouteImage);
 User.hasMany(RouteImage);
 
 module.exports = {
