@@ -171,11 +171,11 @@ class RouteCanvas extends React.Component {
                     )}
                   </div>
                 </div>
-                <div className="cube__face cube__face--back">back</div>
-                <div className="cube__face cube__face--right">right</div>
-                <div className="cube__face cube__face--left">left</div>
-                <div className="cube__face cube__face--top">top</div>
-                <div className="cube__face cube__face--bottom">bottom</div>
+                <div className="cube__face cube__face--back"></div>
+                <div className="cube__face cube__face--right"></div>
+                <div className="cube__face cube__face--left"></div>
+                <div className="cube__face cube__face--top"></div>
+                <div className="cube__face cube__face--bottom"></div>
               </div>
             </div>
           </div>
