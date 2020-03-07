@@ -63,4 +63,47 @@ router.post('/new', (req, res, next) => {
     });
 });
 
+//create a new climbing route by the image
+router.post('/newimage', (req, res, next) => {
+  console.log('POSTING NEW ROUTE');
+  console.log(req.body);
+  const {
+    areaWidth,
+    areaHeight,
+    grade,
+    status,
+    endDate,
+    holdColor,
+    holds
+  } = req.body;
+  ClimbingRoute.create({
+    areaWidth,
+    areaHeight,
+    grade,
+    status: 'installed',
+    endDate,
+    holdColor
+  })
+    .then(newRoute => {
+      const routeModels = Promise.all(
+        holds.map(_hold =>
+          RouteModel.create({
+            holdId: _hold.id,
+            positionX: _hold.coordinateX,
+            positionY: _hold.coordinateY,
+            positionZ: _hold.coordinateZ,
+            climbingRouteId: newRoute.id
+          })
+        )
+      );
+      return routeModels;
+    })
+    .then(models => res.status(200).send({ models }))
+    .catch(e => {
+      res.status(400);
+      console.log(e);
+      next(e);
+    });
+});
+
 module.exports = router;

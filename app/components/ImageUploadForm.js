@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { uploadRouteImage } from '../redux/thunks/routeImagesThunks';
+import { createRouteModelByImage } from '../redux/thunks/routeModelThunks';
 
 class ImageUploadForm extends Component {
   state = {
@@ -52,8 +53,7 @@ const mapState = ({ user, climbingRoute }) => ({ user, climbingRoute });
 const mapDispatch = dispatch => {
   return {
     fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
-    uploadRouteImage: (file ) =>
-      dispatch(uploadRouteImage(file))
+    uploadRouteImage: file => dispatch(uploadRouteImage(file))
   };
 };
 export default connect(null, mapDispatch)(ImageUploadForm);

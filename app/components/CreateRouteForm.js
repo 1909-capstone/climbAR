@@ -7,13 +7,15 @@ import CreateRouteExpiration from './CreateRouteExpiration';
 import CreateRouteHoldsColor from './CreateRouteHoldsColor';
 import CreateRoute from './CreateRoute';
 import { setRouteModel } from '../redux/actions';
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import CreateRouteOptions from './CreateRouteOptions';
+import ImageUpload from './ImageUpload';
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
     //passing the percentage to the progress bar
-    percentage: 25,
+    percentage: 20,
     label: 'Dimensions',
     areaHeight: '',
     areaWidth: '',
@@ -26,7 +28,7 @@ class CreateRouteForm extends Component {
     const { step } = this.state;
     this.setState({
       step: step + 1,
-      percentage: this.state.percentage + 25
+      percentage: this.state.percentage + 20
     });
   };
   //Go back to the previous step
@@ -34,7 +36,21 @@ class CreateRouteForm extends Component {
     const { step } = this.state;
     this.setState({
       step: step - 1,
-      percentage: this.state.percentage - 25
+      percentage: this.state.percentage - 20
+    });
+  };
+  uploadImageStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step + 2,
+      percentage: this.state.percentage + 40
+    });
+  };
+  uploadImagePrevStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step - 2,
+      percentage: this.state.percentage - 40
     });
   };
   // handles the fields change, each input will have its own state
@@ -56,7 +72,13 @@ class CreateRouteForm extends Component {
       case 1:
         return (
           <div>
-            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Route Grade'}/>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Route Grade'}
+            />
             <CreateRouteGrade
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -67,7 +89,13 @@ class CreateRouteForm extends Component {
       case 2:
         return (
           <div>
-            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Expiration Date'}/>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Expiration Date'}
+            />
             <CreateRouteExpiration
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -78,7 +106,13 @@ class CreateRouteForm extends Component {
       case 3:
         return (
           <div>
-            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Hold Color'}/>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Hold Color'}
+            />
             <CreateRouteHoldsColor
               nextStep={this.nextStep}
               prevStep={this.prevStep}
@@ -89,20 +123,55 @@ class CreateRouteForm extends Component {
       case 4:
         return (
           <div>
-            <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Create Model'}/>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Hold Color'}
+            />
+            <CreateRouteOptions
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              uploadImageStep={this.uploadImageStep}
+              handleChange={this.handleInput}
+            />
+          </div>
+        );
+      case 5:
+        return (
+          <div>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Create Model'}
+            />
             <CreateRoute
               prevStep={this.prevStep}
               handleChange={this.handleInput}
-              values={values}
               nextStep={this.nextStep}
             />
           </div>
         );
-      //   case 5: return (
-      //     <div>
-      //     <ProgressBar striped variant="warning" animated now={this.state.percentage} label={'Create Model'}/>
-      //   </div>
-      // )
+      case 6:
+        return (
+          <div>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Upload Image to Canvas'}
+            />
+            <ImageUpload
+              uploadImagePrevStep={this.uploadImagePrevStep}
+              handleChange={this.handleInput}
+              values={values}
+            />
+          </div>
+        );
     }
   }
 }

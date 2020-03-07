@@ -52,3 +52,30 @@ export function fetchRouteModels() {
       .catch(e => {});
   };
 }
+
+export function createRouteModelByImage(model) {
+  return dispatch => {
+    return axios
+      .post(`/api/routemodels/new`, model)
+      .then(() => {
+        dispatch(fetchRouteModels());
+      })
+      .then(() => {
+        dispatch(
+          statusMessage({
+            status: SUCCESS,
+            text: 'Route Created'
+          })
+        );
+      })
+      .catch(e => {
+        console.error(e);
+        dispatch(
+          statusMessage({
+            status: FAIL,
+            text: 'Cannot create route '
+          })
+        );
+      });
+  };
+}
