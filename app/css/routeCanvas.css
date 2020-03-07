@@ -70,3 +70,7 @@
 .show-front {
   transform: translateZ(-50px) rotateY(0deg);
 }
+
+i hover {
+  cursor: pointer;
+}

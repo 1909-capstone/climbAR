@@ -33,6 +33,32 @@ class RouteCanvas extends React.Component {
     this.rotateY = this.rotateY.bind(this);
     this.rotateX = this.rotateX.bind(this);
   }
+  componentDidMount() {
+    const { rotateX, rotateY } = this;
+    window.addEventListener('keydown', e => {
+      const { keyCode } = e;
+      console.log(keyCode);
+      switch (keyCode) {
+        case 37:
+          rotateY(-5);
+          return;
+        case 39:
+          rotateY(5);
+          return;
+        case 38:
+          rotateX(-5);
+          return;
+        case 40:
+          rotateX(5);
+          return;
+        default:
+          return;
+      }
+    });
+  }
+  componentWillUnmount() {
+    window.onkeydown = '';
+  }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -57,13 +83,20 @@ class RouteCanvas extends React.Component {
     const { tooltip } = this.state;
     this.setState({ tooltip: { ...tooltip, display: false } });
   }
-  rotateY(e) {
+  rotateY(rotation) {
+    console.log(rotation);
     const { cubePos } = this.state;
-    this.setState({ cubePos: { ...cubePos, y: e.target.value } });
+    if ((cubePos.y > 100 && rotation > 0) || (cubePos.y < -100 && rotation < 0))
+      return;
+    const newPos = cubePos.y + Number(rotation);
+    this.setState({ cubePos: { ...cubePos, y: newPos } });
   }
-  rotateX(e) {
+  rotateX(rotation) {
     const { cubePos } = this.state;
-    this.setState({ cubePos: { ...cubePos, x: e.target.value } });
+    if ((cubePos.x > 100 && rotation > 0) || (cubePos.x < -100 && rotation < 0))
+      return;
+    const newPos = cubePos.x + Number(rotation);
+    this.setState({ cubePos: { ...cubePos, x: newPos } });
   }
   render() {
     const {
@@ -142,27 +175,46 @@ class RouteCanvas extends React.Component {
               </div>
             </div>
             <div style={{ marginTop: '3em', zIndex: '100' }}>
-              <input
-                style={{ zIndex: '100' }}
-                onChange={rotateY}
-                type="range"
-                min="0"
-                max="360"
-                step="1"
-                value={cubePos.y}
-              />
+              <div style={{ display: 'flex' }}>
+                <i
+                  className="material-icons"
+                  onClick={() => {
+                    rotateY(-5);
+                  }}
+                >
+                  keyboard_arrow_left
+                </i>
+                <i
+                  className="material-icons"
+                  onClick={() => {
+                    rotateY(5);
+                  }}
+                >
+                  keyboard_arrow_right
+                </i>
+              </div>
               <div>Rotation on Y Axis: {cubePos.y} deg</div>
             </div>
           </div>
           <div style={{ transform: 'rotate(90deg)' }}>
-            <input
-              onChange={rotateX}
-              type="range"
-              min="-360"
-              max="360"
-              step="1"
-              value={cubePos.x}
-            />
+            <div style={{ display: 'flex' }}>
+              <i
+                className="material-icons"
+                onClick={() => {
+                  rotateX(-5);
+                }}
+              >
+                keyboard_arrow_left
+              </i>
+              <i
+                className="material-icons"
+                onClick={() => {
+                  rotateX(5);
+                }}
+              >
+                keyboard_arrow_right
+              </i>
+            </div>
             <div>Rotation on X Axis: {cubePos.x} deg</div>
           </div>
         </div>
