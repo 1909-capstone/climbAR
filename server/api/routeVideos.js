@@ -55,4 +55,14 @@ router.post('/', (req, res, next) => {
   );
 });
 
+router.delete('/:id', (req, res, next) => {
+  Video.findByPk(req.params.id)
+    .then(video => video.destroy())
+    .then(() => res.status(202).send('video is deleted'))
+    .catch(e => {
+      res.status(404);
+      next(e);
+    });
+});
+
 module.exports = router;
