@@ -33,3 +33,29 @@ export const uploadRouteVideo = videoData => {
       });
   };
 };
+
+export const removeRouteVideo = (video, routeId) => {
+  return dispatch => {
+    return axios
+      .delete(`/api/routevideos/${video.id}`)
+      .then(() => {
+        dispatch(fetchSingleClimbingRoute(routeId));
+      })
+      .then(() => {
+        dispatch(
+          statusMessage({
+            status: SUCCESS,
+            text: 'Video has been removed successfully'
+          })
+        );
+      })
+      .catch(e => {
+        dispatch(
+          statusMessage({
+            status: FAIL,
+            text: 'Cannot remove video'
+          })
+        );
+      });
+  };
+};
