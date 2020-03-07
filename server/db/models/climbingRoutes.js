@@ -17,12 +17,6 @@ const ClimbingRoute = db.define('climbingRoute', {
     allowNull: false,
     type: STRING
   },
-  areaHeight: {
-    type: DECIMAL
-  },
-  areaWidth: {
-    type: DECIMAL
-  },
   status: {
     type: STRING,
     validate: {

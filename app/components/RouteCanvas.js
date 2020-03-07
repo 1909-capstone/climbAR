@@ -1,5 +1,6 @@
 import React from 'react';
 import style from '../css/routeCanvas.css';
+import Pinch from './Pinch';
 import CanvasSlot from './CanvasSlot';
 import { connect } from 'react-redux';
 import {
@@ -25,6 +26,53 @@ class RouteCanvas extends React.Component {
         z: -50,
         y: 0,
         x: 0
+      },
+      cubeDimensions: {
+        parent: {
+          width: 200,
+          height: 300,
+          translateY: 0
+        },
+        front: {
+          width: 300,
+          height: 200,
+          rotateY: 0,
+          translateZ: 50
+        },
+        back: {
+          rotateY: 180,
+          translateZ: -50,
+          width: 300,
+          height: 200
+        },
+        left: {
+          rotateY: -90,
+          translateZ: 0,
+          width: 100,
+          height: 200,
+          left: -50
+        },
+        right: {
+          rotateY: 90,
+          translateZ: 0,
+          width: 100,
+          height: 200,
+          left: 250
+        },
+        top: {
+          rotateX: 90,
+          translateZ: 0,
+          width: 300,
+          height: 100,
+          top: -50
+        },
+        bottom: {
+          rotateX: -90,
+          translateZ: 0,
+          width: 300,
+          height: 100,
+          top: 150
+        }
       }
     };
     this.handleInput = this.handleInput.bind(this);
@@ -32,6 +80,8 @@ class RouteCanvas extends React.Component {
     // this.handleMouseOff = this.handleMouseOff.bind(this);
     this.rotateY = this.rotateY.bind(this);
     this.rotateX = this.rotateX.bind(this);
+    this.increaseSize = this.increaseSize.bind(this);
+    this.decreaseSize = this.decreaseSize.bind(this);
   }
   componentDidMount() {
     const { rotateX, rotateY } = this;
@@ -96,19 +146,50 @@ class RouteCanvas extends React.Component {
     const newPos = cubePos.x + Number(rotation);
     this.setState({ cubePos: { ...cubePos, x: newPos } });
   }
+  increaseSize() {
+    const state = { ...this.state };
+    if (state.cubeDimensions.parent.width >= 500) return;
+    state.cubeDimensions.parent.translateY += 50;
+    for (let side in state.cubeDimensions) {
+      let vals = state.cubeDimensions[side];
+      vals.width += 50;
+      vals.height += 50;
+      if (vals.left) vals.left += 25;
+      if (side === 'front') vals.translateZ += 25;
+      if (side === 'back') vals.translateZ -= 25;
+    }
+    this.setState(state);
+  }
+  decreaseSize() {
+    const state = { ...this.state };
+    if (state.cubeDimensions.parent.width <= 100) return;
+    state.cubeDimensions.parent.translateY -= 50;
+    for (let side in state.cubeDimensions) {
+      let vals = state.cubeDimensions[side];
+      vals.width -= 50;
+      vals.height -= 50;
+      if (vals.left) vals.left -= 25;
+      if (side === 'front') vals.translateZ -= 25;
+      if (side === 'back') vals.translateZ += 25;
+    }
+    this.setState(state);
+  }
   render() {
     const {
       state: {
         width,
         height,
         tooltip: { left, top, display, x, y },
-        cubePos
+        cubePos,
+        cubeDimensions
       },
       props: { routeModel, setNewHold, setNewDraggingHold },
       // handleMouseOver,
       // handleMouseOff,
       rotateY,
-      rotateX
+      rotateX,
+      increaseSize,
+      decreaseSize
     } = this;
     return (
       <div>
@@ -125,16 +206,20 @@ class RouteCanvas extends React.Component {
               <div
                 id="canvas-cube"
                 style={{
-                  width: '200px',
-                  height: '300px',
+                  width: `${cubeDimensions.parent.width}px`,
+                  height: `${cubeDimensions.parent.height}px`,
                   position: 'relative',
                   transformStyle: 'preserve-3d',
-                  transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg) rotateX(${cubePos.x}deg) rotate(90deg)`
+                  transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg) rotateX(${cubePos.x}deg) rotate(90deg) translateY(${cubeDimensions.parent.translateY}px)`
                 }}
               >
                 <div
-                  className="route_canvas cube__face cube__face--front"
-                  // style={{ width: `${width}em`, height: `${height}em` }}
+                  className="cube__face cube__face--front"
+                  style={{
+                    width: `${cubeDimensions.front.width}px`,
+                    height: `${cubeDimensions.front.height}px`,
+                    transform: `translateZ(${cubeDimensions.front.translateZ}px) rotateY(${cubeDimensions.front.rotateY}deg)`
+                  }}
                 >
                   <div
                     style={{
@@ -171,11 +256,50 @@ class RouteCanvas extends React.Component {
                     )}
                   </div>
                 </div>
-                <div className="cube__face cube__face--back"></div>
-                <div className="cube__face cube__face--right"></div>
-                <div className="cube__face cube__face--left"></div>
-                <div className="cube__face cube__face--top"></div>
-                <div className="cube__face cube__face--bottom"></div>
+                <div
+                  className="cube__face cube__face--back"
+                  style={{
+                    width: `${cubeDimensions.back.width}px`,
+                    height: `${cubeDimensions.back.height}px`,
+                    transform: `translateZ(${cubeDimensions.back.translateZ}px) rotateY(${cubeDimensions.back.rotateY}deg)`
+                  }}
+                ></div>
+                <div
+                  className="cube__face cube__face--right"
+                  style={{
+                    width: `${cubeDimensions.right.width}px`,
+                    height: `${cubeDimensions.right.height}px`,
+                    transform: `translateZ(${cubeDimensions.right.translateZ}px) rotateY(${cubeDimensions.right.rotateY}deg)`,
+                    left: `${cubeDimensions.right.left}px`
+                  }}
+                ></div>
+                <div
+                  className="cube__face cube__face--left"
+                  style={{
+                    width: `${cubeDimensions.left.width}px`,
+                    height: `${cubeDimensions.left.height}px`,
+                    transform: `translateZ(${cubeDimensions.left.translateZ}px) rotateY(${cubeDimensions.left.rotateY}deg)`,
+                    left: `${Math.floor(cubeDimensions.left.width / -2)}px`
+                  }}
+                ></div>
+                <div
+                  className="cube__face cube__face--top"
+                  style={{
+                    width: `${cubeDimensions.top.width}px`,
+                    height: `${cubeDimensions.top.height}px`,
+                    transform: `translateZ(${cubeDimensions.top.translateZ}px) rotateX(${cubeDimensions.top.rotateX}deg)`,
+                    top: `${Math.floor(cubeDimensions.top.width / 2)}px`
+                  }}
+                ></div>
+                <div
+                  className="cube__face cube__face--bottom"
+                  style={{
+                    width: `${cubeDimensions.bottom.width}px`,
+                    height: `${cubeDimensions.bottom.height}px`,
+                    transform: `translateZ(${cubeDimensions.bottom.translateZ}px) rotateX(${cubeDimensions.bottom.rotateX}deg)`,
+                    top: `${Math.floor(cubeDimensions.bottom.height / -2)}px`
+                  }}
+                ></div>
               </div>
             </div>
           </div>
@@ -216,6 +340,21 @@ class RouteCanvas extends React.Component {
                 }}
               >
                 keyboard_arrow_right
+              </i>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                marginTop: '2em',
+                width: '4em',
+                justifyContent: 'space-between'
+              }}
+            >
+              <i className="material-icons" onClick={decreaseSize}>
+                zoom_out
+              </i>
+              <i className="material-icons" onClick={increaseSize}>
+                zoom_in
               </i>
             </div>
           </div>

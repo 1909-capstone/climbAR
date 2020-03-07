@@ -35,8 +35,8 @@ class RouteModel extends React.Component {
           src="#wallTexture"
           rotation="0 0 0"
           position="0 1.7 -2"
-          height={climbingRoute.areaHeight}
-          width={climbingRoute.areaWidth}
+          height="4"
+          width="3"
         />
         <Entity primitive="a-light" type="ambient" color="#625230" />
         <Entity
