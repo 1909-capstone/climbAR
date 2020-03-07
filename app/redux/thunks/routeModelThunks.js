@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
 
+
 export function setNewHold(hold) {
   return dispatch => dispatch(setHold(hold));
 }
@@ -50,32 +51,5 @@ export function fetchRouteModels() {
         dispatch(setRouteModels(res.data));
       })
       .catch(e => {});
-  };
-}
-
-export function createRouteModelByImage(model) {
-  return dispatch => {
-    return axios
-      .post(`/api/routemodels/new`, model)
-      .then(() => {
-        dispatch(fetchRouteModels());
-      })
-      .then(() => {
-        dispatch(
-          statusMessage({
-            status: SUCCESS,
-            text: 'Route Created'
-          })
-        );
-      })
-      .catch(e => {
-        console.error(e);
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: 'Cannot create route '
-          })
-        );
-      });
   };
 }

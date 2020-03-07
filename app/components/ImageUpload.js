@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ImageUploadForm from './ImageUploadForm';
 import { Button } from 'react-bootstrap';
-import { createRouteModelByImage } from '../redux/thunks/routeModelThunks';
 
 class ImageComponent extends Component {
   uploadPrevious = e => {
@@ -12,13 +11,11 @@ class ImageComponent extends Component {
   render() {
     const {
       routeImage,
-      createRouteModelByImage,
-      routeModel,
       values
     } = this.props;
     return (
       <div className="container mt-4">
-        <ImageUploadForm />
+        <ImageUploadForm values={values }/>
         {routeImage ? (
           <div className="row mt-5">
             <div className="col-md-6 m-auto">
@@ -34,21 +31,14 @@ class ImageComponent extends Component {
         >
           Previous
         </Button>
-        <Button
-          variant="outline-dark"
-          onClick={() => {
-            createRouteModelByImage(routeModel);
-          }}
-        >
-          Save New Route
-        </Button>
       </div>
     );
   }
 }
 
-const mapState = ({ routeImage, routeModel }) => ({ routeImage, routeModel });
-
+const mapState = ({ routeImage }) => ({
+  routeImage,
+});
 const mapDispatch = dispatch => {
   return {
     createRouteModelByImage: model => dispatch(createRouteModelByImage(model))

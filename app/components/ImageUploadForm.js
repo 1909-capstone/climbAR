@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { uploadRouteImage } from '../redux/thunks/routeImagesThunks';
-import { createRouteModelByImage } from '../redux/thunks/routeModelThunks';
 
 class ImageUploadForm extends Component {
   state = {
@@ -17,10 +16,16 @@ class ImageUploadForm extends Component {
   };
   handleOnSubmit = e => {
     e.preventDefault();
+    const { values } = this.props;
+    console.log('these are the values', this.props); 
+
     const formData = new FormData();
-    //default Javascript Object in order to send a file
+    //default Javascript Object in order to send a file and appending data to the file object
     formData.append('file', this.state.file);
     formData.append('user', this.props.user);
+    // Object.keys(values).forEach(key => {
+    //   formData.append(`${[key]}`, values[key]);
+    // });
     this.props.uploadRouteImage(formData);
   };
   render() {
@@ -49,11 +54,11 @@ class ImageUploadForm extends Component {
     );
   }
 }
-const mapState = ({ user, climbingRoute }) => ({ user, climbingRoute });
+const mapState = ({ user, routeModel }) => ({ user, routeModel });
+
 const mapDispatch = dispatch => {
   return {
-    fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
     uploadRouteImage: file => dispatch(uploadRouteImage(file))
   };
 };
-export default connect(null, mapDispatch)(ImageUploadForm);
+export default connect(mapState, mapDispatch)(ImageUploadForm);

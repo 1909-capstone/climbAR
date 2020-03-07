@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { htmlDate } from '../utils';
+
 
 class CreateRouteOptions extends Component {
   continue = e => {
@@ -28,10 +30,10 @@ class CreateRouteOptions extends Component {
       >
         <div>Please select on how you want to create your Climbing Route! </div>
         <Button onClick={this.continue} variant="outline-dark" size="lg">
-          Create Route Form
+          Create your Own Canvas
         </Button>
         <Button onClick={this.uploadContinue} variant="outline-dark" size="lg">
-          Upload Image as Canvas
+          Upload Image as the Canvas
         </Button>
         <div>
           <Button
@@ -47,4 +49,10 @@ class CreateRouteOptions extends Component {
   }
 }
 
-export default CreateRouteOptions;
+const mapState = ({ routeModel }) => ({ routeModel });
+const mapDispatch = dispatch => {
+  return {
+    createRouteModelByImage: routeDetails => dispatch(createRouteModelByImage(routeDetails))
+  };
+};
+export default connect(mapState, mapDispatch)(CreateRouteOptions);

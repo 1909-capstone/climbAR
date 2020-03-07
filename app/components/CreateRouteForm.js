@@ -56,6 +56,7 @@ class CreateRouteForm extends Component {
   // handles the fields change, each input will have its own state
   handleInput = e => {
     this.props.setRouteModel({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value})
   };
   render() {
     const {
@@ -83,6 +84,7 @@ class CreateRouteForm extends Component {
               nextStep={this.nextStep}
               prevStep={this.prevStep}
               handleChange={this.handleInput}
+              values={values}
             />
           </div>
         );
@@ -100,6 +102,7 @@ class CreateRouteForm extends Component {
               nextStep={this.nextStep}
               prevStep={this.prevStep}
               handleChange={this.handleInput}
+              values={values}
             />
           </div>
         );
@@ -117,6 +120,7 @@ class CreateRouteForm extends Component {
               nextStep={this.nextStep}
               prevStep={this.prevStep}
               handleChange={this.handleInput}
+              values={values}
             />
           </div>
         );
@@ -176,7 +180,11 @@ class CreateRouteForm extends Component {
   }
 }
 
-const mapState = ({ routeModel }) => ({ routeModel });
+const mapState = ({ routeModel, ClimbingRoute, ClimbingRoutes }) => ({
+  routeModel,
+  ClimbingRoute,
+  ClimbingRoutes
+});
 
 const mapDispatch = dispatch => {
   return {
