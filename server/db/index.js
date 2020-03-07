@@ -44,7 +44,9 @@ User.hasMany(Video);
 Session.hasOne(User);
 User.belongsTo(Session);
 
-RouteImage.belongsToMany(User, { through: ClimbingRoute });
+//Image Association
+ClimbingRoute.belongsToMany(User, { through: RouteImage });
+ClimbingRoute.hasOne(RouteImage);
 User.hasMany(RouteImage);
 
 module.exports = {

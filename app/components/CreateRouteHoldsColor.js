@@ -45,10 +45,10 @@ class CreateRouteHoldsColor extends Component {
             <option value="#ededed">White</option>
           </Form.Control>
         </Form.Group>
-        <Button label="previous" onClick={this.previous}>
+        <Button label="previous" onClick={this.previous} variant="outline-dark">
           Previous
         </Button>
-        <Button label="continue" onClick={this.continue}>
+        <Button label="continue" onClick={this.continue} variant="outline-dark">
           Continue
         </Button>
       </div>

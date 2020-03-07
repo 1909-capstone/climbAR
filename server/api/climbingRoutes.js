@@ -7,7 +7,8 @@ const {
   LikedRoute,
   Rating,
   Hold,
-  Video
+  Video,
+  RouteImage
 } = models;
 
 //finds and gets all the climbing routes in the database
@@ -21,7 +22,8 @@ router.get('/', (req, res, next) => {
       },
       { model: LikedRoute, required: false },
       { model: Rating, required: false },
-      { model: Video, required: false }
+      { model: Video, required: false },
+      { model: RouteImage, required: false }
     ]
   })
     .then(allRoutes => res.status(200).send(allRoutes))
@@ -36,7 +38,11 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const climbingRouteId = req.params.id;
   ClimbingRoute.findByPk(climbingRouteId, {
-    include: [{ model: RouteModel }, { model: Video, required: false }]
+    include: [
+      { model: RouteModel },
+      { model: Video, required: false },
+      { model: RouteImage, required: false }
+    ]
   })
     .then(route => {
       // console.log('route models = ', route.dataValues.routeModels);
