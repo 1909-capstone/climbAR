@@ -49,8 +49,6 @@ export const routeModel = (
     sorted_holds: {},
     grade: '',
     holdColor: '',
-    areaHeight: 10,
-    areaWidth: 15,
     status: 'installed',
     endData: moment(htmlDate(14))
   },

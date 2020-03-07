@@ -24,18 +24,8 @@ router.get('/', (req, res, next) => {
 router.post('/new', (req, res, next) => {
   console.log('POSTING NEW ROUTE');
   console.log(req.body);
-  const {
-    areaWidth,
-    areaHeight,
-    grade,
-    status,
-    endDate,
-    holdColor,
-    holds
-  } = req.body;
+  const { grade, status, endDate, holdColor, holds } = req.body;
   ClimbingRoute.create({
-    areaWidth,
-    areaHeight,
     grade,
     status: 'installed',
     endDate,
