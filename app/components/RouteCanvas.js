@@ -28,42 +28,73 @@ class RouteCanvas extends React.Component {
       }
     };
     this.handleInput = this.handleInput.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOff = this.handleMouseOff.bind(this);
+    // this.handleMouseOver = this.handleMouseOver.bind(this);
+    // this.handleMouseOff = this.handleMouseOff.bind(this);
     this.rotateY = this.rotateY.bind(this);
     this.rotateX = this.rotateX.bind(this);
+  }
+  componentDidMount() {
+    const { rotateX, rotateY } = this;
+    window.addEventListener('keydown', e => {
+      const { keyCode } = e;
+      switch (keyCode) {
+        case 37:
+          rotateY(-5);
+          return;
+        case 39:
+          rotateY(5);
+          return;
+        case 38:
+          rotateX(-5);
+          return;
+        case 40:
+          rotateX(5);
+          return;
+        default:
+          return;
+      }
+    });
+  }
+  componentWillUnmount() {
+    window.onkeydown = '';
   }
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleMouseOver(e) {
-    const {
-      target,
-      target: { offsetParent }
-    } = e;
-    const xPos = e.screenX - offsetParent.offsetLeft;
-    const yPos = e.screenY - offsetParent.offsetHeight;
-    this.setState({
-      tooltip: {
-        left: xPos,
-        top: yPos,
-        display: true,
-        x: target.getAttribute('x'),
-        y: target.getAttribute('y')
-      }
-    });
-  }
-  handleMouseOff() {
-    const { tooltip } = this.state;
-    this.setState({ tooltip: { ...tooltip, display: false } });
-  }
-  rotateY(e) {
+  // handleMouseOver(e) {
+  //   const {
+  //     target,
+  //     target: { offsetParent }
+  //   } = e;
+  //   const xPos = e.screenX - offsetParent.offsetLeft;
+  //   const yPos = e.screenY - offsetParent.offsetHeight;
+  //   this.setState({
+  //     tooltip: {
+  //       left: xPos,
+  //       top: yPos,
+  //       display: true,
+  //       x: target.getAttribute('x'),
+  //       y: target.getAttribute('y')
+  //     }
+  //   });
+  // }
+  // handleMouseOff() {
+  //   const { tooltip } = this.state;
+  //   this.setState({ tooltip: { ...tooltip, display: false } });
+  // }
+  rotateY(rotation) {
     const { cubePos } = this.state;
-    this.setState({ cubePos: { ...cubePos, y: e.target.value } });
+    if ((cubePos.y > 100 && rotation > 0) || (cubePos.y < -100 && rotation < 0))
+      return;
+    const newPos = cubePos.y + Number(rotation);
+    this.setState({ cubePos: { ...cubePos, y: newPos } });
   }
-  rotateX(e) {
+  rotateX(rotation) {
     const { cubePos } = this.state;
-    this.setState({ cubePos: { ...cubePos, x: e.target.value } });
+    if ((cubePos.x > 100 && rotation > 0) || (cubePos.x < -100 && rotation < 0))
+      return;
+    const newPos = cubePos.x + Number(rotation);
+    this.setState({ cubePos: { ...cubePos, x: newPos } });
   }
   render() {
     const {
@@ -74,15 +105,21 @@ class RouteCanvas extends React.Component {
         cubePos
       },
       props: { routeModel, setNewHold, setNewDraggingHold },
-      handleMouseOver,
-      handleMouseOff,
+      // handleMouseOver,
+      // handleMouseOff,
       rotateY,
       rotateX
     } = this;
     return (
       <div>
         <div>Canvas</div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '3.75em'
+          }}
+        >
           <div>
             <div id="canvas">
               <div
@@ -92,7 +129,7 @@ class RouteCanvas extends React.Component {
                   height: '300px',
                   position: 'relative',
                   transformStyle: 'preserve-3d',
-                  transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg) rotateX(${cubePos.x}deg)`
+                  transform: `translateZ(${cubePos.z}px) rotateY(${cubePos.y}deg) rotateX(${cubePos.x}deg) rotate(90deg)`
                 }}
               >
                 <div
@@ -107,8 +144,8 @@ class RouteCanvas extends React.Component {
                       display: 'flex',
                       flexWrap: 'wrap'
                     }}
-                    onMouseOver={handleMouseOver}
-                    onMouseLeave={handleMouseOff}
+                    // onMouseOver={handleMouseOver}
+                    // onMouseLeave={handleMouseOff}
                   >
                     <CoordinateTooltip
                       left={left}
@@ -134,36 +171,53 @@ class RouteCanvas extends React.Component {
                     )}
                   </div>
                 </div>
-                <div className="cube__face cube__face--back">back</div>
-                <div className="cube__face cube__face--right">right</div>
-                <div className="cube__face cube__face--left">left</div>
-                <div className="cube__face cube__face--top">top</div>
-                <div className="cube__face cube__face--bottom">bottom</div>
+                <div className="cube__face cube__face--back"></div>
+                <div className="cube__face cube__face--right"></div>
+                <div className="cube__face cube__face--left"></div>
+                <div className="cube__face cube__face--top"></div>
+                <div className="cube__face cube__face--bottom"></div>
               </div>
             </div>
-            <div style={{ marginTop: '3em', zIndex: '100' }}>
-              <input
-                style={{ zIndex: '100' }}
-                onChange={rotateY}
-                type="range"
-                min="0"
-                max="360"
-                step="1"
-                value={cubePos.y}
-              />
-              <div>Rotation on Y Axis: {cubePos.y} deg</div>
-            </div>
           </div>
-          <div style={{ transform: 'rotate(90deg)' }}>
-            <input
-              onChange={rotateX}
-              type="range"
-              min="-360"
-              max="360"
-              step="1"
-              value={cubePos.x}
-            />
-            <div>Rotation on X Axis: {cubePos.x} deg</div>
+          <div>
+            <div style={{ transform: 'rotate(90deg)' }}>
+              <div style={{ display: 'flex' }}>
+                <i
+                  className="material-icons"
+                  onClick={() => {
+                    rotateX(-20);
+                  }}
+                >
+                  keyboard_arrow_left
+                </i>
+                <i
+                  className="material-icons"
+                  onClick={() => {
+                    rotateX(20);
+                  }}
+                >
+                  keyboard_arrow_right
+                </i>
+              </div>
+            </div>
+            <div style={{ display: 'flex', marginTop: '2em' }}>
+              <i
+                className="material-icons"
+                onClick={() => {
+                  rotateY(-20);
+                }}
+              >
+                keyboard_arrow_left
+              </i>
+              <i
+                className="material-icons"
+                onClick={() => {
+                  rotateY(20);
+                }}
+              >
+                keyboard_arrow_right
+              </i>
+            </div>
           </div>
         </div>
       </div>
