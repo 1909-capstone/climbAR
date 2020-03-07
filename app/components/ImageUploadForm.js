@@ -16,7 +16,6 @@ class ImageUploadForm extends Component {
   };
   handleOnSubmit = e => {
     e.preventDefault();
-
     const formData = new FormData();
     //default Javascript Object in order to send a file
     formData.append('file', this.state.file);
@@ -42,17 +41,17 @@ class ImageUploadForm extends Component {
           <input
             type="submit"
             value="Upload"
-            className="btn btn-primary btn-block mt-4"
+            className="btn btn-dark btn-block mt-4"
           />
         </form>
       </Fragment>
     );
   }
 }
-const mapState = ({ user }) => ({ user });
-
+const mapState = ({ user, climbingRoute }) => ({ user, climbingRoute });
 const mapDispatch = dispatch => {
   return {
+    fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
     uploadRouteImage: (file ) =>
       dispatch(uploadRouteImage(file))
   };

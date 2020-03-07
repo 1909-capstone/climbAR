@@ -18,6 +18,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   console.log('this is the req', req);
   console.log('this is the req.user', req.user )
+  console.log('this is the req.climbing', req.climbingRoute )
   if (req.files === null) {
     return res.status(400).send({ msg: 'No File Upload' });
   }
@@ -40,13 +41,13 @@ router.post('/', (req, res, next) => {
       //if no error,add the image name and send the file name and path back to the client
       RouteImage.create({
         fileName: file.name,
-        filePath: `./public/assets/uploads/${file.name}`,
+        filePath: `/assets/uploads/${file.name}`,
         userId: req.user.id,
       })
         .then(() => {
           res
             .status(200)
-            .send({ fileName: file.name, filePath: `./public/assets/uploads/${file.name}` });
+            .send({ fileName: file.name, filePath: `/assets/uploads/${file.name}` });
         })
         .catch(e => {
           res.status(404);
