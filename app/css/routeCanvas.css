@@ -14,6 +14,7 @@
   width: 300px;
   height: 200px;
   perspective: 500px;
+  margin-bottom: 5em;
 }
 .coordinate-tooltip {
   background-color: white;
@@ -68,9 +69,9 @@
 }
 
 .show-front {
-  transform: translateZ(-50px) rotateY(0deg);
+  transform: translateZ(-150px) rotateY(0deg);
 }
 
-i hover {
+i:hover {
   cursor: pointer;
 }
