@@ -53,7 +53,7 @@ class SingleClimbingRoute extends React.Component {
         <div key={_v.id}>
           <div>
             <div>
-              <video width="400" controls>
+              <video width="400" controls muted="muted">
                 <source src={_v.url} type="video/mp4" />
                 Your browser does not support HTML5 video.
               </video>
