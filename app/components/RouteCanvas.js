@@ -13,8 +13,8 @@ class RouteCanvas extends React.Component {
   constructor() {
     super();
     this.state = {
-      width: 15,
-      height: 20,
+      width: 20,
+      height: 15,
       tooltip: {
         left: 0,
         top: 0,
