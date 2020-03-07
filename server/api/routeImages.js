@@ -17,17 +17,7 @@ router.get('/', (req, res, next) => {
 //Upload Endpoint
 router.post('/', (req, res, next) => {
   // const { user, climbingRoute } = req.body;
-  console.log('this is the req', req.body);
-  const {
-    areaWidth,
-    areaHeight,
-    grade,
-    status,
-    endDate,
-    holdColor,
-    holds
-  } = req.body;
-
+  const { grade, status, endDate, holdColor } = req.body;
   if (req.files === null) {
     return res.status(400).send({ msg: 'No File Upload' });
   }
@@ -48,18 +38,24 @@ router.post('/', (req, res, next) => {
         return res.status(500).send(err);
       }
       //if no error,add the image name and send the file name and path back to the client
-      RouteImage.create({
-        fileName: file.name,
-        filePath: `/assets/uploads/${file.name}`,
-        userId: req.user.id
+      ClimbingRoute.create({
+        grade,
+        holdColor,
+        endDate,
+        status: 'installed'
       })
-        .then(() => {
-          res
-            .status(200)
-            .send({
+        .then(_climbingRoute => {
+          RouteImage.create({
+            fileName: file.name,
+            filePath: `/assets/uploads/${file.name}`,
+            userId: req.user.id,
+            climbingRouteId: _climbingRoute.id
+          }).then(() => {
+            res.status(200).send({
               fileName: file.name,
               filePath: `/assets/uploads/${file.name}`
             });
+          });
         })
         .catch(e => {
           res.status(404);

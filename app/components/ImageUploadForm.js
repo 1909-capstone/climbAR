@@ -23,12 +23,14 @@ class ImageUploadForm extends Component {
     //default Javascript Object in order to send a file and appending data to the file object
     formData.append('file', this.state.file);
     formData.append('user', this.props.user);
-    // Object.keys(values).forEach(key => {
-    //   formData.append(`${[key]}`, values[key]);
-    // });
+    Object.keys(values).forEach(key => {
+      formData.append(`${[key]}`, values[key]);
+    });
     this.props.uploadRouteImage(formData);
   };
   render() {
+    const { values } = this.props;
+    console.log('these are the values', this.props); 
     const { fileName } = this.state;
     return (
       <Fragment>

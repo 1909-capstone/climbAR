@@ -96,7 +96,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 2:
+      case 3:
         return (
           <div>
             <ProgressBar
@@ -114,7 +114,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 3:
+      case 4:
         return (
           <div>
             <ProgressBar
@@ -132,7 +132,7 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-      case 4:
+      case 5:
         return (
           <div>
             <ProgressBar
@@ -149,6 +149,23 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
+        case 5:
+          return (
+            <div>
+              <ProgressBar
+                striped
+                variant="warning"
+                animated
+                now={this.state.percentage}
+                label={'Create Model'}
+              />
+              <CreateRoute
+                prevStep={this.prevStep}
+                handleChange={this.handleInput}
+                nextStep={this.nextStep}
+              />
+            </div>
+          );
       case 6:
         return (
           <div>

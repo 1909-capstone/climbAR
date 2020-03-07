@@ -39,6 +39,7 @@ class ImageComponent extends Component {
 const mapState = ({ routeImage }) => ({
   routeImage,
 });
+
 const mapDispatch = dispatch => {
   return {
     createRouteModelByImage: model => dispatch(createRouteModelByImage(model))
