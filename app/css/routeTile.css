@@ -46,3 +46,7 @@
   border: 1px solid;
   border-radius: 50%;
 }
+
+i:hover {
+  cursor: pointer;
+}
