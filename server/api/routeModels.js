@@ -89,7 +89,6 @@ router.post('/new', (req, res, next) => {
       );
       return res.status(200).send(newRoute)
     })
-    // .then(() => res.status(200).send(newRoute))
     .catch(e => {
       res.status(400);
       console.log(e);
