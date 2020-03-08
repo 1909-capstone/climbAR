@@ -15,7 +15,7 @@ class ImageComponent extends Component {
     } = this.props;
     return (
       <div className="container mt-4">
-        <ImageUploadForm values={values }/>
+        <ImageUploadForm values={values}/>
         {routeImage ? (
           <div className="row mt-5">
             <div className="col-md-6 m-auto">

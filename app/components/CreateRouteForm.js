@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { htmlDate } from '../utils';
 import { connect } from 'react-redux';
 import CreateRouteGrade from './CreateRouteGrade';
@@ -9,6 +9,7 @@ import { setRouteModel } from '../redux/actions';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import CreateRouteOptions from './CreateRouteOptions';
 import ImageUpload from './ImageUpload';
+import CreateRouteSuccess from './CreateRouteSuccess';
 
 class CreateRouteForm extends Component {
   state = {
@@ -18,7 +19,8 @@ class CreateRouteForm extends Component {
     label: 'Grade',
     grade: '',
     endDate: htmlDate(14),
-    holdColor: ''
+    holdColor: '',
+    routeCreated: false
   };
   //Proceed to the next step
   nextStep = () => {
@@ -26,6 +28,13 @@ class CreateRouteForm extends Component {
     this.setState({
       step: step + 1,
       percentage: this.state.percentage + 20
+    });
+  };
+  //Proceed to the next 2 steps in the case instead of 1 
+  nextStepDouble = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step + 2
     });
   };
   //Go back to the previous step
@@ -36,6 +45,7 @@ class CreateRouteForm extends Component {
       percentage: this.state.percentage - 20
     });
   };
+  //this will add the step count of 2, and percentage bar to 40 need it skip the cases
   uploadImageStep = () => {
     const { step } = this.state;
     this.setState({
@@ -134,7 +144,7 @@ class CreateRouteForm extends Component {
         );
       case 5:
         return (
-          <div>
+          <Fragment>
             <ProgressBar
               striped
               variant="warning"
@@ -145,9 +155,10 @@ class CreateRouteForm extends Component {
             <CreateRoute
               prevStep={this.prevStep}
               handleChange={this.handleInput}
-              nextStep={this.nextStep}
+              nextStepDouble={this.nextStepDouble}
+              values={values}
             />
-          </div>
+          </Fragment>
         );
       case 5:
         return (
@@ -178,19 +189,28 @@ class CreateRouteForm extends Component {
             />
             <ImageUpload
               uploadImagePrevStep={this.uploadImagePrevStep}
+              nextStep={this.nextStep}
               handleChange={this.handleInput}
               values={values}
             />
           </div>
         );
+      case 7:
+        return (
+            <CreateRouteSuccess
+              uploadImagePrevStep={this.uploadImagePrevStep}
+              handleChange={this.handleInput}
+              values={values}
+            />
+  
+        );
     }
   }
 }
 
-const mapState = ({ routeModel, ClimbingRoute, ClimbingRoutes }) => ({
+const mapState = ({ routeModel, climbingRoute  }) => ({
   routeModel,
-  ClimbingRoute,
-  ClimbingRoutes
+  climbingRoute
 });
 
 const mapDispatch = dispatch => {

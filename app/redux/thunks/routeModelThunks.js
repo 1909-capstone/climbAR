@@ -8,6 +8,7 @@ import {
 } from '../actions.js';
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
+import { fetchSingleClimbingRoute } from './climbingRoutesThunks';
 
 //put the updated route on the server
 export function editRouteModel(model) {
@@ -66,8 +67,9 @@ export function createRouteModel(model) {
   return dispatch => {
     return axios
       .post(`/api/routemodels/new`, model)
-      .then(() => {
-        dispatch(fetchRouteModels());
+      .then(res => {
+        console.log('this the response', res)
+        dispatch(fetchSingleClimbingRoute(res.data.id));
       })
       .then(() => {
         dispatch(

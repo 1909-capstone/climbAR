@@ -138,9 +138,8 @@ router.post('/new', (req, res, next) => {
           }
         })
       );
-      return routeModels;
+      return res.status(200).send(newRoute)
     })
-    .then(models => res.status(200).send({ models }))
     .catch(e => {
       res.status(400);
       console.log(e);

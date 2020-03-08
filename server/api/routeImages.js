@@ -53,7 +53,8 @@ router.post('/', (req, res, next) => {
           }).then(() => {
             res.status(200).send({
               fileName: file.name,
-              filePath: `/assets/uploads/${file.name}`
+              filePath: `/assets/uploads/${file.name}`, 
+              climbingRouteId: _climbingRoute.id 
             });
           });
         })

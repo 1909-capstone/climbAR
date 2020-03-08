@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Holds from './Holds';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
@@ -7,6 +7,7 @@ import style from '../css/createRoute.css';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
+import CreateRouteSuccess from './CreateRouteSuccess';
 import { editRouteModel } from '../redux/thunks/routeModelThunks';
 
 class CreateRoute extends React.Component {
@@ -14,9 +15,10 @@ class CreateRoute extends React.Component {
     e.preventDefault();
     this.props.prevStep();
   };
-  continue = e => {
-    e.preventDefault();
-    this.props.nextStep();
+  handleClick = routeModel => {
+    const { createRouteModel, editRouteModel } = this.props;
+    routeModel.id ? editRouteModel(routeModel) : createRouteModel(routeModel);
+    this.props.nextStepDouble();
   };
   render() {
     const { createRouteModel, routeModel, values, editRouteModel } = this.props;
@@ -32,9 +34,7 @@ class CreateRoute extends React.Component {
           <Button onClick={this.previous}> Previous </Button>
           <Button
             onClick={() => {
-              routeModel.id
-                ? editRouteModel(routeModel)
-                : createRouteModel(routeModel);
+              this.handleClick(routeModel);
             }}
           >
             {routeModel.id ? `Save Changes` : `Save New Route`}
@@ -45,7 +45,10 @@ class CreateRoute extends React.Component {
   }
 }
 
-const mapState = ({ routeModel }) => ({ routeModel });
+const mapState = ({ routeModel, climbingRoute }) => ({
+  routeModel,
+  climbingRoute
+});
 const mapDispatch = dispatch => {
   return {
     createRouteModel: model => dispatch(createRouteModel(model)),

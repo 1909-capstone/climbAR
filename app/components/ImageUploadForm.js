@@ -30,7 +30,6 @@ class ImageUploadForm extends Component {
   };
   render() {
     const { values } = this.props;
-    console.log('these are the values', this.props); 
     const { fileName } = this.state;
     return (
       <Fragment>
