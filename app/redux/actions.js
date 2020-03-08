@@ -10,8 +10,17 @@ import {
   SET_CLIMBING_ROUTE,
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
-  SET_ROUTE_VIDEO
+  SET_ROUTE_VIDEO,
+  SET_EDIT_MODEL
 } from './constants';
+
+export const setEditModel = (model, holdsData) => {
+  return {
+    type: SET_EDIT_MODEL,
+    model,
+    holdsData
+  };
+};
 
 export const setRouteVideo = video => {
   return {

@@ -6,11 +6,10 @@ import { fetchHolds } from '../redux/thunks/holdThunks';
 
 class Holds extends React.Component {
   componentDidMount() {
-    this.props.fetchHolds();
+    if (this.props.holds.length === 0) this.props.fetchHolds();
   }
   render() {
     const { holds, routeModel } = this.props;
-    console.log('route model??', routeModel);
     return (
       <div>
         <div>Holds</div>

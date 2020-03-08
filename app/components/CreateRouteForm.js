@@ -15,7 +15,7 @@ class CreateRouteForm extends Component {
     step: 1,
     //passing the percentage to the progress bar
     percentage: 20,
-    label: 'Dimensions',
+    label: 'Grade',
     grade: '',
     endDate: htmlDate(14),
     holdColor: ''
@@ -53,7 +53,7 @@ class CreateRouteForm extends Component {
   // handles the fields change, each input will have its own state
   handleInput = e => {
     this.props.setRouteModel({ [e.target.name]: e.target.value });
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   };
   render() {
     const { step, grade, endDate, holdColor } = this.state;
@@ -149,23 +149,23 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-        case 5:
-          return (
-            <div>
-              <ProgressBar
-                striped
-                variant="warning"
-                animated
-                now={this.state.percentage}
-                label={'Create Model'}
-              />
-              <CreateRoute
-                prevStep={this.prevStep}
-                handleChange={this.handleInput}
-                nextStep={this.nextStep}
-              />
-            </div>
-          );
+      case 5:
+        return (
+          <div>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Create Model'}
+            />
+            <CreateRoute
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+              nextStep={this.nextStep}
+            />
+          </div>
+        );
       case 6:
         return (
           <div>
