@@ -6,7 +6,7 @@ import {
 } from '../actions.js';
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
-
+import { fetchSingleClimbingRoute } from './climbingRoutesThunks';
 
 export function setNewHold(hold) {
   return dispatch => dispatch(setHold(hold));
@@ -20,7 +20,8 @@ export function createRouteModel(model) {
   return dispatch => {
     return axios
       .post(`/api/routemodels/new`, model)
-      .then(() => {
+      .then(res => {
+        dispatch(fetchSingleClimbingRoute(res.data.id));
         dispatch(fetchRouteModels());
       })
       .then(() => {
