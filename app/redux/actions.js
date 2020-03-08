@@ -14,10 +14,11 @@ import {
   SET_EDIT_MODEL
 } from './constants';
 
-export const setEditModel = model => {
+export const setEditModel = (model, holdsData) => {
   return {
     type: SET_EDIT_MODEL,
-    model
+    model,
+    holdsData
   };
 };
 

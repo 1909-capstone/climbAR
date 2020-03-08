@@ -7,6 +7,7 @@ import style from '../css/createRoute.css';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
+import { editRouteModel } from '../redux/thunks/routeModelThunks';
 
 class CreateRoute extends React.Component {
   previous = e => {
@@ -18,7 +19,7 @@ class CreateRoute extends React.Component {
     this.props.nextStep();
   };
   render() {
-    const { createRouteModel, routeModel, values } = this.props;
+    const { createRouteModel, routeModel, values, editRouteModel } = this.props;
     return (
       <div>
         <div className="create_route">
@@ -31,10 +32,12 @@ class CreateRoute extends React.Component {
           <Button onClick={this.previous}> Previous </Button>
           <Button
             onClick={() => {
-              createRouteModel(routeModel);
+              routeModel.id
+                ? editRouteModel(routeModel)
+                : createRouteModel(routeModel);
             }}
           >
-            Save New Route
+            {routeModel.id ? `Save Changes` : `Save New Route`}
           </Button>
         </div>
       </div>
@@ -45,7 +48,8 @@ class CreateRoute extends React.Component {
 const mapState = ({ routeModel }) => ({ routeModel });
 const mapDispatch = dispatch => {
   return {
-    createRouteModel: model => dispatch(createRouteModel(model))
+    createRouteModel: model => dispatch(createRouteModel(model)),
+    editRouteModel: model => dispatch(editRouteModel(model))
   };
 };
 

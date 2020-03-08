@@ -3,13 +3,55 @@ import {
   setRouteModels,
   statusMessage,
   setDraggingHold,
-  setEditModel
+  setEditModel,
+  setHolds
 } from '../actions.js';
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
 
+//put the updated route on the server
+export function editRouteModel(model) {
+  return dispatch => {
+    console.log('sending model to server for editing');
+    console.log(model);
+    return axios
+      .put('/api/routemodels/edit', model)
+      .then(() => {
+        dispatch(fetchRouteModels());
+      })
+      .then(() => {
+        dispatch(
+          statusMessage({
+            status: SUCCESS,
+            text: 'Route Edited'
+          })
+        );
+      })
+      .catch(e => {
+        console.error(e);
+        dispatch(
+          statusMessage({
+            status: FAIL,
+            text: 'Cannot Edit Route'
+          })
+        );
+      });
+  };
+}
+
+//set the route model for editing
 export function editModel(model) {
-  return dispatch => dispatch(setEditModel(model));
+  return dispatch => {
+    axios
+      .get(`/api/holds`)
+      .then(res => {
+        dispatch(setHolds(res.data));
+        dispatch(setEditModel(model, res.data));
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
 }
 
 export function setNewHold(hold) {
