@@ -15,8 +15,6 @@ class RouteModel extends React.Component {
     return (
       <Scene>
         <a-assets>
-          {/* <img id="skyTextureLeft" src="../assets/360-left-clean.JPG" />
-          <img id="skyTextureRight" src="../assets/360-right-clean.JPG" /> */}
           <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
           <img id="wallTexture" src="../assets/wall-background-close.JPG" />
           {climbingRoute.routeImage && (
@@ -60,8 +58,8 @@ class RouteModel extends React.Component {
               key={`hold-${_h.id}`}
               primitive={_h.hold.modelType}
               position={{
-                x: _h.positionX - 1,
-                y: _h.positionY,
+                x: (_h.positionX / 15) * 3 - 1,
+                y: (_h.positionY / 20) * 4,
                 z: _h.positionZ - 1
               }}
               rotation={{
