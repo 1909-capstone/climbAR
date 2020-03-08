@@ -14,11 +14,11 @@ class RouteTile extends React.Component {
     this.editRoute = this.editRoute.bind(this);
   }
   editRoute() {
-    this.props.setRouteModel(this.props.route);
+    this.props.editModel(this.props.route);
     this.props.history.push('/admin/create');
   }
   render() {
-    const { route, user, setRouteModel } = this.props;
+    const { route, user, editModel } = this.props;
     const component = this;
     const avgRating = average(route.ratings, 'rating');
     const daysToExpire = () => {

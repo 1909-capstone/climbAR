@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchClimbingRoutes } from '../redux/thunks/climbingRoutesThunks';
 import RouteTile from './RouteTile';
 import RouteFilters from './RouteFilters';
-import { setRouteModel } from '../redux/actions';
+import { editModel } from '../redux/thunks/routeModelThunks';
 
 class ClimbingRoutes extends React.Component {
   constructor() {
@@ -40,7 +40,7 @@ class ClimbingRoutes extends React.Component {
   }
   render() {
     const {
-      props: { climbingRoutes, user, setRouteModel },
+      props: { climbingRoutes, user, editModel },
       filter
     } = this;
     return (
@@ -55,7 +55,7 @@ class ClimbingRoutes extends React.Component {
                 route={climbingRoute}
                 user={user}
                 route={climbingRoute}
-                setRouteModel={setRouteModel}
+                editModel={editModel}
               />
             ) : (
               ''
@@ -76,7 +76,7 @@ const mapState = ({ climbingRoutes, user, routeFilters }) => ({
 const mapDispatch = dispatch => {
   return {
     fetchClimbingRoutes: () => dispatch(fetchClimbingRoutes()),
-    setRouteModel: model => dispatch(setRouteModel(model))
+    editModel: model => dispatch(editModel(model))
   };
 };
 

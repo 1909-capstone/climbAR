@@ -2,11 +2,15 @@ import {
   setHold,
   setRouteModels,
   statusMessage,
-  setDraggingHold
+  setDraggingHold,
+  setEditModel
 } from '../actions.js';
 import axios from 'axios';
 import { FAIL, SUCCESS } from './utils';
 
+export function editModel(model) {
+  return dispatch => dispatch(setEditModel(model));
+}
 
 export function setNewHold(hold) {
   return dispatch => dispatch(setHold(hold));

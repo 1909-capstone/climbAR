@@ -9,7 +9,8 @@ import {
   SET_CLIMBING_ROUTE,
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
-  SET_ROUTE_VIDEO
+  SET_ROUTE_VIDEO,
+  SET_EDIT_MODEL
 } from './constants';
 import { htmlDate } from '../utils';
 import moment from 'moment';
@@ -50,7 +51,7 @@ export const routeModel = (
     grade: '',
     holdColor: '',
     status: 'installed',
-    endData: moment(htmlDate(14))
+    endDate: moment(htmlDate(14))
   },
   action
 ) => {
@@ -85,6 +86,30 @@ export const routeModel = (
       return state;
     case SET_DRAGGING_HOLD:
       return { ...state, draggingHold: action.hold };
+    case SET_EDIT_MODEL:
+      const editModel = action.model;
+      let edit_holds = [];
+      let edit_sorted_holds = {};
+      for (let i = 0; i < editModel.routeModels.length; i++) {
+        edit_holds.push(editModel.routeModels[i]);
+        let xy = `${editModel.routeModels[
+          i
+        ].positionX.toString()}-${editModel.routeModels[
+          i
+        ].positionY.toString()}`;
+        if (!edit_sorted_holds[xy]) {
+          edit_sorted_holds[xy] = editModel.routeModels[i];
+        }
+      }
+      return {
+        holds: edit_holds,
+        draggingHold: {},
+        sorted_holds: edit_sorted_holds,
+        grade: editModel.grade,
+        holdColor: editModel.holdColor,
+        status: editModel.status,
+        endDate: editModel.endDate
+      };
     default:
       return state;
   }
