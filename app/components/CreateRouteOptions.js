@@ -1,8 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { htmlDate } from '../utils';
 
+
 class CreateRouteOptions extends Component {
+  continue = e => {
+    e.preventDefault();
+    this.props.nextStep();
+  };
+  uploadContinue = e => {
+    e.preventDefault();
+    this.props.uploadImageStep();
+  };
+  previous = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  };
   render() {
     return (
       <Form
@@ -15,15 +29,30 @@ class CreateRouteOptions extends Component {
         }}
       >
         <div>Please select on how you want to create your Climbing Route! </div>
-        <Button href="/admin/create/form " variant="outline-dark" size="lg">
-          Create Route Form
+        <Button onClick={this.continue} variant="outline-dark" size="lg">
+          Create your Own Canvas
         </Button>
-        <Button href="/admin/upload" variant="outline-dark" size="lg">
-          Upload Image
+        <Button onClick={this.uploadContinue} variant="outline-dark" size="lg">
+          Upload Image as the Canvas
         </Button>
+        <div>
+          <Button
+            label="previous"
+            onClick={this.previous}
+            variant="outline-dark"
+          >
+            Previous
+          </Button>
+        </div>
       </Form>
     );
   }
 }
 
-export default CreateRouteOptions;
+const mapState = ({ routeModel }) => ({ routeModel });
+const mapDispatch = dispatch => {
+  return {
+    createRouteModelByImage: routeDetails => dispatch(createRouteModelByImage(routeDetails))
+  };
+};
+export default connect(mapState, mapDispatch)(CreateRouteOptions);

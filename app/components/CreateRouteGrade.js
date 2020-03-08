@@ -3,6 +3,10 @@ import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class CreateRouteGrade extends Component {
+  state = {
+    error: 'Please Select Grade'
+  };
+
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -12,7 +16,8 @@ class CreateRouteGrade extends Component {
     this.props.prevStep();
   };
   render() {
-    const { routeModel, handleChange } = this.props;
+    const { routeModel, handleChange, values } = this.props;
+    const { error } = this.state;
     return (
       <div>
         <div>
@@ -48,10 +53,7 @@ class CreateRouteGrade extends Component {
             </Form.Control>
           </Form.Group>
         </div>
-        <Button label="previous" onClick={this.previous}>
-          Previous
-        </Button>
-        <Button label="continue" onClick={this.continue}>
+        <Button label="continue" onClick={this.continue} variant="outline-dark">
           Continue
         </Button>
       </div>

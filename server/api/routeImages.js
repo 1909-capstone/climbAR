@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { RouteImage } = models;
+const { RouteImage, ClimbingRoute } = models;
 const path = require('path');
 
 router.get('/', (req, res, next) => {
@@ -16,6 +16,8 @@ router.get('/', (req, res, next) => {
 
 //Upload Endpoint
 router.post('/', (req, res, next) => {
+  // const { user, climbingRoute } = req.body;
+  const { grade, status, endDate, holdColor } = req.body;
   if (req.files === null) {
     return res.status(400).send({ msg: 'No File Upload' });
   }
@@ -26,6 +28,7 @@ router.post('/', (req, res, next) => {
       __dirname,
       '../..',
       '/public',
+      '/assets',
       `/uploads/${file.name.split(' ').join('-')}`
     ),
     err => {
@@ -35,12 +38,29 @@ router.post('/', (req, res, next) => {
         return res.status(500).send(err);
       }
       //if no error,add the image name and send the file name and path back to the client
-      RouteImage.create({
-        fileName: file.name,
-        filePath: `/uploads/${file.name}`
-      }).then(() => {
-        res.send({ fileName: file.name, filePath: `/uploads/${file.name}` });
-      });
+      ClimbingRoute.create({
+        grade,
+        holdColor,
+        endDate,
+        status: 'installed'
+      })
+        .then(_climbingRoute => {
+          RouteImage.create({
+            fileName: file.name,
+            filePath: `/assets/uploads/${file.name}`,
+            userId: req.user.id,
+            climbingRouteId: _climbingRoute.id
+          }).then(() => {
+            res.status(200).send({
+              fileName: file.name,
+              filePath: `/assets/uploads/${file.name}`
+            });
+          });
+        })
+        .catch(e => {
+          res.status(404);
+          next(e);
+        });
     }
   );
 });

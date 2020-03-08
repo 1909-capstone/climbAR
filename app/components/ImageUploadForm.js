@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { uploadRouteImage } from '../redux/thunks/routeImagesThunks';
 
@@ -16,12 +16,21 @@ class ImageUploadForm extends Component {
   };
   handleOnSubmit = e => {
     e.preventDefault();
+    const { values } = this.props;
+    console.log('these are the values', this.props); 
+
     const formData = new FormData();
-    //default Javascript Object in order to send a file
+    //default Javascript Object in order to send a file and appending data to the file object
     formData.append('file', this.state.file);
-    this.props.uploadRouteImage(formData)
+    formData.append('user', this.props.user);
+    Object.keys(values).forEach(key => {
+      formData.append(`${[key]}`, values[key]);
+    });
+    this.props.uploadRouteImage(formData);
   };
   render() {
+    const { values } = this.props;
+    console.log('these are the values', this.props); 
     const { fileName } = this.state;
     return (
       <Fragment>
@@ -40,17 +49,18 @@ class ImageUploadForm extends Component {
           <input
             type="submit"
             value="Upload"
-            className="btn btn-primary btn-block mt-4"
+            className="btn btn-dark btn-block mt-4"
           />
         </form>
       </Fragment>
     );
   }
 }
+const mapState = ({ user, routeModel }) => ({ user, routeModel });
 
 const mapDispatch = dispatch => {
   return {
     uploadRouteImage: file => dispatch(uploadRouteImage(file))
   };
 };
-export default connect(null, mapDispatch)(ImageUploadForm);
+export default connect(mapState, mapDispatch)(ImageUploadForm);
