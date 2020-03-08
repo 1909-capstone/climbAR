@@ -39,8 +39,8 @@ class RouteModel extends React.Component {
           src={climbingRoute.routeImage ? '#userUpload' : '#wallTexture'}
           rotation="0 0 0"
           position="0 1.7 -2"
-          height="4"
-          width="3"
+          height="4.4"
+          width="4"
         />
         <Entity primitive="a-light" type="ambient" color="#625230" />
         {!climbingRoute.routeImage && (
@@ -58,8 +58,8 @@ class RouteModel extends React.Component {
               key={`hold-${_h.id}`}
               primitive={_h.hold.modelType}
               position={{
-                x: (_h.positionX / 15) * 3 - 1,
-                y: (_h.positionY / 20) * 4,
+                x: (_h.positionX / 15) * 2.8 - 1,
+                y: (_h.positionY / 20) * 3.8,
                 z: _h.positionZ - 1
               }}
               rotation={{

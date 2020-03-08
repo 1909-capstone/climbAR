@@ -52,7 +52,7 @@ const RouteModel = db.define('routeModel', {
   },
   radius: {
     type: DECIMAL,
-    defaultValue: 0.07
+    defaultValue: 0.1
   },
   arc: {
     type: DECIMAL,
