@@ -18,6 +18,7 @@ class Login extends Component {
     const { errors } = this.state;
     switch (field) {
       case 'email':
+        //using regex to check the email that must have the '@' and '.'
         if (!value.match(/\S+@\S+\.\S+/)) {
           this.setState({
             errors: {
@@ -36,6 +37,13 @@ class Login extends Component {
         break;
       case 'password':
         if (!value) {
+          this.setState({
+            errors: {
+              ...errors,
+              passwordError: 'Required field'
+            }
+          });
+        } else {
           this.setState({
             errors: {
               ...errors,
