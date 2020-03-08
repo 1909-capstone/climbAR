@@ -16,7 +16,7 @@ class CreateRouteForm extends Component {
     step: 1,
     //passing the percentage to the progress bar
     percentage: 20,
-    label: 'Dimensions',
+    label: 'Grade',
     grade: '',
     endDate: htmlDate(14),
     holdColor: '',
@@ -159,6 +159,23 @@ class CreateRouteForm extends Component {
               values={values}
             />
           </Fragment>
+        );
+      case 5:
+        return (
+          <div>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Create Model'}
+            />
+            <CreateRoute
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+              nextStep={this.nextStep}
+            />
+          </div>
         );
       case 6:
         return (

@@ -9,10 +9,12 @@ import {
   SET_CLIMBING_ROUTE,
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
-  SET_ROUTE_VIDEO
+  SET_ROUTE_VIDEO,
+  SET_EDIT_MODEL
 } from './constants';
 import { htmlDate } from '../utils';
 import moment from 'moment';
+import { fetchHolds } from './thunks/holdThunks';
 
 export const routeFilters = (state = {}, action) => {
   switch (action.type) {
@@ -44,13 +46,14 @@ export const holds = (state = [], action) => {
 
 export const routeModel = (
   state = {
+    id: '',
     holds: [],
     draggingHold: {},
     sorted_holds: {},
     grade: '',
     holdColor: '',
     status: 'installed',
-    endData: moment(htmlDate(14))
+    endDate: moment(htmlDate(14))
   },
   action
 ) => {
@@ -85,6 +88,45 @@ export const routeModel = (
       return state;
     case SET_DRAGGING_HOLD:
       return { ...state, draggingHold: action.hold };
+    case SET_EDIT_MODEL:
+      const editModel = action.model;
+      const holdsData = action.holdsData;
+      let edit_holds = [];
+      let edit_sorted_holds = {};
+      for (let i = 0; i < editModel.routeModels.length; i++) {
+        let thisHoldData = holdsData.filter(
+          _h => _h.id === editModel.routeModels[i].holdId
+        )[0];
+        edit_holds.push({
+          ...thisHoldData,
+          coordinateX: editModel.routeModels[i].positionX,
+          coordinateY: editModel.routeModels[i].positionY,
+          coordinateZ: -0.95
+        });
+        let xy = `${editModel.routeModels[
+          i
+        ].positionX.toString()}-${editModel.routeModels[
+          i
+        ].positionY.toString()}`;
+        if (!edit_sorted_holds[xy]) {
+          edit_sorted_holds[xy] = {
+            ...thisHoldData,
+            coordinateX: editModel.routeModels[i].positionX,
+            coordinateY: editModel.routeModels[i].positionY,
+            coordinateZ: -0.95
+          };
+        }
+      }
+      return {
+        id: editModel.id,
+        holds: edit_holds,
+        draggingHold: {},
+        sorted_holds: edit_sorted_holds,
+        grade: editModel.grade,
+        holdColor: editModel.holdColor,
+        status: editModel.status,
+        endDate: editModel.endDate
+      };
     default:
       return state;
   }

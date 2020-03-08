@@ -8,6 +8,8 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
 import CreateRouteSuccess from './CreateRouteSuccess'; 
+import { editRouteModel } from '../redux/thunks/routeModelThunks';
+
 
 class CreateRoute extends React.Component {
   previous = e => {
@@ -20,6 +22,7 @@ class CreateRoute extends React.Component {
     this.props.nextStepDouble();
   };
   render() {
+
     const { routeModel , climbingRoute } = this.props;
     return (
       <Fragment>
@@ -38,6 +41,28 @@ class CreateRoute extends React.Component {
             </div>
           </div>
       </Fragment>
+    const { createRouteModel, routeModel, values, editRouteModel } = this.props;
+    return (
+      <div>
+        <div className="create_route">
+          <DndProvider backend={Backend}>
+            <Holds />
+            <RouteCanvas />
+          </DndProvider>
+        </div>
+        <div className="button_container">
+          <Button onClick={this.previous}> Previous </Button>
+          <Button
+            onClick={() => {
+              routeModel.id
+                ? editRouteModel(routeModel)
+                : createRouteModel(routeModel);
+            }}
+          >
+            {routeModel.id ? `Save Changes` : `Save New Route`}
+          </Button>
+        </div>
+      </div>
     );
   }
 }
@@ -45,7 +70,8 @@ class CreateRoute extends React.Component {
 const mapState = ({ routeModel, climbingRoute }) => ({ routeModel, climbingRoute });
 const mapDispatch = dispatch => {
   return {
-    createRouteModel: model => dispatch(createRouteModel(model))
+    createRouteModel: model => dispatch(createRouteModel(model)),
+    editRouteModel: model => dispatch(editRouteModel(model))
   };
 };
 
