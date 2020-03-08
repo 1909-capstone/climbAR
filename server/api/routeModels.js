@@ -22,9 +22,11 @@ router.get('/', (req, res, next) => {
 
 //create a new climbing route
 router.post('/new', (req, res, next) => {
-  console.log('POSTING NEW ROUTE');
-  console.log(req.body);
-  const { grade, status, endDate, holdColor, holds } = req.body;
+  const { grade, status, endDate, holdColor, sorted_holds } = req.body;
+  const sorted_holds_array = [];
+  for (let key in sorted_holds) {
+    sorted_holds_array.push(sorted_holds[key]);
+  }
   ClimbingRoute.create({
     grade,
     status: 'installed',
@@ -33,15 +35,57 @@ router.post('/new', (req, res, next) => {
   })
     .then(newRoute => {
       const routeModels = Promise.all(
-        holds.map(_hold =>
-          RouteModel.create({
-            holdId: _hold.id,
-            positionX: _hold.coordinateX,
-            positionY: _hold.coordinateY,
-            positionZ: _hold.coordinateZ,
-            climbingRouteId: newRoute.id
-          })
-        )
+        sorted_holds_array.map(_hold => {
+          if (_hold.holdType === 'sloper (sphere)') {
+            RouteModel.create({
+              holdId: _hold.id,
+              positionX: _hold.coordinateX,
+              positionY: _hold.coordinateY,
+              positionZ: _hold.coordinateZ,
+              climbingRouteId: newRoute.id,
+              thetaLength: 360,
+              thetaStart: 0,
+              scaleZ: 2
+            });
+          } else if (_hold.holdType === 'sloper (box)') {
+            RouteModel.create({
+              holdId: _hold.id,
+              positionX: _hold.coordinateX,
+              positionY: _hold.coordinateY,
+              positionZ: _hold.coordinateZ,
+              climbingRouteId: newRoute.id,
+              scaleZ: 2,
+              height: 0.3
+            });
+          } else if (_hold.holdType === 'jug') {
+            RouteModel.create({
+              holdId: _hold.id,
+              positionX: _hold.coordinateX,
+              positionY: _hold.coordinateY,
+              positionZ: _hold.coordinateZ,
+              climbingRouteId: newRoute.id,
+              thetaLength: 120,
+              thetaStart: 90
+            });
+          } else if (_hold.holdType === 'footHold') {
+            RouteModel.create({
+              holdId: _hold.id,
+              positionX: _hold.coordinateX,
+              positionY: _hold.coordinateY,
+              positionZ: _hold.coordinateZ,
+              climbingRouteId: newRoute.id,
+              radius: 0.03
+            });
+          } else {
+            RouteModel.create({
+              holdId: _hold.id,
+              positionX: _hold.coordinateX,
+              positionY: _hold.coordinateY,
+              positionZ: _hold.coordinateZ,
+              climbingRouteId: newRoute.id
+            });
+          }
+        })
       );
       return routeModels;
     })

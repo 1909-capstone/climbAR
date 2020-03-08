@@ -23,7 +23,7 @@ const CanvasSlot = ({
         ...monitor.holdData,
         coordinateX: x,
         coordinateY: y,
-        coordinateZ: -5
+        coordinateZ: -0.95
       });
     },
     collect: monitor => ({

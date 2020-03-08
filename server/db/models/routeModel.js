@@ -19,7 +19,8 @@ const RouteModel = db.define('routeModel', {
   },
   positionZ: {
     type: DECIMAL,
-    allowNull: false
+    allowNull: false,
+    defaultValue: -0.95
   },
   rotationX: {
     type: DECIMAL
@@ -31,43 +32,55 @@ const RouteModel = db.define('routeModel', {
     type: DECIMAL
   },
   scaleX: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 1
   },
   scaleY: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 1
   },
   scaleZ: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 1
   },
   roughness: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 2
   },
   modelColor: {
     type: STRING
   },
   radius: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 0.1
   },
   arc: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 360
   },
   radiusTubular: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 0.009
   },
   thetaLength: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 120
   },
   thetaStart: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 90
   },
   depth: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 0.1
   },
   height: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 0.1
   },
   width: {
-    type: DECIMAL
+    type: DECIMAL,
+    defaultValue: 0.1
   }
 });
 
