@@ -6,13 +6,55 @@ import { logInUser } from '../redux/thunks/UserThunks';
 class Login extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    errors: {
+      emailError: '',
+      passwordError: ''
+    }
   };
 
-  handleChange = ev => {
-    this.setState({
-      [ev.target.name]: ev.target.value
-    });
+  //form error handling
+  validate = (field, value) => {
+    const { errors } = this.state;
+    switch (field) {
+      case 'email':
+        if (!value.match(/\S+@\S+\.\S+/)) {
+          this.setState({
+            errors: {
+              ...errors,
+              emailError: 'This is not a valide mail'
+            }
+          });
+        } else {
+          this.setState({
+            errors: {
+              ...errors,
+              emailError: ''
+            }
+          });
+        }
+        break;
+      case 'password':
+        if (!value) {
+          this.setState({
+            errors: {
+              ...errors,
+              passwordError: ''
+            }
+          });
+        }
+      default:
+        break;
+    }
+  };
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState(
+      {
+        [name]: value
+      },
+      () => this.validate(name, value)
+    );
   };
 
   onSubmit = ev => {
@@ -25,7 +67,11 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const {
+      email,
+      password,
+      errors: { emailError, passwordError }
+    } = this.state;
     return (
       <Fragment>
         <Form
@@ -49,7 +95,11 @@ class Login extends Component {
                 type="email"
                 value={email}
                 onChange={this.handleChange}
+                isInvalid={!!emailError}
               />
+              <Form.Control.Feedback type="invalid" className="text-danger">
+                {emailError}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           <Form.Group
@@ -64,13 +114,22 @@ class Login extends Component {
                 type="password"
                 value={password}
                 onChange={this.handleChange}
+                isInvalid={!!passwordError}
               />
+              <Form.Control.Feedback type="invalid" className="text-danger">
+                {passwordError}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           <p>
             Not a user? <Nav.Link href="/signup">Sign up</Nav.Link>
           </p>
-          <Button onClick={this.onSubmit}>Log In</Button>
+          <Button
+            disabled={!email || !password || emailError || passwordError}
+            onClick={this.onSubmit}
+          >
+            Log In
+          </Button>
         </Form>
       </Fragment>
     );
