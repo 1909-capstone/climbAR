@@ -4,7 +4,7 @@ import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
 import { getCookie } from '../../utils';
 import { fetchClimbingRoutes } from './climbingRoutesThunks';
-//rename UserThunks
+
 export const fetchUser = sessionId => {
   return dispatch => {
     return axios
@@ -35,8 +35,22 @@ export const logInUser = ({ email, password }) => {
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
       })
+      .then(() => {
+        dispatch(
+          statusMessage({
+            status: SUCCESS,
+            text: 'Logged in successfully'
+          })
+        );
+      })
       .catch(err => {
         console.log(err);
+        dispatch(
+          statusMessage({
+            status: FAIL,
+            text: 'Invalid email address or password'
+          })
+        );
       });
   };
 };
@@ -75,6 +89,14 @@ export const logoutUser = userId => {
       .post(`/api/users/logout/${userId}`)
       .then(res => {
         dispatch(setUser(res.data));
+      })
+      .then(() => {
+        dispatch(
+          statusMessage({
+            status: SUCCESS,
+            text: 'Logged out successfully'
+          })
+        );
       })
       .catch(err => {
         console.log('Error logging user out', err);
