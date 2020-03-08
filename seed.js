@@ -1,5 +1,5 @@
 const { users, holds, climbingRoutes } = require('./seed-data.js');
-const { routeModels } = require('./rm.js');
+const { routeModels } = require('./models-converted.js');
 const {
   User,
   Hold,
