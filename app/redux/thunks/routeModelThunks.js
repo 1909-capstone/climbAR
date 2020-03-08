@@ -21,8 +21,8 @@ export function createRouteModel(model) {
     return axios
       .post(`/api/routemodels/new`, model)
       .then(res => {
+        console.log('this the response', res)
         dispatch(fetchSingleClimbingRoute(res.data.id));
-        dispatch(fetchRouteModels());
       })
       .then(() => {
         dispatch(

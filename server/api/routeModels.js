@@ -34,7 +34,6 @@ router.post('/new', (req, res, next) => {
     holdColor
   })
     .then(newRoute => {
-      res.send(newRoute);
       const routeModels = Promise.all(
         sorted_holds_array.map(_hold => {
           if (_hold.holdType === 'sloper (sphere)') {
@@ -88,9 +87,9 @@ router.post('/new', (req, res, next) => {
           }
         })
       );
-      return routeModels;
+      return res.status(200).send(newRoute)
     })
-    .then(models => res.status(200).send({ models }))
+    // .then(() => res.status(200).send(newRoute))
     .catch(e => {
       res.status(400);
       console.log(e);
