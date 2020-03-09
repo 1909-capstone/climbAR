@@ -10,3 +10,5 @@ export const SET_CLIMBING_ROUTE = Symbol('CLIMBING_ROUTE');
 export const SET_ROUTE_FILTERS = Symbol('SET_ROUTE_FILTERS');
 export const SET_ROUTE_IMAGE = Symbol('SET_ROUTE_IMAGE');
 export const SET_ROUTE_VIDEO = Symbol('SET_ROUTE_VIDEO');
+export const LOGIN_SUCCESS = Symbol('LOGIN_SUCCESS');
+export const LOGIN_FAILURE = Symbol('LOGIN_FAILURE');

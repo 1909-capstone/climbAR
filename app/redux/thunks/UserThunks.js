@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { setUser, statusMessage } from '../actions';
+import { setUser, statusMessage, logInSuccess, loggedInFail } from '../actions';
 import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
-import { getCookie } from '../../utils';
+import { getCookie, history } from '../../utils';
 import { fetchClimbingRoutes } from './climbingRoutesThunks';
 
 export const fetchUser = sessionId => {
@@ -15,13 +15,20 @@ export const fetchUser = sessionId => {
         dispatch(setUser(user));
       })
       .catch(e => {
-        console.error(e);
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: COMMON_FAIL
-          })
-        );
+        switch (e.response.status) {
+          case 404:
+            dispatch(setUser({}));
+            return;
+          default:
+            dispatch(setUser({}));
+            dispatch(
+              statusMessage({
+                status: FAIL,
+                text: 'Error fetching the user'
+              })
+            );
+            return;
+        }
       });
   };
 };
@@ -34,6 +41,7 @@ export const logInUser = ({ email, password }) => {
         const { user, completedRouteInfo } = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
+        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
@@ -42,13 +50,15 @@ export const logInUser = ({ email, password }) => {
             text: 'Logged in successfully'
           })
         );
+        window.history.back();
       })
       .catch(err => {
         console.log(err);
+        dispatch(loggedInFail());
         dispatch(
           statusMessage({
             status: FAIL,
-            text: 'Invalid email address or password'
+            text: 'Invalid email address or password. Please try again.'
           })
         );
       });
@@ -62,6 +72,7 @@ export const createUser = user => {
       .post(`/api/users`, user)
       .then(res => {
         dispatch(setUser(res.data));
+        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
@@ -88,6 +99,8 @@ export const logoutUser = userId => {
     return axios
       .post(`/api/users/logout/${userId}`)
       .then(res => {
+        console.log(res.data);
+        // if we log out, we want to dispatch(setUpser({}))
         dispatch(setUser(res.data));
       })
       .then(() => {
@@ -97,6 +110,8 @@ export const logoutUser = userId => {
             text: 'Logged out successfully'
           })
         );
+        // redirect to home?
+        // window.history.go('/login');
       })
       .catch(err => {
         console.log('Error logging user out', err);

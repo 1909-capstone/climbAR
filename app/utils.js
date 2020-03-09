@@ -23,3 +23,6 @@ export const average = (arr, numberProp) =>
     : (arr.reduce((sum, el) => sum + el[numberProp], 0) / arr.length).toFixed(
         0
       );
+
+import { createBrowserHistory } from 'history';
+export const history = createBrowserHistory();

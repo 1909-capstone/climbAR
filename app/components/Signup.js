@@ -93,7 +93,7 @@ class Signup extends Component {
     this.setState({
       email: '',
       password: '',
-      confirmPassword: '',
+      confirmPassword: ''
     });
   };
   render() {

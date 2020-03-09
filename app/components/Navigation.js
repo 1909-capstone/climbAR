@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, Button, NavDropdown } from 'react-bootstrap';
 import { logoutUser } from '../redux/thunks/UserThunks';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import style from '../css/navigation.css';
 
@@ -38,6 +39,7 @@ class Navigation extends Component {
                 <span
                   className="dropdown-item"
                   onClick={() => {
+                    console.log('calling onClick button in Admin navbar');
                     logoutUser(user.id);
                   }}
                 >
@@ -62,6 +64,7 @@ class Navigation extends Component {
               <NavDropdown.Item eventKey="4.2">
                 <Button
                   onClick={() => {
+                    console.log('calling onClick button in Climber navbar');
                     logoutUser(user.id);
                   }}
                 >

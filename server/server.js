@@ -46,8 +46,7 @@ app.use((req, res, next) => {
       .then(user => {
         if (!user) {
           //status: user has a cookie id, but login expired
-          //action: redirect user to login page
-          // return res.redirect('/login');
+          //next step: user can still view climbing routes
           next();
         } else {
           //status: user has a cookie id and he signed up already

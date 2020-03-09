@@ -8,7 +8,8 @@ import {
   climbingRoutes,
   climbingRoute,
   routeFilters,
-  routeImage
+  routeImage,
+  logInAuth
 } from './reducers';
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
   climbingRoutes,
   climbingRoute,
   routeFilters,
-  routeImage
+  routeImage,
+  logInAuth
 });

@@ -22,6 +22,9 @@ router.get('/session/:sessionId', (req, res, next) => {
     include: [{ model: LikedRoute }, { model: CompletedRoute }]
   })
     .then(user => {
+      if (!user) {
+        return res.status(404).send({});
+      }
       Promise.all(
         user.completedRoutes.map(_r =>
           ClimbingRoute.findByPk(_r.climbingRouteId, {
@@ -130,15 +133,21 @@ router.post('/login', (req, res, next) => {
 //log out
 router.post('/logout/:userId', (req, res, next) => {
   const id = req.params.userId;
+
   User.update(
     {
       sessionId: null
     },
     {
-      where: { id }
+      where: { id },
+      returning: true,
+      plain: true
     }
   )
-    .then(loggoutUser => res.status(201).send(loggoutUser))
+    .then((numOfUser, loggoutUser) => {
+      console.log(chalk.cyan('logged out user:', loggoutUser));
+      res.status(201).send(loggoutUser);
+    })
     .catch(e => {
       res.status(401);
       next(e);

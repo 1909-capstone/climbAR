@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { logInUser } from '../redux/thunks/UserThunks';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   state = {
@@ -66,6 +67,7 @@ class Login extends Component {
   };
 
   onSubmit = ev => {
+    const { user } = this.props;
     ev.preventDefault();
     this.props.logIn(this.state);
     this.setState({
@@ -80,6 +82,7 @@ class Login extends Component {
       password,
       errors: { emailError, passwordError }
     } = this.state;
+    const { logInStatus } = this.props.userLogInStatus;
     return (
       <Fragment>
         <Form
@@ -146,8 +149,10 @@ class Login extends Component {
 
 const mapState = state => {
   const user = state.user;
+  const userLogInStatus = state.logInAuth;
   return {
-    user
+    user,
+    userLogInStatus
   };
 };
 

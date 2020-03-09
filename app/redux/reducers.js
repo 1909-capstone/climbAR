@@ -9,7 +9,9 @@ import {
   SET_CLIMBING_ROUTE,
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
-  SET_ROUTE_VIDEO
+  SET_ROUTE_VIDEO,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
 } from './constants';
 import { htmlDate } from '../utils';
 import moment from 'moment';
@@ -139,6 +141,17 @@ export const routeVideo = (state = {}, action) => {
   switch (action.type) {
     case SET_ROUTE_VIDEO:
       return action.video;
+    default:
+      return state;
+  }
+};
+
+export const logInAuth = (state = { logInStatus: null }, action) => {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      return { logInStatus: true };
+    case LOGIN_FAILURE:
+      return { logInStatus: false };
     default:
       return state;
   }
