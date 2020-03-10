@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, Button, NavDropdown, Image } from 'react-bootstrap';
+import {
+  Nav,
+  Navbar,
+  Button,
+  NavDropdown,
+  Image,
+  NavItem
+} from 'react-bootstrap';
 import { logoutUser } from '../redux/thunks/UserThunks';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import style from '../css/navigation.css';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Navigation extends Component {
   switchNavBar = params => {
@@ -12,7 +20,7 @@ class Navigation extends Component {
       case 'Admin':
         return (
           <Nav>
-            <Link
+            <LinkContainer
               to="/admin/create"
               id="create-route"
               style={{
@@ -21,8 +29,8 @@ class Navigation extends Component {
                 alignItems: 'center'
               }}
             >
-              Create Route
-            </Link>
+              <Nav.Link>Create Route</Nav.Link>
+            </LinkContainer>
             <NavDropdown
               title={
                 <span id="nav-dropdown">
@@ -37,7 +45,6 @@ class Navigation extends Component {
                 <span
                   className="dropdown-item"
                   onClick={() => {
-                    console.log('calling onClick button in Admin navbar');
                     logoutUser(user.id);
                   }}
                 >
@@ -73,12 +80,12 @@ class Navigation extends Component {
       default:
         return (
           <Nav id="nav-guest">
-            <Link to="/login" style={{ color: '#e45720' }}>
-              Log In
-            </Link>
-            <Link to="/signup" style={{ color: '#e45720' }}>
-              Sign Up
-            </Link>
+            <LinkContainer to="/login" style={{ color: '#e45720' }}>
+              <Nav.Link>Log In</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signup" style={{ color: '#e45720' }}>
+              <Nav.Link>Sign Up</Nav.Link>
+            </LinkContainer>
           </Nav>
         );
     }
@@ -97,22 +104,22 @@ class Navigation extends Component {
       >
         <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
         <Nav className="mr-auto">
-          <Link
+          <LinkContainer
             to="/"
             style={{
               color: '#f0eae3'
             }}
           >
-            Home
-          </Link>
-          <Link
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer
             to="/climbingroutes"
             style={{
               color: '#f0eae3'
             }}
           >
-            Climbing Routes
-          </Link>
+            <Nav.Link>Climbing Routes</Nav.Link>
+          </LinkContainer>
         </Nav>
         <Nav>{this.switchNavBar(user)}</Nav>
       </Navbar>
