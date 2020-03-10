@@ -59,10 +59,6 @@ class RatingForm extends React.Component {
             rate(user, route, rating);
           }}
           variant="info"
-          style={{
-            backgroundColor:'#343a40',
-              borderColor:'#343a40'
-          }}
         >
           Rate It
         </Button>
