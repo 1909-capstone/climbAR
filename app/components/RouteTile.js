@@ -69,13 +69,17 @@ class RouteTile extends React.Component {
             height: '2.5em',
             padding: '0 2.5% 0 2.5%',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Link
             className="btn btn-info btn-sm"
             key={route.id}
             to={`/climbingroutes/${route.id}`}
+            style={{
+              backgroundColor:'#343a40',
+              borderColor:'#343a40'
+            }}
           >
             More
           </Link>

@@ -50,3 +50,7 @@
 i:hover {
   cursor: pointer;
 }
+
+.btn-info {
+  color: rgb(240, 234, 227)
+}
