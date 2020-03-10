@@ -7,7 +7,7 @@ const { User, LikedRoute } = models;
 const morgan = require('morgan');
 const chalk = require('chalk');
 const fileUpload = require('express-fileupload');
-const { whiteList, whiteListForClimber } = require('./whiteList');
+const { whiteList } = require('./whiteList');
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -71,7 +71,6 @@ app.use((req, res, next) => {
           //status: user is logged in but not an Admin
           //next step: user should not have access to Create Route page
           if (whiteList[req.path] === false && user.userType !== 'Admin' && req.path !== '/profile') {
-            console.log(chalk.cyan(user.userType,' is going to ',req.path));
             return res.redirect(404, '/login');
           }else{
             next();
