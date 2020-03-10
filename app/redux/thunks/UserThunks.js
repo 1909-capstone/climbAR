@@ -84,6 +84,7 @@ export const createUser = user => {
             text: 'Welcome to climbAR'
           })
         );
+        window.history.back();
       })
       .catch(() => {
         dispatch(
