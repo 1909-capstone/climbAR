@@ -39,7 +39,12 @@ class Navigation extends Component {
                 </span>
               }
             >
-              <NavDropdown.Item to={`/profile`}>Profile</NavDropdown.Item>
+              <LinkContainer
+                style={{ color: '#f0eae3', textAlign: 'center' }}
+                to={`/profile`}
+              >
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <span
@@ -62,7 +67,12 @@ class Navigation extends Component {
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
             >
-              <NavDropdown.Item to={`/profile`}>Profile</NavDropdown.Item>
+              <LinkContainer
+                style={{ color: '#f0eae3', textAlign: 'center' }}
+                to={`/profile`}
+              >
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <Button
