@@ -50,10 +50,10 @@ app.use((req, res, next) => {
     })
       .then(user => {
         if (!user) {
-          console.log(chalk.cyan('user is not found'))
+          console.log(chalk.cyan('user is not found', user))
           //status: user has a cookie id, but login expired
           //next step: user can view pages except Create Route or profile
-          if (whiteList[req.path] === false && user.userType !== 'Admin') {
+          if (whiteList[req.path] === false) {
             return res.redirect(404, '/login');
           }else{
             next()
