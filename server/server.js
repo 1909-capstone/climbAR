@@ -50,17 +50,16 @@ app.use((req, res, next) => {
     })
       .then(user => {
         if (!user) {
-          console.log(chalk.cyan('user is not found'))
+          console.log(chalk.cyan('user is not found'));
           //status: user has a cookie id, but login expired
           //next step: user can view pages except Create Route or profile
-          if (whiteList[req.path] === false && user.userType !== 'Admin') {
+          if (whiteList[req.path] === false) {
             return res.redirect(404, '/login');
-          }else{
-            next()
+          } else {
+            next();
           }
-        
         } else {
-          console.log(chalk.cyan('user is found'))
+          console.log(chalk.cyan('user is found'));
           //status: user has a cookie id and he signed up already
           //next step: update user's sessionId and renew the cookie id
           user.update({ sessionId: req.cookies.session_id }).then(() => {
@@ -70,9 +69,13 @@ app.use((req, res, next) => {
           req.user = user.dataValues;
           //status: user is logged in but not an Admin
           //next step: user should not have access to Create Route page
-          if (whiteList[req.path] === false && user.userType !== 'Admin' && req.path !== '/profile') {
+          if (
+            whiteList[req.path] === false &&
+            user.userType !== 'Admin' &&
+            req.path !== '/profile'
+          ) {
             return res.redirect(404, '/login');
-          }else{
+          } else {
             next();
           }
         }
