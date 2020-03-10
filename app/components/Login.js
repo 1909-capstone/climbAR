@@ -83,66 +83,73 @@ class Login extends Component {
       errors: { emailError, passwordError }
     } = this.state;
     const { logInStatus } = this.props.userLogInStatus;
+    const { user } = this.props;
     return (
-      <Fragment>
-        <Form
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '10px'
-          }}
-        >
-          <Form.Group
-            style={{
-              width: '50%'
-            }}
-          >
-            <Form.Label>Email Address</Form.Label>
-            <Col>
-              <Form.Control
-                name="email"
-                type="email"
-                value={email}
-                onChange={this.handleChange}
-                isInvalid={!!emailError}
-              />
-              <Form.Control.Feedback type="invalid" className="text-danger">
-                {emailError}
-              </Form.Control.Feedback>
-            </Col>
-          </Form.Group>
-          <Form.Group
-            style={{
-              width: '50%'
-            }}
-          >
-            <Form.Label>Password</Form.Label>
-            <Col>
-              <Form.Control
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.handleChange}
-                isInvalid={!!passwordError}
-              />
-              <Form.Control.Feedback type="invalid" className="text-danger">
-                {passwordError}
-              </Form.Control.Feedback>
-            </Col>
-          </Form.Group>
-          <p>
-            Not a user? <Nav.Link href="/signup">Sign up</Nav.Link>
-          </p>
-          <Button
-            disabled={!email || !password || emailError || passwordError}
-            onClick={this.onSubmit}
-          >
-            Log In
-          </Button>
-        </Form>
-      </Fragment>
+      <div>
+        {user.userType ? (
+          <Redirect to="/" />
+        ) : (
+          <Fragment>
+            <Form
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '10px'
+              }}
+            >
+              <Form.Group
+                style={{
+                  width: '50%'
+                }}
+              >
+                <Form.Label>Email Address</Form.Label>
+                <Col>
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={this.handleChange}
+                    isInvalid={!!emailError}
+                  />
+                  <Form.Control.Feedback type="invalid" className="text-danger">
+                    {emailError}
+                  </Form.Control.Feedback>
+                </Col>
+              </Form.Group>
+              <Form.Group
+                style={{
+                  width: '50%'
+                }}
+              >
+                <Form.Label>Password</Form.Label>
+                <Col>
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={this.handleChange}
+                    isInvalid={!!passwordError}
+                  />
+                  <Form.Control.Feedback type="invalid" className="text-danger">
+                    {passwordError}
+                  </Form.Control.Feedback>
+                </Col>
+              </Form.Group>
+              <p>
+                Not a user? <Nav.Link href="/signup">Sign up</Nav.Link>
+              </p>
+              <Button
+                disabled={!email || !password || emailError || passwordError}
+                onClick={this.onSubmit}
+              >
+                Log In
+              </Button>
+            </Form>
+          </Fragment>
+        )}
+      </div>
     );
   }
 }

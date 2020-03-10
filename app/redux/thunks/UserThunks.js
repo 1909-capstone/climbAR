@@ -53,7 +53,7 @@ export const logInUser = ({ email, password }) => {
           })
         );
         //TO DO: redirect user to Home page if previous visited page is sign up
-        window.history.back();
+        // window.history.back();
       })
       .catch(err => {
         console.log(err);
@@ -84,7 +84,7 @@ export const createUser = user => {
             text: 'Welcome to climbAR'
           })
         );
-        window.history.back();
+        // window.history.back();
       })
       .catch(() => {
         dispatch(

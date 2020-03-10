@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { Form, Button } from 'react-bootstrap';
 const { Group, Label, Control, Text, Row, Col } = Form;
 import { createUser } from '../redux/thunks/UserThunks';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Signup extends Component {
   state = {
@@ -103,94 +106,105 @@ class Signup extends Component {
       confirmPassword,
       errors: { emailError, passwordError, confirmPasswordError }
     } = this.state;
+    const { user } = this.props;
     return (
       <div>
-        <Form
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <h2> Create your account for climbAR</h2>
-          <Group
-            controlId="email"
-            style={{
-              width: '50%'
-            }}
-          >
-            <Label>
-              Email address
-              <span style={{ color: 'red', fontSize: '10px' }}>*required</span>
-            </Label>
-            <Control
-              type="email"
-              name="email"
-              value={email}
-              onChange={this.handleOnChange}
-              isInvalid={!!emailError}
-            />
-            <Control.Feedback type="invalid" className="text-danger">
-              {emailError}
-            </Control.Feedback>
-          </Group>
-          <Group
-            controlId="password"
-            style={{
-              width: '50%'
-            }}
-          >
-            <Label>
-              Password
-              <span style={{ color: 'red', fontSize: '10px' }}>*required</span>
-            </Label>
-            <Control
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.handleOnChange}
-              isInvalid={!!passwordError}
-            />
-            <Control.Feedback type="invalid" className="text-danger">
-              {passwordError}
-            </Control.Feedback>
-          </Group>
-          <Group
-            controlId="confirmPassword"
-            style={{
-              width: '50%'
-            }}
-          >
-            <Label>Confirm Password</Label>
-            <Control
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={this.handleOnChange}
-              isInvalid={!!confirmPasswordError}
-            />
-            <Control.Feedback type="invalid" className="text-danger">
-              {confirmPasswordError}
-            </Control.Feedback>
-          </Group>
+        {user.userType ? (
+          <Redirect to="/" />
+        ) : (
           <div>
-            Already a user? <Link to={'/login'}>Login</Link>
+            <Form
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <h2> Create your account for climbAR</h2>
+              <Group
+                controlId="email"
+                style={{
+                  width: '50%'
+                }}
+              >
+                <Label>
+                  Email address
+                  <span style={{ color: 'red', fontSize: '10px' }}>
+                    *required
+                  </span>
+                </Label>
+                <Control
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleOnChange}
+                  isInvalid={!!emailError}
+                />
+                <Control.Feedback type="invalid" className="text-danger">
+                  {emailError}
+                </Control.Feedback>
+              </Group>
+              <Group
+                controlId="password"
+                style={{
+                  width: '50%'
+                }}
+              >
+                <Label>
+                  Password
+                  <span style={{ color: 'red', fontSize: '10px' }}>
+                    *required
+                  </span>
+                </Label>
+                <Control
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleOnChange}
+                  isInvalid={!!passwordError}
+                />
+                <Control.Feedback type="invalid" className="text-danger">
+                  {passwordError}
+                </Control.Feedback>
+              </Group>
+              <Group
+                controlId="confirmPassword"
+                style={{
+                  width: '50%'
+                }}
+              >
+                <Label>Confirm Password</Label>
+                <Control
+                  type="password"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={this.handleOnChange}
+                  isInvalid={!!confirmPasswordError}
+                />
+                <Control.Feedback type="invalid" className="text-danger">
+                  {confirmPasswordError}
+                </Control.Feedback>
+              </Group>
+              <div>
+                Already a user? <Link to={'/login'}>Login</Link>
+              </div>
+              <Button
+                disabled={
+                  !email ||
+                  !password ||
+                  !confirmPassword ||
+                  emailError ||
+                  passwordError ||
+                  confirmPasswordError
+                }
+                onClick={this.handleOnSubmit}
+              >
+                Sign Up
+              </Button>
+            </Form>
           </div>
-          <Button
-            disabled={
-              !email ||
-              !password ||
-              !confirmPassword ||
-              emailError ||
-              passwordError ||
-              confirmPasswordError
-            }
-            onClick={this.handleOnSubmit}
-          >
-            Sign Up
-          </Button>
-        </Form>
+        )}
       </div>
     );
   }
@@ -204,4 +218,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(Signup);

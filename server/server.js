@@ -32,15 +32,19 @@ app.get('/auth', (req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  console.log('REQUEST AT ', req.path);
   if (!req.cookies['session_id'] || !req.cookies) {
     //status: user doesn't have a cookie id
+    console.log('no cookie');
     req.loggedIn = false;
     if (whiteList[req.path] === false) {
+      console.log('redirecting to login');
       return res.redirect(404, '/login');
     } else {
       next();
     }
   } else {
+    console.log('cookie');
     //status: user has a cookie, but not sure if it's active
     User.findOne({
       where: {
@@ -54,6 +58,7 @@ app.use((req, res, next) => {
           //status: user has a cookie id, but login expired
           //next step: user can view pages except Create Route or profile
           if (whiteList[req.path] === false) {
+            console.log('redirecting to login');
             return res.redirect(404, '/login');
           } else {
             next();
@@ -69,11 +74,15 @@ app.use((req, res, next) => {
           req.user = user.dataValues;
           //status: user is logged in but not an Admin
           //next step: user should not have access to Create Route page
+          console.log('whitelist status us ', whiteList[req.path]);
+          console.log('user type is ', user.userType);
+          console.log('req path is ', req.path);
           if (
             whiteList[req.path] === false &&
             user.userType !== 'Admin' &&
             req.path !== '/profile'
           ) {
+            console.log('redirecting to login');
             return res.redirect(404, '/login');
           } else {
             next();
