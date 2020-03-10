@@ -12,8 +12,8 @@ class Navigation extends Component {
       case 'Admin':
         return (
           <Nav>
-            <Nav.Link
-              href="/admin/create"
+            <Link
+              to="/admin/create"
               id="create-route"
               style={{
                 color: '#f0eae3',
@@ -22,7 +22,7 @@ class Navigation extends Component {
               }}
             >
               Create Route
-            </Nav.Link>
+            </Link>
             <NavDropdown
               title={
                 <span id="nav-dropdown">
@@ -31,9 +31,7 @@ class Navigation extends Component {
                 </span>
               }
             >
-              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
-                Profile
-              </NavDropdown.Item>
+              <NavDropdown.Item to={`/profile`}>Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <span
@@ -57,9 +55,7 @@ class Navigation extends Component {
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
             >
-              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
-                Profile
-              </NavDropdown.Item>
+              <NavDropdown.Item to={`/profile`}>Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <Button
@@ -77,12 +73,12 @@ class Navigation extends Component {
       default:
         return (
           <Nav id="nav-guest">
-            <Nav.Link href="/login" style={{ color: '#e45720' }}>
+            <Link to="/login" style={{ color: '#e45720' }}>
               Log In
-            </Nav.Link>
-            <Nav.Link href="/signup" style={{ color: '#e45720' }}>
+            </Link>
+            <Link to="/signup" style={{ color: '#e45720' }}>
               Sign Up
-            </Nav.Link>
+            </Link>
           </Nav>
         );
     }
@@ -101,22 +97,22 @@ class Navigation extends Component {
       >
         <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link
-            href="/"
+          <Link
+            to="/"
             style={{
               color: '#f0eae3'
             }}
           >
             Home
-          </Nav.Link>
-          <Nav.Link
-            href="/climbingroutes"
+          </Link>
+          <Link
+            to="/climbingroutes"
             style={{
               color: '#f0eae3'
             }}
           >
             Climbing Routes
-          </Nav.Link>
+          </Link>
         </Nav>
         <Nav>{this.switchNavBar(user)}</Nav>
       </Navbar>

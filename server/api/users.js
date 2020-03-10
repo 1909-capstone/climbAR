@@ -158,6 +158,8 @@ router.post('/logout/:userId', (req, res, next) => {
       res.status(201).send(loggoutUser);
     })
     .catch(e => {
+      console.log('ERROR LOGING OUT USER');
+      console.log(e);
       res.status(401);
       next(e);
     });
