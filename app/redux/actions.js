@@ -12,8 +12,17 @@ import {
   SET_ROUTE_IMAGE,
   SET_ROUTE_VIDEO,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  SET_EDIT_MODEL
 } from './constants';
+
+export const setEditModel = (model, holdsData) => {
+  return {
+    type: SET_EDIT_MODEL,
+    model,
+    holdsData
+  };
+};
 
 export const setRouteVideo = video => {
   return {

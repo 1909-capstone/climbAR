@@ -10,11 +10,13 @@ export const fetchUser = sessionId => {
     return axios
       .get(`/api/users/session/${sessionId}`)
       .then(res => {
+        console.log(chalk.cyan('returned value from get api', res.data));
         const { user, completedRouteInfo } = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
       })
       .catch(e => {
+        console.log(chalk.cyan('error setting the user', e));
         switch (e.response.status) {
           case 404:
             dispatch(setUser({}));
@@ -50,6 +52,7 @@ export const logInUser = ({ email, password }) => {
             text: 'Logged in successfully'
           })
         );
+        //TO DO: redirect user to Home page if previous visited page is sign up
         window.history.back();
       })
       .catch(err => {
@@ -100,7 +103,6 @@ export const logoutUser = userId => {
       .post(`/api/users/logout/${userId}`)
       .then(res => {
         console.log(res.data);
-        // if we log out, we want to dispatch(setUpser({}))
         dispatch(setUser(res.data));
       })
       .then(() => {
@@ -110,7 +112,7 @@ export const logoutUser = userId => {
             text: 'Logged out successfully'
           })
         );
-        // redirect to home?
+        // TO DO: redirect to home
         // window.history.go('/login');
       })
       .catch(err => {

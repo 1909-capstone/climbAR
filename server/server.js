@@ -7,6 +7,7 @@ const { User, LikedRoute } = models;
 const morgan = require('morgan');
 const chalk = require('chalk');
 const fileUpload = require('express-fileupload');
+const { whiteList, whiteListForClimber } = require('./whiteList');
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -34,7 +35,11 @@ app.use((req, res, next) => {
   if (!req.cookies['session_id'] || !req.cookies) {
     //status: user doesn't have a cookie id
     req.loggedIn = false;
-    next();
+    if (whiteList[req.path] === false) {
+      return res.redirect(404, '/login');
+    } else {
+      next();
+    }
   } else {
     //status: user has a cookie, but not sure if it's active
     User.findOne({
@@ -45,18 +50,32 @@ app.use((req, res, next) => {
     })
       .then(user => {
         if (!user) {
+          console.log(chalk.cyan('user is not found'))
           //status: user has a cookie id, but login expired
-          //next step: user can still view climbing routes
-          next();
+          //next step: user can view pages except Create Route or profile
+          if (whiteList[req.path] === false && user.userType !== 'Admin') {
+            return res.redirect(404, '/login');
+          }else{
+            next()
+          }
+        
         } else {
+          console.log(chalk.cyan('user is found'))
           //status: user has a cookie id and he signed up already
-          //action: update user's sessionId and renew the cookie id
+          //next step: update user's sessionId and renew the cookie id
           user.update({ sessionId: req.cookies.session_id }).then(() => {
             res.user = user.dataValues;
           });
           req.loggedIn = true;
           req.user = user.dataValues;
-          next();
+          //status: user is logged in but not an Admin
+          //next step: user should not have access to Create Route page
+          if (whiteList[req.path] === false && user.userType !== 'Admin' && req.path !== '/profile') {
+            console.log(chalk.cyan(user.userType,' is going to ',req.path));
+            return res.redirect(404, '/login');
+          }else{
+            next();
+          }
         }
       })
       .catch(e => {

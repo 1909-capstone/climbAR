@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Holds from './Holds';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
@@ -7,18 +7,21 @@ import style from '../css/createRoute.css';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { createRouteModel } from '../redux/thunks/routeModelThunks';
+import CreateRouteSuccess from './CreateRouteSuccess';
+import { editRouteModel } from '../redux/thunks/routeModelThunks';
 
 class CreateRoute extends React.Component {
   previous = e => {
     e.preventDefault();
     this.props.prevStep();
   };
-  continue = e => {
-    e.preventDefault();
-    this.props.nextStep();
+  handleClick = routeModel => {
+    const { createRouteModel, editRouteModel } = this.props;
+    routeModel.id ? editRouteModel(routeModel) : createRouteModel(routeModel);
+    this.props.nextStepDouble();
   };
   render() {
-    const { createRouteModel, routeModel, values } = this.props;
+    const { createRouteModel, routeModel, values, editRouteModel } = this.props;
     return (
       <div>
         <div className="create_route">
@@ -31,10 +34,10 @@ class CreateRoute extends React.Component {
           <Button onClick={this.previous}> Previous </Button>
           <Button
             onClick={() => {
-              createRouteModel(routeModel);
+              this.handleClick(routeModel);
             }}
           >
-            Save New Route
+            {routeModel.id ? `Save Changes` : `Save New Route`}
           </Button>
         </div>
       </div>
@@ -42,10 +45,14 @@ class CreateRoute extends React.Component {
   }
 }
 
-const mapState = ({ routeModel }) => ({ routeModel });
+const mapState = ({ routeModel, climbingRoute }) => ({
+  routeModel,
+  climbingRoute
+});
 const mapDispatch = dispatch => {
   return {
-    createRouteModel: model => dispatch(createRouteModel(model))
+    createRouteModel: model => dispatch(createRouteModel(model)),
+    editRouteModel: model => dispatch(editRouteModel(model))
   };
 };
 

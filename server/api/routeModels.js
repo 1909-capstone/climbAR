@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../db');
-const { RouteModel, ClimbingRoute, Hold } = models;
+const { RouteModel, ClimbingRoute, Hold, RouteImage } = models;
 
 //get all climbing routes
 router.get('/', (req, res, next) => {
@@ -20,13 +20,64 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.put('/edit', async (req, res, next) => {
+  const { grade, status, endDate, holdColor, holds, id } = req.body;
+  try {
+    await ClimbingRoute.update(
+      { grade, status, endDate, holdColor },
+      { where: { id } }
+    );
+  } catch (e) {
+    console.log('error updating climbing route');
+    console.log(e);
+    if (e) res.status(400);
+    next(e);
+    return;
+  }
+  try {
+    await RouteImage.destroy({ where: { climbingRouteId: id } });
+  } catch (e) {
+    console.log('error deleting route image');
+    console.log(e);
+    res.status(400);
+    next(e);
+    return;
+  }
+  try {
+    await RouteModel.destroy({ where: { climbingRouteId: id } });
+  } catch (e) {
+    console.log('error deleting route models');
+    console.log(e);
+    res.status(400);
+    next(e);
+    return;
+  }
+  Promise.all(
+    holds.map(_hold =>
+      RouteModel.create({
+        holdId: _hold.id,
+        positionX: _hold.coordinateX,
+        positionY: _hold.coordinateY,
+        positionZ: _hold.coordinateZ,
+        climbingRouteId: id,
+        thetaLength: 360,
+        thetaStart: 0,
+        scaleZ: 2
+      })
+    )
+  )
+    .then(models => res.status(200).send(models))
+    .catch(e => {
+      console.log('error creating route models');
+      console.log(e);
+      res.status(400);
+      next(e);
+    });
+});
+
 //create a new climbing route
 router.post('/new', (req, res, next) => {
-  const { grade, status, endDate, holdColor, sorted_holds } = req.body;
-  const sorted_holds_array = [];
-  for (let key in sorted_holds) {
-    sorted_holds_array.push(sorted_holds[key]);
-  }
+  const { grade, status, endDate, holdColor, holds } = req.body;
   ClimbingRoute.create({
     grade,
     status: 'installed',
@@ -35,7 +86,7 @@ router.post('/new', (req, res, next) => {
   })
     .then(newRoute => {
       const routeModels = Promise.all(
-        sorted_holds_array.map(_hold => {
+        holds.map(_hold => {
           if (_hold.holdType === 'sloper (sphere)') {
             RouteModel.create({
               holdId: _hold.id,
@@ -87,9 +138,8 @@ router.post('/new', (req, res, next) => {
           }
         })
       );
-      return routeModels;
+      return res.status(200).send(newRoute)
     })
-    .then(models => res.status(200).send({ models }))
     .catch(e => {
       res.status(400);
       console.log(e);

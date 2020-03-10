@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { htmlDate } from '../utils';
 import { connect } from 'react-redux';
 import CreateRouteGrade from './CreateRouteGrade';
@@ -9,16 +9,18 @@ import { setRouteModel } from '../redux/actions';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import CreateRouteOptions from './CreateRouteOptions';
 import ImageUpload from './ImageUpload';
+import CreateRouteSuccess from './CreateRouteSuccess';
 
 class CreateRouteForm extends Component {
   state = {
     step: 1,
     //passing the percentage to the progress bar
     percentage: 20,
-    label: 'Dimensions',
+    label: 'Grade',
     grade: '',
     endDate: htmlDate(14),
-    holdColor: ''
+    holdColor: '',
+    routeCreated: false
   };
   //Proceed to the next step
   nextStep = () => {
@@ -26,6 +28,13 @@ class CreateRouteForm extends Component {
     this.setState({
       step: step + 1,
       percentage: this.state.percentage + 20
+    });
+  };
+  //Proceed to the next 2 steps in the case instead of 1 
+  nextStepDouble = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step + 2
     });
   };
   //Go back to the previous step
@@ -36,6 +45,7 @@ class CreateRouteForm extends Component {
       percentage: this.state.percentage - 20
     });
   };
+  //this will add the step count of 2, and percentage bar to 40 need it skip the cases
   uploadImageStep = () => {
     const { step } = this.state;
     this.setState({
@@ -53,7 +63,7 @@ class CreateRouteForm extends Component {
   // handles the fields change, each input will have its own state
   handleInput = e => {
     this.props.setRouteModel({ [e.target.name]: e.target.value });
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   };
   render() {
     const { step, grade, endDate, holdColor } = this.state;
@@ -134,6 +144,24 @@ class CreateRouteForm extends Component {
         );
       case 5:
         return (
+          <Fragment>
+            <ProgressBar
+              striped
+              variant="warning"
+              animated
+              now={this.state.percentage}
+              label={'Create Model'}
+            />
+            <CreateRoute
+              prevStep={this.prevStep}
+              handleChange={this.handleInput}
+              nextStepDouble={this.nextStepDouble}
+              values={values}
+            />
+          </Fragment>
+        );
+      case 5:
+        return (
           <div>
             <ProgressBar
               striped
@@ -149,23 +177,6 @@ class CreateRouteForm extends Component {
             />
           </div>
         );
-        case 5:
-          return (
-            <div>
-              <ProgressBar
-                striped
-                variant="warning"
-                animated
-                now={this.state.percentage}
-                label={'Create Model'}
-              />
-              <CreateRoute
-                prevStep={this.prevStep}
-                handleChange={this.handleInput}
-                nextStep={this.nextStep}
-              />
-            </div>
-          );
       case 6:
         return (
           <div>
@@ -178,19 +189,28 @@ class CreateRouteForm extends Component {
             />
             <ImageUpload
               uploadImagePrevStep={this.uploadImagePrevStep}
+              nextStep={this.nextStep}
               handleChange={this.handleInput}
               values={values}
             />
           </div>
         );
+      case 7:
+        return (
+            <CreateRouteSuccess
+              uploadImagePrevStep={this.uploadImagePrevStep}
+              handleChange={this.handleInput}
+              values={values}
+            />
+  
+        );
     }
   }
 }
 
-const mapState = ({ routeModel, ClimbingRoute, ClimbingRoutes }) => ({
+const mapState = ({ routeModel, climbingRoute  }) => ({
   routeModel,
-  ClimbingRoute,
-  ClimbingRoutes
+  climbingRoute
 });
 
 const mapDispatch = dispatch => {

@@ -23,18 +23,33 @@ import Profile from './Profile';
 import ImageUpload from './ImageUpload';
 import CreateRouteForm from './CreateRouteForm';
 import CreateRouteOptions from './CreateRouteOptions';
+import { setUser } from '../redux/actions';
 
 class Root extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false
+    };
+  }
   componentDidMount() {
     // dont authenticate if user is trying to signup or login
     if (
       this.props.location.pathname.includes('/signup') ||
       this.props.location.pathname.includes('/login')
     ) {
+      //componentDidMount will stop here and go to the next item in life cycle
       return;
     }
-    const { fetchUser } = this.props;
-    fetchUser(getCookie());
+    const { fetchUser, setUser } = this.props;
+    console.log('fetch user in root CDM');
+    const cookie = getCookie();
+    if (!cookie) {
+      setUser({});
+    } else {
+      fetchUser(cookie);
+    }
+
     // if (document.cookie.split(';')[0].length > 0) {
     //   fetchUser(getCookie());
     // }
@@ -63,36 +78,18 @@ class Root extends Component {
         <div>
           <Navigation />
           <Toast status={status} message={text} />
-          {!this.props.user.id ? (
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/climbingroutes" component={ClimbingRoutes} />
-              <Route
-                path="/climbingroutes/:id"
-                component={SingleClimbingRoute}
-              />
-              <Route path="/model/:id" component={RouteModel} />
-              <Redirect to="/" />
-            </Switch>
-          ) : (
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route exact path="/" component={Home} />
-              <Route exact path="/admin/create" component={CreateRouteForm} />
-              <Route exact path="/climbingroutes" component={ClimbingRoutes} />
-              <Route
-                path="/climbingroutes/:id"
-                component={SingleClimbingRoute}
-              />
-              <Route path="/model/:id" component={RouteModel} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/admin/upload" component={ImageUpload} />
-              <Redirect to="/" />
-            </Switch>
-          )}
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/admin/create" component={CreateRouteForm} />
+            <Route exact path="/climbingroutes" component={ClimbingRoutes} />
+            <Route path="/climbingroutes/:id" component={SingleClimbingRoute} />
+            <Route path="/model/:id" component={RouteModel} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/admin/upload" component={ImageUpload} />
+            <Redirect to="/" />
+          </Switch>
         </div>
       </Router>
     );
@@ -107,7 +104,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchUser: sessionId => dispatch(fetchUser(sessionId))
+    fetchUser: sessionId => dispatch(fetchUser(sessionId)),
+    setUser: user => dispatch(setUser(user))
   };
 };
 

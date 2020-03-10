@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, Button, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar, Button, NavDropdown, Image } from 'react-bootstrap';
 import { logoutUser } from '../redux/thunks/UserThunks';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -99,7 +99,7 @@ class Navigation extends Component {
           padding: '0 5rem'
         }}
       >
-        <Navbar.Brand id="logo">Climbar</Navbar.Brand>
+        <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link
             href="/"

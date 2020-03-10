@@ -14,6 +14,11 @@ const {
 
 // set user in state
 router.get('/session/:sessionId', (req, res, next) => {
+  console.log(chalk.cyan('params is: ', req.params.sessionId));
+  if (!req.params.sessionId) {
+    console.log(chalk.cyan('returning 404'));
+    return res.status(404).send({});
+  }
   const { sessionId } = req.params;
   User.findOne({
     where: {
@@ -22,6 +27,7 @@ router.get('/session/:sessionId', (req, res, next) => {
     include: [{ model: LikedRoute }, { model: CompletedRoute }]
   })
     .then(user => {
+      console.log(chalk.cyan('user is: ', user));
       if (!user) {
         return res.status(404).send({});
       }
@@ -50,12 +56,15 @@ router.get('/session/:sessionId', (req, res, next) => {
             .send({ user, completedRouteInfo });
         })
         .catch(e => {
-          console.log(e);
+          console.log(
+            chalk.cyan('found a user, but not able to read a cookie', e)
+          );
           res.status(400);
           next(e);
         });
     })
     .catch(e => {
+      console.log(chalk.cyan('error on looking for a user', e));
       res.status(400);
       next(e);
     });
@@ -145,7 +154,7 @@ router.post('/logout/:userId', (req, res, next) => {
     }
   )
     .then((numOfUser, loggoutUser) => {
-      console.log(chalk.cyan('logged out user:', loggoutUser));
+      console.log(chalk.cyan('logging out user'));
       res.status(201).send(loggoutUser);
     })
     .catch(e => {
