@@ -28,3 +28,13 @@ export const average = (arr, numberProp) =>
 
 import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
+export const holdColorDictonary = {
+  '#a61901': 'Red',
+  '#ce7801': 'Orange',
+  '#fffe06': 'Yellow',
+  '#48ac10': 'Green',
+  '#0433ff': 'Blue',
+  '#531b93': 'Purple',
+  '#565656': 'Black',
+  '#ededed': 'White'
+};
