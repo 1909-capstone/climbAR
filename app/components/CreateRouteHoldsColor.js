@@ -18,12 +18,6 @@ class CreateRouteHoldsColor extends Component {
       h.style.backgroundColor = color;
     });
   }
-  checkHoldColor = holdColor => {
-    for (let key in holdColorDictonary) {
-      return holdColorDictonary[holdColor];
-    }
-    return null
-  };
   render() {
     const { routeModel, handleChange } = this.props;
     const { holdColor } = routeModel;
@@ -44,7 +38,7 @@ class CreateRouteHoldsColor extends Component {
             }}
           >
             <option value="">
-              {this.checkHoldColor(routeModel.holdColor)}
+              {holdColorDictonary[holdColor]}
             </option>
             <option value="#a61901">Red</option>
             <option value="#ce7801">Orange</option>
