@@ -12,6 +12,13 @@
 .navbar-light {
   color: white;
 }
+.dropdown-toggle {
+  display: none;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
 
 #navbar {
   background-color: #070707;

@@ -10,6 +10,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import CreateRouteOptions from './CreateRouteOptions';
 import ImageUpload from './ImageUpload';
 import CreateRouteSuccess from './CreateRouteSuccess';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { compose } from 'redux';
 
 class CreateRouteForm extends Component {
   state = {
@@ -30,7 +33,7 @@ class CreateRouteForm extends Component {
       percentage: this.state.percentage + 20
     });
   };
-  //Proceed to the next 2 steps in the case instead of 1 
+  //Proceed to the next 2 steps in the case instead of 1
   nextStepDouble = () => {
     const { step } = this.state;
     this.setState({
@@ -66,7 +69,12 @@ class CreateRouteForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   render() {
-    const { step, grade, endDate, holdColor } = this.state;
+    const {
+      state: { step, grade, endDate, holdColor },
+      props: { user }
+    } = this;
+    console.log('USER IS ', user);
+    if (user.userType !== 'Admin') return <Redirect to="/login" />;
     //able to pass the values into the next/previous component
     const values = { step, grade, endDate, holdColor };
     switch (step) {
@@ -197,20 +205,20 @@ class CreateRouteForm extends Component {
         );
       case 7:
         return (
-            <CreateRouteSuccess
-              uploadImagePrevStep={this.uploadImagePrevStep}
-              handleChange={this.handleInput}
-              values={values}
-            />
-  
+          <CreateRouteSuccess
+            uploadImagePrevStep={this.uploadImagePrevStep}
+            handleChange={this.handleInput}
+            values={values}
+          />
         );
     }
   }
 }
 
-const mapState = ({ routeModel, climbingRoute  }) => ({
+const mapState = ({ routeModel, climbingRoute, user }) => ({
   routeModel,
-  climbingRoute
+  climbingRoute,
+  user
 });
 
 const mapDispatch = dispatch => {
@@ -218,4 +226,7 @@ const mapDispatch = dispatch => {
     setRouteModel: model => dispatch(setRouteModel(model))
   };
 };
-export default connect(mapState, mapDispatch)(CreateRouteForm);
+export default compose(
+  withRouter,
+  connect(mapState, mapDispatch)
+)(CreateRouteForm);

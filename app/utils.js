@@ -11,11 +11,13 @@ export const htmlDate = addDays => {
 };
 
 export const getCookie = () =>
-  document.cookie
-    .split(';')
-    .filter(c => /session_id=/.test(c))[0]
-    .replace(/session_id=/, '')
-    .replace(/ /, '');
+  document.cookie.split(';').filter(c => /session_id=/.test(c))[0]
+    ? document.cookie
+        .split(';')
+        .filter(c => /session_id=/.test(c))[0]
+        .replace(/session_id=/, '')
+        .replace(/ /, '')
+    : null;
 
 export const average = (arr, numberProp) =>
   arr.length === 0
@@ -24,6 +26,8 @@ export const average = (arr, numberProp) =>
         0
       );
 
+import { createBrowserHistory } from 'history';
+export const history = createBrowserHistory();
 export const holdColorDictonary = {
   '#a61901': 'Red',
   '#ce7801': 'Orange',
