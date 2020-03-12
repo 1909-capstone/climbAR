@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, Button, NavDropdown, Image } from 'react-bootstrap';
+import {
+  Nav,
+  Navbar,
+  Button,
+  NavDropdown,
+  Image,
+  NavItem
+} from 'react-bootstrap';
 import { logoutUser } from '../redux/thunks/UserThunks';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import style from '../css/navigation.css';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Navigation extends Component {
   switchNavBar = params => {
@@ -11,8 +20,8 @@ class Navigation extends Component {
       case 'Admin':
         return (
           <Nav>
-            <Nav.Link
-              href="/admin/create"
+            <LinkContainer
+              to="/admin/create"
               id="create-route"
               style={{
                 color: '#f0eae3',
@@ -20,8 +29,8 @@ class Navigation extends Component {
                 alignItems: 'center'
               }}
             >
-              Create Route
-            </Nav.Link>
+              <Nav.Link>Create Route</Nav.Link>
+            </LinkContainer>
             <NavDropdown
               title={
                 <span id="nav-dropdown">
@@ -30,9 +39,12 @@ class Navigation extends Component {
                 </span>
               }
             >
-              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
-                Profile
-              </NavDropdown.Item>
+              <LinkContainer
+                style={{ color: '#f0eae3', textAlign: 'center' }}
+                to={`/profile`}
+              >
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <span
@@ -55,13 +67,17 @@ class Navigation extends Component {
               title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
               id="nav-dropdown"
             >
-              <NavDropdown.Item eventKey="4.1" href={`/profile`}>
-                Profile
-              </NavDropdown.Item>
+              <LinkContainer
+                style={{ color: '#f0eae3', textAlign: 'center' }}
+                to={`/profile`}
+              >
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
                 <Button
                   onClick={() => {
+                    console.log('calling onClick button in Climber navbar');
                     logoutUser(user.id);
                   }}
                 >
@@ -74,12 +90,12 @@ class Navigation extends Component {
       default:
         return (
           <Nav id="nav-guest">
-            <Nav.Link href="/login" style={{ color: '#e45720' }}>
-              Log In
-            </Nav.Link>
-            <Nav.Link href="/signup" style={{ color: '#e45720' }}>
-              Sign Up
-            </Nav.Link>
+            <LinkContainer to="/login" style={{ color: '#e45720' }}>
+              <Nav.Link>Log In</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signup" style={{ color: '#e45720' }}>
+              <Nav.Link>Sign Up</Nav.Link>
+            </LinkContainer>
           </Nav>
         );
     }
@@ -98,22 +114,22 @@ class Navigation extends Component {
       >
         <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link
-            href="/"
+          <LinkContainer
+            to="/"
             style={{
               color: '#f0eae3'
             }}
           >
-            Home
-          </Nav.Link>
-          <Nav.Link
-            href="/climbingroutes"
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer
+            to="/climbingroutes"
             style={{
               color: '#f0eae3'
             }}
           >
-            Climbing Routes
-          </Nav.Link>
+            <Nav.Link>Climbing Routes</Nav.Link>
+          </LinkContainer>
         </Nav>
         <Nav>{this.switchNavBar(user)}</Nav>
       </Navbar>

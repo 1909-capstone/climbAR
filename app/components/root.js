@@ -23,6 +23,7 @@ import Profile from './Profile';
 import ImageUpload from './ImageUpload';
 import CreateRouteForm from './CreateRouteForm';
 import CreateRouteOptions from './CreateRouteOptions';
+import { setUser } from '../redux/actions';
 
 class Root extends Component {
   constructor() {
@@ -37,27 +38,41 @@ class Root extends Component {
       this.props.location.pathname.includes('/signup') ||
       this.props.location.pathname.includes('/login')
     ) {
+      //componentDidMount will stop here and go to the next item in life cycle
       return;
     }
-    axios
-      .get('/auth')
-      .then(resp => {
-        const { loggedIn } = resp.data;
-        if (!loggedIn) {
-          this.props.history.push('/login');
-        } else {
-          const { fetchUser } = this.props;
-          if (document.cookie.split(';')[0].length > 0) {
-            fetchUser(getCookie());
-          }
-        }
-      })
-      .catch(e => {
-        console.error(e);
-      });
+    const { fetchUser, setUser } = this.props;
+    console.log('fetch user in root CDM');
+    const cookie = getCookie();
+    if (!cookie) {
+      setUser({});
+    } else {
+      fetchUser(cookie);
+    }
+
+    // if (document.cookie.split(';')[0].length > 0) {
+    //   fetchUser(getCookie());
+    // }
+    // axios
+    //   .get('/auth')
+    //   .then(resp => {
+    //     const { loggedIn } = resp.data;
+    //     if (!loggedIn) {
+    //       this.props.history.push('/login');
+    //     } else {
+    //       const { fetchUser } = this.props;
+    //       if (document.cookie.split(';')[0].length > 0) {
+    //         fetchUser(getCookie());
+    //       }
+    //     }
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //   });
   }
   render() {
     const { status, text } = this.props.statusMessage;
+    console.log('user id: ', this.props.user.id);
     return (
       <Router>
         <div>
@@ -89,8 +104,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchUser: sessionId => dispatch(fetchUser(sessionId))
+    fetchUser: sessionId => dispatch(fetchUser(sessionId)),
+    setUser: user => dispatch(setUser(user))
   };
 };
 
-export default connect(mapState, mapDispatch)(withRouter(Root));
+export default withRouter(connect(mapState, mapDispatch)(Root));

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import Hold from './Hold';
+import { holdColorDictonary } from '.././utils.js';
 
 class CreateRouteHoldsColor extends Component {
   continue = e => {
@@ -18,6 +20,7 @@ class CreateRouteHoldsColor extends Component {
   }
   render() {
     const { routeModel, handleChange } = this.props;
+    const { holdColor } = routeModel;
     return (
       <div>
         <Form.Group>
@@ -34,7 +37,9 @@ class CreateRouteHoldsColor extends Component {
               this.changeHoldColor(e.target.value);
             }}
           >
-            <option value="">{routeModel.holdColor}</option>
+            <option value="">
+              {holdColorDictonary[holdColor]}
+            </option>
             <option value="#a61901">Red</option>
             <option value="#ce7801">Orange</option>
             <option value="#fffe06">Yellow</option>

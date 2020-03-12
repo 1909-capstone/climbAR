@@ -11,6 +11,8 @@ import {
   SET_ROUTE_FILTERS,
   SET_ROUTE_IMAGE,
   SET_ROUTE_VIDEO,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
   SET_EDIT_MODEL
 } from './constants';
 
@@ -103,5 +105,17 @@ export const setRouteImage = image => {
   return {
     type: SET_ROUTE_IMAGE,
     image
+  };
+};
+
+export const logInSuccess = () => {
+  return {
+    type: LOGIN_SUCCESS
+  };
+};
+
+export const loggedInFail = () => {
+  return {
+    type: LOGIN_FAILURE
   };
 };

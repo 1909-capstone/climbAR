@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { setUser, statusMessage } from '../actions';
+import { setUser, statusMessage, logInSuccess, loggedInFail } from '../actions';
 import { FAIL, SUCCESS } from './utils';
 import chalk from 'chalk';
-import { getCookie } from '../../utils';
+import { getCookie, history } from '../../utils';
 import { fetchClimbingRoutes } from './climbingRoutesThunks';
 
 export const fetchUser = sessionId => {
@@ -10,18 +10,27 @@ export const fetchUser = sessionId => {
     return axios
       .get(`/api/users/session/${sessionId}`)
       .then(res => {
+        console.log(chalk.cyan('returned value from get api', res.data));
         const { user, completedRouteInfo } = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
       })
       .catch(e => {
-        console.error(e);
-        dispatch(
-          statusMessage({
-            status: FAIL,
-            text: COMMON_FAIL
-          })
-        );
+        console.log(chalk.cyan('error setting the user', e));
+        switch (e.response.status) {
+          case 404:
+            dispatch(setUser({}));
+            return;
+          default:
+            dispatch(setUser({}));
+            dispatch(
+              statusMessage({
+                status: FAIL,
+                text: 'Error fetching the user'
+              })
+            );
+            return;
+        }
       });
   };
 };
@@ -34,6 +43,7 @@ export const logInUser = ({ email, password }) => {
         const { user, completedRouteInfo } = res.data;
         user['completedRouteInfo'] = completedRouteInfo;
         dispatch(setUser(user));
+        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
@@ -42,13 +52,16 @@ export const logInUser = ({ email, password }) => {
             text: 'Logged in successfully'
           })
         );
+        //TO DO: redirect user to Home page if previous visited page is sign up
+        // window.history.back();
       })
       .catch(err => {
         console.log(err);
+        dispatch(loggedInFail());
         dispatch(
           statusMessage({
             status: FAIL,
-            text: 'Invalid email address or password'
+            text: 'Invalid email address or password. Please try again.'
           })
         );
       });
@@ -62,6 +75,7 @@ export const createUser = user => {
       .post(`/api/users`, user)
       .then(res => {
         dispatch(setUser(res.data));
+        dispatch(logInSuccess());
       })
       .then(() => {
         dispatch(
@@ -70,6 +84,7 @@ export const createUser = user => {
             text: 'Welcome to climbAR'
           })
         );
+        // window.history.back();
       })
       .catch(() => {
         dispatch(
@@ -88,6 +103,7 @@ export const logoutUser = userId => {
     return axios
       .post(`/api/users/logout/${userId}`)
       .then(res => {
+        console.log(res.data);
         dispatch(setUser(res.data));
       })
       .then(() => {
@@ -97,6 +113,8 @@ export const logoutUser = userId => {
             text: 'Logged out successfully'
           })
         );
+        // TO DO: redirect to home
+        // window.history.go('/login');
       })
       .catch(err => {
         console.log('Error logging user out', err);
