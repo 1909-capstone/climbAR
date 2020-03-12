@@ -24,6 +24,7 @@ import ImageUpload from './ImageUpload';
 import CreateRouteForm from './CreateRouteForm';
 import CreateRouteOptions from './CreateRouteOptions';
 import { setUser } from '../redux/actions';
+import ThreeCanvas from './ThreeCanvas';
 
 class Root extends Component {
   constructor() {
@@ -88,6 +89,7 @@ class Root extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/admin/upload" component={ImageUpload} />
+            <Route exact path="/threecanvas" component={ThreeCanvas} />
             <Redirect to="/" />
           </Switch>
         </div>
