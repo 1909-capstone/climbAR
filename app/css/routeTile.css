@@ -52,5 +52,7 @@ i:hover {
 }
 
 .btn-info {
-  color: rgb(240, 234, 227)
+  color: #ffffff;
+  background-color: #343a40;
+  border-color: #343a40;
 }

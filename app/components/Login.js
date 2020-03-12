@@ -138,7 +138,10 @@ class Login extends Component {
                 </Col>
               </Form.Group>
               <p>
-                Not a user? <Nav.Link href="/signup">Sign up</Nav.Link>
+                Not a user?{' '}
+                <Nav.Link href="/signup" style={{ color: '#E45720' }}>
+                  Sign up
+                </Nav.Link>
               </p>
               <Button
                 disabled={!email || !password || emailError || passwordError}

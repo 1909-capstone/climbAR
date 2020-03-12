@@ -187,7 +187,10 @@ class Signup extends Component {
                 </Control.Feedback>
               </Group>
               <div>
-                Already a user? <Link to={'/login'}>Login</Link>
+                Already a user?{' '}
+                <Link to={'/login'} style={{ color: '#E45720' }}>
+                  Login
+                </Link>
               </div>
               <Button
                 disabled={
