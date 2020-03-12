@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logoutUser } from '../redux/thunks/UserThunks';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import RouteTile from './RouteTile';
 
 class Profile extends React.Component {
@@ -66,6 +66,8 @@ class Profile extends React.Component {
   }
   render() {
     const { user } = this.props;
+    console.log('USER IN PROFILE IS: ', user);
+    if (user.userType === undefined) return <Redirect to="login" />;
     return (
       <div>
         <div>{this.bestRoute()}</div>

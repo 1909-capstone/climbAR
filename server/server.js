@@ -84,7 +84,11 @@ app.use((req, res, next) => {
           ) {
             console.log('redirecting to login');
             return res.redirect(404, '/login');
-          } else {
+          }
+          // else if (req.path.includes('/api/users/logout')) {
+          //   console.log(chalk.cyan('redirecting to login'));
+          // }
+          else {
             next();
           }
         }
