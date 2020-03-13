@@ -24,7 +24,7 @@ class Navigation extends Component {
               to="/admin/create"
               id="create-route"
               style={{
-                color: '#f0eae3',
+                color: '#e45720',
                 display: 'flex',
                 alignItems: 'center'
               }}
@@ -34,7 +34,7 @@ class Navigation extends Component {
             <NavDropdown
               title={
                 <span id="nav-dropdown">
-                  {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  Hi {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
                   <i className="material-icons">arrow_drop_down</i>
                 </span>
               }
@@ -65,7 +65,12 @@ class Navigation extends Component {
         return (
           <Nav id="nav-climber">
             <NavDropdown
-              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+              title={
+                <span id="nav-dropdown">
+                  Hi {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  <i className="material-icons">arrow_drop_down</i>
+                </span>
+              }
               id="nav-dropdown"
             >
               <LinkContainer
@@ -76,15 +81,14 @@ class Navigation extends Component {
               </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
-                <Button
+                <span
                   onClick={() => {
-                    console.log('calling onClick button in Climber navbar');
                     logoutUser(user.id);
                   }}
                   style={{ color: '#E45720' }}
                 >
                   Log Out
-                </Button>
+                </span>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
