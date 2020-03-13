@@ -45,7 +45,15 @@ class Profile extends React.Component {
     return this.mapCompletedRoutes().length === 0 ? null : (
       <div>
         <div>Your Completed Routes</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap'
+          }}
+        >
           {this.mapCompletedRoutes().map(_r => (
             <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
           ))}
