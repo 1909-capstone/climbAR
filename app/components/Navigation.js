@@ -118,7 +118,14 @@ class Navigation extends Component {
           padding: '0 5rem'
         }}
       >
-        <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
+        <Navbar.Brand id="logo">
+          <img
+            src="/uploads/logo.png"
+            width="160"
+            height="100"
+            style={{ paddingBottom: '5px' }}
+          />
+        </Navbar.Brand>
         <Nav className="mr-auto">
           <LinkContainer
             to="/"

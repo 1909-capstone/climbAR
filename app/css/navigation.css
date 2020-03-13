@@ -18,12 +18,6 @@
 #navbar {
   background-color: #343a40;
 }
-
-#logo {
-  color: #e45720;
-  font-size: 1.35em;
-}
-
 .dropdown-toggle {
   display: flex;
 }
