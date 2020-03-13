@@ -34,6 +34,16 @@ class RouteModel extends React.Component {
           position="0 1 4"
           rotation="0 -90 0"
         />
+        {!climbingRoute.routeImage && (
+          <Entity
+            primitive="a-plane"
+            src="#wallTexture"
+            rotation="0 0 0"
+            position="0 1.7 -2"
+            height="4.4"
+            width="4"
+          />
+        )}
         {climbingRoute.routeImage && (
           <Entity
             primitive="a-image"
