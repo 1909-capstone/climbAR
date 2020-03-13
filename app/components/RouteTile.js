@@ -58,7 +58,7 @@ class RouteTile extends React.Component {
           </div>
           {user.userType && <RatingButon route={route} />}
         </div>
-        <div style={{ padding: '5px' }}>
+        <div style={{ padding: '10px', paddingLeft: '15px' }}>
           <i className="large material-icons">schedule</i> Expiring{' '}
           {daysToExpire()}
         </div>
@@ -67,7 +67,7 @@ class RouteTile extends React.Component {
             display: 'flex',
             width: '95%',
             height: '2.5em',
-            padding: '0 2.5% 0 2.5%',
+            padding: '15px',
             justifyContent: 'space-between',
             alignItems: 'center'
           }}

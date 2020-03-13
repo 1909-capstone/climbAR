@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { rate } from '../redux/thunks/UserThunks';
-import style from '../css/routeTile.css';
+import style from '../css/RatingButton.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
@@ -28,7 +28,7 @@ class RatingButton extends React.Component {
             </Popover>
           }
         >
-          <Button variant="info" size="sm">
+          <Button variant="dark" size="sm">
             <span>Rate</span>
           </Button>
         </OverlayTrigger>
