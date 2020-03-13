@@ -40,7 +40,7 @@ class Navigation extends Component {
               }
             >
               <LinkContainer
-                style={{ color: '#f0eae3', textAlign: 'center' }}
+                style={{ color: '#e45720', textAlign: 'center' }}
                 to={`/profile`}
               >
                 <Nav.Link>Profile</Nav.Link>
@@ -52,6 +52,7 @@ class Navigation extends Component {
                   onClick={() => {
                     logoutUser(user.id);
                   }}
+                  style={{ color: '#E45720' }}
                 >
                   Log Out
                 </span>
@@ -68,7 +69,7 @@ class Navigation extends Component {
               id="nav-dropdown"
             >
               <LinkContainer
-                style={{ color: '#f0eae3', textAlign: 'center' }}
+                style={{ color: '#e45720', textAlign: 'center' }}
                 to={`/profile`}
               >
                 <Nav.Link>Profile</Nav.Link>
@@ -80,6 +81,7 @@ class Navigation extends Component {
                     console.log('calling onClick button in Climber navbar');
                     logoutUser(user.id);
                   }}
+                  style={{ color: '#E45720' }}
                 >
                   Log Out
                 </Button>

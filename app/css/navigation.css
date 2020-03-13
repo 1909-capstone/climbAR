@@ -21,7 +21,7 @@
 }
 
 #navbar {
-  background-color: #070707;
+  background-color: #343a40;
 }
 
 #logo {
@@ -33,10 +33,10 @@
   display: flex;
 }
 .dropdown-item {
-  color: #f0eae3;
+  color: #e45720;
   text-align: center;
 }
 
 .dropdown-menu.show {
-  background-color: #070707;
+  background-color: #343a40;
 }
