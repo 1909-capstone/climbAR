@@ -1,5 +1,6 @@
 .route-filters-container {
   display: flex;
+  padding-left: 20px;
 }
 
 #grade-filter,
