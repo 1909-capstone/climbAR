@@ -14,7 +14,7 @@ class ThreeCanvas extends React.Component {
 
     var objects = [];
     camera = new THREE.PerspectiveCamera(
-      55,
+      45,
       window.innerWidth / window.innerHeight,
       1,
       10000
@@ -48,8 +48,8 @@ class ThreeCanvas extends React.Component {
 
     // grid
 
-    var gridHelper = new THREE.GridHelper(1000, 20);
-    scene.add(gridHelper);
+    // var gridHelper = new THREE.GridHelper(1000, 20);
+    // scene.add(gridHelper);
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
@@ -77,7 +77,7 @@ class ThreeCanvas extends React.Component {
     //renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth / 1.25, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(renderer.domElement);
     return { renderer, scene, camera };
   }
@@ -86,15 +86,7 @@ class ThreeCanvas extends React.Component {
     renderer.render(scene, camera);
   }
   render() {
-    return (
-      <div style={{ width: '100%', display: 'flex' }}>
-        <div style={{ width: '25%', height: '100%' }}>Holds will go here</div>
-        <div
-          style={{ width: '75%', height: '100%' }}
-          ref={ref => (this.mount = ref)}
-        />
-      </div>
-    );
+    return <div ref={ref => (this.mount = ref)} />;
   }
 }
 
