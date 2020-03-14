@@ -47,7 +47,7 @@ class SingleClimbingRoute extends React.Component {
   betaVideos(route) {
     if (!route || !route.videos) return '';
     return route.videos.length === 0 ? (
-      <div>'No beta videos yet for this route :('</div>
+      <div>No beta videos yet for this route :(</div>
     ) : (
       route.videos.map(_v => (
         <div key={_v.id}>
@@ -58,8 +58,11 @@ class SingleClimbingRoute extends React.Component {
                 Your browser does not support HTML5 video.
               </video>
             </div>
-            <div>
-              <Button onClick={() => this.handleOnRemove(_v, route.id)}>
+            <div className="remove-video">
+              <Button
+                variant="outline-dark"
+                onClick={() => this.handleOnRemove(_v, route.id)}
+              >
                 Remove
               </Button>
             </div>
@@ -76,16 +79,21 @@ class SingleClimbingRoute extends React.Component {
     } = this;
     return (
       <main className="single-route">
+        <h5>Selected Climbing Route</h5>
         <div> Grade: {climbingRoute.grade}</div>
         <div> Hold Color: {climbingRoute.holdColor}</div>
         <div> Expiring On: {climbingRoute.endDate}</div>
-        <Link to={`/model/${climbingRoute.id}`} style={{ color: '#e4572e' }}>
+        <Button
+          className="view-model-button"
+          to={`/model/${climbingRoute.id}`}
+          variant="outline-secondary"
+        >
           View Model
-        </Link>
-        <div>
+        </Button>
+        <div className="video-section">
           {user.userType && (
             <div>
-              <div>Share Your Beta</div>
+              <h5 className="share-your-beta">Share Your Beta</h5>
               <Fragment>
                 <form onSubmit={this.handleOnSubmit}>
                   <div className="custom-file mb-4">
@@ -102,14 +110,14 @@ class SingleClimbingRoute extends React.Component {
                   <input
                     type="submit"
                     value="Upload"
-                    className="btn btn-primary btn-block mt-4"
+                    className="btn btn-dark btn-block mt-4"
                   />
                 </form>
               </Fragment>
             </div>
           )}
         </div>
-        <div>Beta Videos</div>
+        <h5 className="video-title">Beta Videos</h5>
         {betaVideos(climbingRoute)}
       </main>
     );
