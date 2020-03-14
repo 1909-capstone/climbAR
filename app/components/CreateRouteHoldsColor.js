@@ -19,10 +19,19 @@ class CreateRouteHoldsColor extends Component {
     });
   }
   render() {
-    const { routeModel, handleChange } = this.props;
+    const { routeModel, handleChange, values } = this.props;
     const { holdColor } = routeModel;
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10px',
+          paddingTop: '30px'
+        }}
+      >
         <Form.Group>
           <Form.Label htmlFor="holdColor">
             Please select the hold color
@@ -48,12 +57,25 @@ class CreateRouteHoldsColor extends Component {
             <option value="#ededed">White</option>
           </Form.Control>
         </Form.Group>
-        <Button label="previous" onClick={this.previous} variant="outline-dark">
-          Previous
-        </Button>
-        <Button label="continue" onClick={this.continue} variant="outline-dark">
-          Continue
-        </Button>
+        <div>
+          <Button
+            label="previous"
+            onClick={this.previous}
+            variant="outline-dark"
+            style={{ marginRight: '5px' }}
+          >
+            Previous
+          </Button>
+          <Button
+            label="continue"
+            onClick={this.continue}
+            variant="outline-dark"
+            style={{ marginLeft: '5px' }}
+            disabled={!values.holdColor}
+          >
+            Continue
+          </Button>
+        </div>
       </div>
     );
   }
