@@ -58,7 +58,7 @@ class CreateRouteExpiration extends Component {
             onClick={this.continue}
             variant="outline-dark"
             style={{ marginLeft: '5px' }}
-            disabled={endDate < today}
+            disabled={isNaN(endDate) || endDate < today}
           >
             Continue
           </Button>
