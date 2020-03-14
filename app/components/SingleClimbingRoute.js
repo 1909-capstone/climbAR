@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
 import { user } from '../redux/reducers';
 import { Button } from 'react-bootstrap';
+import { holdColorDictonary } from '.././utils';
 
 class SingleClimbingRoute extends React.Component {
   constructor() {
@@ -77,7 +78,7 @@ class SingleClimbingRoute extends React.Component {
     return (
       <main className="single-route">
         <div> Grade: {climbingRoute.grade}</div>
-        <div> Hold Color: {climbingRoute.holdColor}</div>
+        <div> Hold Color: {holdColorDictonary[climbingRoute.holdColor]}</div>
         <div> Expiring On: {climbingRoute.endDate}</div>
         <Link to={`/model/${climbingRoute.id}`} style={{ color: '#e4572e' }}>
           View Model
