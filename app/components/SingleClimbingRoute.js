@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
 import { user } from '../redux/reducers';
 import { Button } from 'react-bootstrap';
+import { holdColorDictionary } from '../utils';
 
 class SingleClimbingRoute extends React.Component {
   constructor() {
@@ -77,11 +78,12 @@ class SingleClimbingRoute extends React.Component {
       state: { fileName },
       betaVideos
     } = this;
+    const holdColor = holdColorDictionary[climbingRoute.holdColor];
     return (
       <main className="single-route">
         <h5>Selected Climbing Route</h5>
         <div> Grade: {climbingRoute.grade}</div>
-        <div> Hold Color: {climbingRoute.holdColor}</div>
+        <div> Hold Color: {holdColor}</div>
         <div> Expiring On: {climbingRoute.endDate}</div>
         <Button
           className="view-model-button"
@@ -110,7 +112,7 @@ class SingleClimbingRoute extends React.Component {
                   <input
                     type="submit"
                     value="Upload"
-                    className="btn btn-dark btn-block mt-4"
+                    className="btn btn-secondary btn-block mt-4"
                   />
                 </form>
               </Fragment>

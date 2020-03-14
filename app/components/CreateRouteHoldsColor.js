@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Hold from './Hold';
-import { holdColorDictonary } from '.././utils.js';
+import { holdColorDictionary } from '.././utils.js';
 
 class CreateRouteHoldsColor extends Component {
   continue = e => {
@@ -37,9 +37,7 @@ class CreateRouteHoldsColor extends Component {
               this.changeHoldColor(e.target.value);
             }}
           >
-            <option value="">
-              {holdColorDictonary[holdColor]}
-            </option>
+            <option value="">{holdColorDictionary[holdColor]}</option>
             <option value="#a61901">Red</option>
             <option value="#ce7801">Orange</option>
             <option value="#fffe06">Yellow</option>
