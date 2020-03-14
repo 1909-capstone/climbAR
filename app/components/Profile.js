@@ -20,15 +20,16 @@ class Profile extends React.Component {
       gradeNumber,
       mapCompletedRoutes
     } = this;
-    if (!user.completedRoutes) return;
-    return user.completedRoutes.length === 0 ? (
+    // if (!user.completedRoutes) return;
+    return !user.completedRoutes || user.completedRoutes.length === 0 ? (
       <div
         style={{
           display: 'flex',
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '10px'
+          padding: '10px',
+          paddingTop: '30px'
         }}
       >
         <h6>
@@ -43,7 +44,8 @@ class Profile extends React.Component {
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '10px'
+          padding: '10px',
+          paddingTop: '30px'
         }}
       >
         <h6>
