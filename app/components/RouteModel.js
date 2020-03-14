@@ -34,14 +34,26 @@ class RouteModel extends React.Component {
           position="0 1 4"
           rotation="0 -90 0"
         />
-        <Entity
-          primitive="a-plane"
-          src={climbingRoute.routeImage ? '#userUpload' : '#wallTexture'}
-          rotation="0 0 0"
-          position="0 1.7 -2"
-          height="4.4"
-          width="4"
-        />
+        {!climbingRoute.routeImage && (
+          <Entity
+            primitive="a-plane"
+            src="#wallTexture"
+            rotation="0 0 0"
+            position="0 1.7 -2"
+            height="4.4"
+            width="4"
+          />
+        )}
+        {climbingRoute.routeImage && (
+          <Entity
+            primitive="a-image"
+            src="#userUpload"
+            rotation="0 0 0"
+            position="0 1.7 -2"
+            height="4.4"
+            width="4"
+          />
+        )}
         <Entity primitive="a-light" type="ambient" color="#625230" />
         {!climbingRoute.routeImage && (
           <Entity
