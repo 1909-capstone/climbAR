@@ -86,6 +86,7 @@ class Profile extends React.Component {
         <div>{this.bestRoute()}</div>
         <div>{this.userRoutes()}</div>
         <div>{this.userVideos()}</div>
+        {/* TODO: ADD climbing analysis charts and graphs */}
       </div>
     );
   }
