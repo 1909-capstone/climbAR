@@ -62,13 +62,17 @@ class SingleClimbingRoute extends React.Component {
         <div> Grade: {climbingRoute.grade}</div>
         <div> Hold Color: {holdColor}</div>
         <div> Expiring On: {climbingRoute.endDate}</div>
-        <Button
-          className="view-model-button"
+        <Link
+          className="btn btn-outline-secondary btn-lg"
           to={`/model/${climbingRoute.id}`}
-          variant="outline-secondary"
+          style={{
+            color: '#e4572e',
+            padding: '10px',
+            margin: '10px'
+          }}
         >
           View Model
-        </Button>
+        </Link>
         <div className="video-section">
           {user.userType && (
             <div>
