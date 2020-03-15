@@ -263,7 +263,11 @@ router.post('/routes/like', (req, res, next) => {
 //mark a route completed
 router.post('/routes/complete', (req, res, next) => {
   const { user, route } = req.body;
-  CompletedRoute.create({ climbingRouteId: route.id, userId: user.id })
+  CompletedRoute.create({
+    climbingRouteId: route.id,
+    userId: user.id,
+    completeDate: new Date()
+  })
     .then(() => res.status(201).send('route marked complete'))
     .catch(e => {
       console.log('error marking route complete', e);

@@ -1,26 +1,32 @@
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
+const days = numDays => 1000 * 60 * 60 * 24 * numDays;
+
 const users = [
   {
     userType: 'Admin',
     email: 'cissy5120@gmail.com',
-    password: bcrypt.hashSync('123', 10)
+    password: bcrypt.hashSync('123', 10),
+    startDate: new Date(new Date().getTime() - days(23))
   },
   {
     userType: 'Admin',
     email: 'nries1@gmail.com',
-    password: bcrypt.hashSync('123', 10)
+    password: bcrypt.hashSync('123', 10),
+    startDate: new Date(new Date().getTime() - days(24))
   },
   {
     userType: 'Admin',
     email: 'raymond.ng47@gmail.com',
-    password: bcrypt.hashSync('123', 10)
+    password: bcrypt.hashSync('123', 10),
+    startDate: new Date(new Date().getTime() - days(26))
   },
   {
     userType: 'Climber',
     email: 'climber@gmail.com',
-    password: bcrypt.hashSync('123', 10)
+    password: bcrypt.hashSync('123', 10),
+    startDate: new Date(new Date().getTime() - days(25))
   }
 ];
 
