@@ -19,7 +19,16 @@ class CreateRouteGrade extends Component {
     const { routeModel, handleChange, values } = this.props;
     const { error } = this.state;
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10px',
+          paddingTop: '30px'
+        }}
+      >
         <div>
           <Form.Group>
             <Form.Label htmlFor="grade">
@@ -53,7 +62,12 @@ class CreateRouteGrade extends Component {
             </Form.Control>
           </Form.Group>
         </div>
-        <Button label="continue" onClick={this.continue} variant="outline-dark">
+        <Button
+          label="continue"
+          onClick={this.continue}
+          variant="outline-dark"
+          disabled={!values.grade}
+        >
           Continue
         </Button>
       </div>

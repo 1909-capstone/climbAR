@@ -58,7 +58,7 @@ class RouteTile extends React.Component {
           </div>
           {user.userType && <RatingButon route={route} />}
         </div>
-        <div>
+        <div style={{ padding: '10px', paddingLeft: '15px' }}>
           <i className="large material-icons">schedule</i> Expiring{' '}
           {daysToExpire()}
         </div>
@@ -67,7 +67,7 @@ class RouteTile extends React.Component {
             display: 'flex',
             width: '95%',
             height: '2.5em',
-            padding: '0 2.5% 0 2.5%',
+            padding: '15px',
             justifyContent: 'space-between',
             alignItems: 'center'
           }}
@@ -76,6 +76,10 @@ class RouteTile extends React.Component {
             className="btn btn-info btn-sm"
             key={route.id}
             to={`/climbingroutes/${route.id}`}
+            style={{
+              backgroundColor: '#343a40',
+              borderColor: '#343a40'
+            }}
           >
             More
           </Link>

@@ -140,7 +140,7 @@ class CreateRouteForm extends Component {
               variant="warning"
               animated
               now={this.state.percentage}
-              label={'Hold Color'}
+              label={'Options'}
             />
             <CreateRouteOptions
               nextStep={this.nextStep}

@@ -24,7 +24,7 @@ class Navigation extends Component {
               to="/admin/create"
               id="create-route"
               style={{
-                color: '#f0eae3',
+                color: '#e45720',
                 display: 'flex',
                 alignItems: 'center'
               }}
@@ -34,13 +34,13 @@ class Navigation extends Component {
             <NavDropdown
               title={
                 <span id="nav-dropdown">
-                  {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  Hi {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
                   <i className="material-icons">arrow_drop_down</i>
                 </span>
               }
             >
               <LinkContainer
-                style={{ color: '#f0eae3', textAlign: 'center' }}
+                style={{ color: '#e45720', textAlign: 'center' }}
                 to={`/profile`}
               >
                 <Nav.Link>Profile</Nav.Link>
@@ -52,6 +52,7 @@ class Navigation extends Component {
                   onClick={() => {
                     logoutUser(user.id);
                   }}
+                  style={{ color: '#E45720' }}
                 >
                   Log Out
                 </span>
@@ -64,25 +65,30 @@ class Navigation extends Component {
         return (
           <Nav id="nav-climber">
             <NavDropdown
-              title={user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+              title={
+                <span id="nav-dropdown">
+                  Hi {user.email.replace(/@[aA-zZ | . | 0-9]*/, '')}
+                  <i className="material-icons">arrow_drop_down</i>
+                </span>
+              }
               id="nav-dropdown"
             >
               <LinkContainer
-                style={{ color: '#f0eae3', textAlign: 'center' }}
+                style={{ color: '#e45720', textAlign: 'center' }}
                 to={`/profile`}
               >
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
               <NavDropdown.Divider />
               <NavDropdown.Item eventKey="4.2">
-                <Button
+                <span
                   onClick={() => {
-                    console.log('calling onClick button in Climber navbar');
                     logoutUser(user.id);
                   }}
+                  style={{ color: '#E45720' }}
                 >
                   Log Out
-                </Button>
+                </span>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -112,7 +118,14 @@ class Navigation extends Component {
           padding: '0 5rem'
         }}
       >
-        <Navbar.Brand id="logo">ClimbAR</Navbar.Brand>
+        <Navbar.Brand id="logo">
+          <img
+            src="/uploads/logo.png"
+            width="160"
+            height="100"
+            style={{ paddingBottom: '5px' }}
+          />
+        </Navbar.Brand>
         <Nav className="mr-auto">
           <LinkContainer
             to="/"

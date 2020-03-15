@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Button, Col, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { logInUser } from '../redux/thunks/UserThunks';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class Login extends Component {
   state = {
@@ -96,7 +96,8 @@ class Login extends Component {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '10px'
+                padding: '10px',
+                paddingTop: '30px'
               }}
             >
               <Form.Group
@@ -137,12 +138,16 @@ class Login extends Component {
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
-              <p>
-                Not a user? <Nav.Link href="/signup">Sign up</Nav.Link>
-              </p>
+              <div style={{ marginBottom: '1rem' }}>
+                Not a user?{' '}
+                <Link to="/signup" style={{ color: '#E45720' }}>
+                  Sign up
+                </Link>
+              </div>
               <Button
                 disabled={!email || !password || emailError || passwordError}
                 onClick={this.onSubmit}
+                variant="secondary"
               >
                 Log In
               </Button>

@@ -5,6 +5,7 @@
   position: relative;
   flex-grow: 1;
   max-width: 20em;
+  height: 11em;
 }
 
 .route-tile-buttons {
@@ -49,4 +50,10 @@
 
 i:hover {
   cursor: pointer;
+}
+
+.btn-info {
+  color: #ffffff;
+  background-color: #343a40;
+  border-color: #343a40;
 }

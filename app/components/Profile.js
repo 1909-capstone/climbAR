@@ -23,22 +23,44 @@ class Profile extends React.Component {
       gradeNumber,
       mapCompletedRoutes
     } = this;
-    if (!user.completedRoutes) return;
-    return user.completedRoutes.length === 0 ? (
-      <div>
-        You haven't completed any routes yet.{' '}
-        <Link to="/climbingroutes">View Some Routes</Link> and start climbing!
+    // if (!user.completedRoutes) return;
+    return !user.completedRoutes || user.completedRoutes.length === 0 ? (
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '10px',
+          paddingTop: '30px'
+        }}
+      >
+        <h6>
+          You haven't completed any routes yet.{' '}
+          <Link to="/climbingroutes">View Some Routes</Link> and start climbing!
+        </h6>
       </div>
     ) : (
-      <div>
-        Highest Route Completed:
-        {user.completedRouteInfo
-          ? joinCompletedRoutes.reduce((best, route) => {
+      <div 
+      style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '10px',
+          paddingTop: '30px'
+        }}
+      >
+        <h6>
+          Highest Route Completed:
+          {user.completedRouteInfo
+            ? joinCompletedRoutes.reduce((best, route) => {
               return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
                 ? route.thisRoute.grade
                 : best;
             }, 'VB')
-          : 'None completed'}
+            : 'None completed'}
+        </h6>
       </div>
     );
   }
@@ -47,8 +69,17 @@ class Profile extends React.Component {
     if (!user.completedRouteInfo || !this) return;
     return joinCompletedRoutes.length === 0 ? null : (
       <div>
-        <div>Your Completed Routes</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <h5 style={{ display: 'flex', justifyContent: 'center' }}>
+          Your Completed Routes
+        </h5>
+        <div 
+          style={{ 
+            display: 'flex', 
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap' 
+      }}>
           {joinCompletedRoutes.map(_r => (
             <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
           ))}
