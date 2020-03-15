@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
-import {
-  uploadRouteVideo,
-  removeRouteVideo
-} from '../redux/thunks/routeVideoThunks.js';
+import { uploadRouteVideo } from '../redux/thunks/routeVideoThunks.js';
 import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
 import { user } from '../redux/reducers';
 import { Button } from 'react-bootstrap';
+import BetaVideo from './BetaVideo';
 
 class SingleClimbingRoute extends React.Component {
   constructor() {
@@ -36,10 +34,6 @@ class SingleClimbingRoute extends React.Component {
     uploadRouteVideo(formData);
   };
 
-  handleOnRemove = (video, routeId) => {
-    this.props.removeRouteVideo(video, routeId);
-  };
-
   componentDidMount() {
     const paramsId = this.props.match.params.id;
     this.props.fetchSingleClimbingRoute(paramsId);
@@ -50,21 +44,7 @@ class SingleClimbingRoute extends React.Component {
       <div>'No beta videos yet for this route :('</div>
     ) : (
       route.videos.map(_v => (
-        <div key={_v.id}>
-          <div>
-            <div>
-              <video width="400" controls muted="muted">
-                <source src={_v.url} type="video/mp4" />
-                Your browser does not support HTML5 video.
-              </video>
-            </div>
-            <div>
-              <Button onClick={() => this.handleOnRemove(_v, route.id)}>
-                Remove
-              </Button>
-            </div>
-          </div>
-        </div>
+        <BetaVideo key={_v.id} video={_v} routeId={route.id} />
       ))
     );
   }
@@ -121,9 +101,7 @@ const mapState = ({ climbingRoute, user }) => ({ climbingRoute, user });
 const mapDispatch = dispatch => {
   return {
     fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
-    uploadRouteVideo: videoData => dispatch(uploadRouteVideo(videoData)),
-    removeRouteVideo: (video, routeId) =>
-      dispatch(removeRouteVideo(video, routeId))
+    uploadRouteVideo: videoData => dispatch(uploadRouteVideo(videoData))
   };
 };
 

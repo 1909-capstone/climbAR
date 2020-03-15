@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../redux/thunks/UserThunks';
 import { Link, Redirect } from 'react-router-dom';
 import RouteTile from './RouteTile';
+import BetaVideo from './BetaVideo';
 
 class Profile extends React.Component {
   constructor() {
@@ -53,6 +54,19 @@ class Profile extends React.Component {
       </div>
     );
   }
+  userVideos() {
+    const { user } = this.props;
+    return user.videos.length === 0 ? (
+      <div>You haven't uploaded any beta videos yet.</div>
+    ) : (
+      <div>
+        <div>Your Beta Videos</div>
+        {user.videos.map(_v => (
+          <BetaVideo key={_v.id} video={_v} routeId={_v.climbingRouteId} />
+        ))}
+      </div>
+    );
+  }
   mapCompletedRoutes() {
     const { user } = this.props;
     if (!user.completedRouteInfo) return;
@@ -66,12 +80,13 @@ class Profile extends React.Component {
   }
   render() {
     const { user } = this.props;
-    console.log('USER IN PROFILE IS: ', user);
     if (user.userType === undefined) return <Redirect to="login" />;
     return (
       <div>
         <div>{this.bestRoute()}</div>
         <div>{this.userRoutes()}</div>
+        <div>{this.userVideos()}</div>
+        {/* TODO: ADD climbing analysis charts and graphs */}
       </div>
     );
   }
