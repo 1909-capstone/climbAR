@@ -16,11 +16,11 @@ class CompletedRouteChart extends React.Component {
     } = this;
     console.log('CHART DATA ', completedRoutes);
     const data = completedRoutes;
-    const width = 130;
+    const width = 210;
 
     const x = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => gradeNumber(d.grade))])
+      .domain([0, d3.max(data, d => gradeNumber(d.grade) + 1)])
       .range([0, width]);
 
     const y = d3
