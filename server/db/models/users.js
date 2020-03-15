@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./../database');
 
-const { UUID, UUIDV4, STRING } = Sequelize;
+const { UUID, UUIDV4, STRING, DATEONLY } = Sequelize;
 
 const User = db.define('user', {
   id: {
@@ -32,6 +32,9 @@ const User = db.define('user', {
         arg: [8, 20]
       }
     }
+  },
+  startDate: {
+    type: DATEONLY
   }
 });
 

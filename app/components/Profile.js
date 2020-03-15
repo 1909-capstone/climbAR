@@ -4,6 +4,7 @@ import { logoutUser } from '../redux/thunks/UserThunks';
 import { Link, Redirect } from 'react-router-dom';
 import RouteTile from './RouteTile';
 import BetaVideo from './BetaVideo';
+import CompletedRouteChart from './CompletedRouteChart';
 
 class Profile extends React.Component {
   constructor() {
@@ -11,11 +12,12 @@ class Profile extends React.Component {
     this.bestRoute = this.bestRoute.bind(this);
     this.userRoutes = this.userRoutes.bind(this);
     this.mapCompletedRoutes = this.mapCompletedRoutes.bind(this);
+    this.sortByCompleteDate = this.sortByCompleteDate.bind(this);
   }
   gradeNumber(grade) {
     return grade === 'VB' ? 0 : Number(grade.replace(/V/, ''));
   }
-  bestRoute() {
+  bestRoute(joinCompletedRoutes) {
     const {
       props: { user },
       gradeNumber,
@@ -31,7 +33,7 @@ class Profile extends React.Component {
       <div>
         Highest Route Completed:
         {user.completedRouteInfo
-          ? mapCompletedRoutes().reduce((best, route) => {
+          ? joinCompletedRoutes.reduce((best, route) => {
               return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
                 ? route.thisRoute.grade
                 : best;
@@ -40,14 +42,14 @@ class Profile extends React.Component {
       </div>
     );
   }
-  userRoutes() {
+  userRoutes(joinCompletedRoutes) {
     const { user } = this.props;
     if (!user.completedRouteInfo || !this) return;
-    return this.mapCompletedRoutes().length === 0 ? null : (
+    return joinCompletedRoutes.length === 0 ? null : (
       <div>
         <div>Your Completed Routes</div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {this.mapCompletedRoutes().map(_r => (
+          {joinCompletedRoutes.map(_r => (
             <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
           ))}
         </div>
@@ -78,15 +80,52 @@ class Profile extends React.Component {
       return allRoutes;
     }, []);
   }
+  sortByCompleteDate(completedRoutes, ascending) {
+    const sorted = ascending
+      ? completedRoutes.sort((a, b) => {
+          a = new Date(a.completeDate).getTime();
+          b = new Date(b.completeDate).getTime();
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        })
+      : completedRoutes.sort((a, b) => {
+          a = new Date(a.completeDate).getTime();
+          b = new Date(b.completeDate).getTime();
+          if (a < b) return 1;
+          if (a > b) return -1;
+          return 0;
+        });
+    return sorted.map(_r => ({
+      ..._r.thisRoute,
+      completeDate: _r.completeDate
+    }));
+  }
   render() {
-    const { user } = this.props;
+    const {
+      props: { user },
+      sortByCompleteDate,
+      mapCompletedRoutes
+    } = this;
     if (user.userType === undefined) return <Redirect to="login" />;
+    const joinCompletedRoutes = mapCompletedRoutes();
     return (
       <div>
-        <div>{this.bestRoute()}</div>
-        <div>{this.userRoutes()}</div>
+        <div>All time completed routes: {user.completedRoutes.length}</div>
+        <div>{this.bestRoute(joinCompletedRoutes)}</div>
+        <div>{this.userRoutes(joinCompletedRoutes)}</div>
         <div>{this.userVideos()}</div>
-        {/* TODO: ADD climbing analysis charts and graphs */}
+        <div>Charts {`&`} Analysis</div>
+        <div>Completed Routes by Date Completed</div>
+        <div>
+          <small>
+            All of your completed routes listed in chronological order from
+            first completed to most recently completed
+          </small>
+        </div>
+        <CompletedRouteChart
+          completedRoutes={sortByCompleteDate(joinCompletedRoutes, true)}
+        />
       </div>
     );
   }

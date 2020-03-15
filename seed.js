@@ -8,6 +8,16 @@ const {
   CompletedRoute
 } = require('./server/db/models/index.js');
 
+const completeDateCalculator = grade => {
+  const now = new Date();
+  const gradeNumber = Number(grade.slice(1));
+  const gradeDate = days(gradeNumber);
+  const twentyDaysAgo = new Date().getTime() - days(20);
+  return new Date(twentyDaysAgo + gradeDate);
+};
+
+const days = numDays => 1000 * 60 * 60 * 24 * numDays;
+
 const seed = async () => {
   const newusers = await Promise.all(users.map(user => User.create(user)));
   const newHolds = await Promise.all(holds.map(hold => Hold.create(hold)));
@@ -50,7 +60,11 @@ const seed = async () => {
   newusers.forEach(async _u => {
     await Promise.all(
       newRoutes.map(_r =>
-        CompletedRoute.create({ userId: _u.id, climbingRouteId: _r.id })
+        CompletedRoute.create({
+          userId: _u.id,
+          climbingRouteId: _r.id,
+          completeDate: completeDateCalculator(_r.grade)
+        })
       )
     );
   });
