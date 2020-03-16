@@ -6,12 +6,35 @@ import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
 
 class RouteModel extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cameraZ: 10
+    };
+    this.zoomIn = this.zoomIn.bind(this);
+  }
+  zoomIn() {
+    const {
+      zoomIn,
+      state: { cameraZ }
+    } = this;
+    if (cameraZ <= 1) return;
+    this.setState({ cameraZ: cameraZ - 0.2 });
+    setTimeout(() => {
+      zoomIn();
+    }, 1);
+  }
   componentDidMount() {
     const paramsId = this.props.match.params.id;
     this.props.fetchSingleClimbingRoute(paramsId);
+    this.zoomIn();
   }
   render() {
-    const { climbingRoute } = this.props;
+    const {
+      props: { climbingRoute },
+      state: { cameraZ }
+    } = this;
+    console.log('CR = ', climbingRoute);
     return (
       <Scene>
         <a-assets>
@@ -96,7 +119,7 @@ class RouteModel extends React.Component {
             />
           ))}
         <Entity primitive="a-light" type="ambient" color="#625230" />
-        <Entity primitive="a-camera" position="0 1.7 1"></Entity>
+        <Entity primitive="a-camera" position={`0 1.7 ${cameraZ}`}></Entity>
       </Scene>
     );
   }

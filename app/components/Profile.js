@@ -4,6 +4,7 @@ import { logoutUser } from '../redux/thunks/UserThunks';
 import { Link, Redirect } from 'react-router-dom';
 import RouteTile from './RouteTile';
 import BetaVideo from './BetaVideo';
+import { Badge } from 'react-bootstrap';
 import CompletedRouteChart from './CompletedRouteChart';
 
 class Profile extends React.Component {
@@ -41,8 +42,8 @@ class Profile extends React.Component {
         </h6>
       </div>
     ) : (
-      <div 
-      style={{
+      <div
+        style={{
           display: 'flex',
           width: '100%',
           justifyContent: 'center',
@@ -55,10 +56,10 @@ class Profile extends React.Component {
           Highest Route Completed:
           {user.completedRouteInfo
             ? joinCompletedRoutes.reduce((best, route) => {
-              return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
-                ? route.thisRoute.grade
-                : best;
-            }, 'VB')
+                return gradeNumber(route.thisRoute.grade) >= gradeNumber(best)
+                  ? route.thisRoute.grade
+                  : best;
+              }, 'VB')
             : 'None completed'}
         </h6>
       </div>
@@ -72,14 +73,15 @@ class Profile extends React.Component {
         <h5 style={{ display: 'flex', justifyContent: 'center' }}>
           Your Completed Routes
         </h5>
-        <div 
-          style={{ 
-            display: 'flex', 
+        <div
+          style={{
+            display: 'flex',
             width: '100%',
             alignItems: 'center',
             justifyContent: 'space-around',
-            flexWrap: 'wrap' 
-      }}>
+            flexWrap: 'wrap'
+          }}
+        >
           {joinCompletedRoutes.map(_r => (
             <RouteTile key={_r.id} route={_r.thisRoute} user={user} />
           ))}
@@ -142,7 +144,9 @@ class Profile extends React.Component {
     const joinCompletedRoutes = mapCompletedRoutes();
     return (
       <div>
-        <div>All time completed routes: {user.completedRoutes.length}</div>
+        <Badge pill variant="dark">
+          {user.completedRoutes.length} Routes Completed
+        </Badge>
         <div>{this.bestRoute(joinCompletedRoutes)}</div>
         <div>{this.userRoutes(joinCompletedRoutes)}</div>
         <div>{this.userVideos()}</div>
