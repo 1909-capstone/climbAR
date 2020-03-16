@@ -9,7 +9,8 @@ const {
   CompletedRoute,
   Rating,
   ClimbingRoute,
-  RouteModel
+  RouteModel,
+  Video
 } = models;
 
 // set user in state
@@ -24,7 +25,11 @@ router.get('/session/:sessionId', (req, res, next) => {
     where: {
       sessionId
     },
-    include: [{ model: LikedRoute }, { model: CompletedRoute }]
+    include: [
+      { model: LikedRoute },
+      { model: CompletedRoute },
+      { model: Video }
+    ]
   })
     .then(user => {
       console.log(chalk.cyan('user is: ', user));
@@ -78,9 +83,8 @@ router.post('/login', (req, res, next) => {
     },
     include: [
       { model: LikedRoute },
-      {
-        model: CompletedRoute
-      }
+      { model: CompletedRoute },
+      { model: Video }
     ]
   })
     .then(user => {
@@ -259,7 +263,11 @@ router.post('/routes/like', (req, res, next) => {
 //mark a route completed
 router.post('/routes/complete', (req, res, next) => {
   const { user, route } = req.body;
-  CompletedRoute.create({ climbingRouteId: route.id, userId: user.id })
+  CompletedRoute.create({
+    climbingRouteId: route.id,
+    userId: user.id,
+    completeDate: new Date()
+  })
     .then(() => res.status(201).send('route marked complete'))
     .catch(e => {
       console.log('error marking route complete', e);

@@ -13,9 +13,21 @@ class CreateRouteExpiration extends Component {
     this.props.prevStep();
   };
   render() {
-    const { routeModel, handleChange } = this.props;
+    const { routeModel, handleChange, values } = this.props;
+    let today = new Date();
+    let endDate = new Date(values.endDate);
+
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10px',
+          paddingTop: '30px'
+        }}
+      >
         <div>
           <Form.Group>
             <Form.Group>
@@ -32,12 +44,25 @@ class CreateRouteExpiration extends Component {
             </Form.Group>
           </Form.Group>
         </div>
-        <Button label="previous" onClick={this.previous} variant="outline-dark">
-          Previous
-        </Button>
-        <Button label="continue" onClick={this.continue} variant="outline-dark">
-          Continue
-        </Button>
+        <div>
+          <Button
+            label="previous"
+            onClick={this.previous}
+            variant="outline-dark"
+            style={{ marginRight: '5px' }}
+          >
+            Previous
+          </Button>
+          <Button
+            label="continue"
+            onClick={this.continue}
+            variant="outline-dark"
+            style={{ marginLeft: '5px' }}
+            disabled={isNaN(endDate) || endDate < today}
+          >
+            Continue
+          </Button>
+        </div>
       </div>
     );
   }

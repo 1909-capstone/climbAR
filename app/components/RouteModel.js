@@ -24,25 +24,40 @@ class RouteModel extends React.Component {
             />
           )}
         </a-assets>
-        <Entity
-          primitive="a-sky"
-          src="#skyTextureMiddle"
-          height="2304"
-          width="2304"
-          radius="7"
-          theta-length="180"
-          position="0 1 4"
-          rotation="0 -90 0"
-        />
-        <Entity
-          primitive="a-plane"
-          src={climbingRoute.routeImage ? '#userUpload' : '#wallTexture'}
-          rotation="0 0 0"
-          position="0 1.7 -2"
-          height="4.4"
-          width="4"
-        />
-        <Entity primitive="a-light" type="ambient" color="#625230" />
+        {climbingRoute.routeImage && (
+          <Entity
+            primitive="a-sky"
+            src="#userUpload"
+            height="2304"
+            width="2304"
+            radius="7"
+            theta-length="180"
+            position="0 1 4"
+            rotation="0 -90 0"
+          />
+        )}
+        {!climbingRoute.routeImage && (
+          <Entity
+            primitive="a-sky"
+            src="#skyTextureMiddle"
+            height="2304"
+            width="2304"
+            radius="7"
+            theta-length="180"
+            position="0 1 4"
+            rotation="0 -90 0"
+          />
+        )}
+        {!climbingRoute.routeImage && (
+          <Entity
+            primitive="a-plane"
+            src="#wallTexture"
+            rotation="0 0 0"
+            position="0 1.7 -2"
+            height="4.4"
+            width="4"
+          />
+        )}
         {!climbingRoute.routeImage && (
           <Entity
             primitive="a-light"
@@ -80,6 +95,7 @@ class RouteModel extends React.Component {
               depth={_h.depth}
             />
           ))}
+        <Entity primitive="a-light" type="ambient" color="#625230" />
         <Entity primitive="a-camera" position="0 1.7 1"></Entity>
       </Scene>
     );

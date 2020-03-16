@@ -3,4 +3,36 @@
   flex-direction: column;
   align-items: center;
   align-content: center;
+  padding: 30px;
+}
+
+.single-route > div {
+  padding: 5px;
+}
+
+.single-route > h6 {
+  padding: 5px;
+}
+
+.video-section {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.video-title {
+  margin-top: 30px;
+}
+
+.share-your-beta {
+  display: flex;
+  justify-content: center;
+}
+
+.remove-video {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
 }

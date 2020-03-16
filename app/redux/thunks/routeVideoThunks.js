@@ -1,5 +1,7 @@
 import { statusMessage } from './../actions';
 import { fetchSingleClimbingRoute } from './climbingRoutesThunks';
+import { fetchUser } from './UserThunks';
+import { getCookie } from '../../utils';
 import { FAIL, SUCCESS } from './utils';
 import axios from 'axios';
 
@@ -13,6 +15,9 @@ export const uploadRouteVideo = videoData => {
       })
       .then(res => {
         dispatch(fetchSingleClimbingRoute(res.data.climbingRouteId));
+      })
+      .then(() => {
+        dispatch(fetchUser(getCookie()));
       })
       .then(() => {
         dispatch(
@@ -40,6 +45,9 @@ export const removeRouteVideo = (video, routeId) => {
       .delete(`/api/routevideos/${video.id}`)
       .then(() => {
         dispatch(fetchSingleClimbingRoute(routeId));
+      })
+      .then(() => {
+        dispatch(fetchUser(getCookie()));
       })
       .then(() => {
         dispatch(

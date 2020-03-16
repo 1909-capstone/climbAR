@@ -118,10 +118,14 @@ class Signup extends Component {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                paddingTop: '30px'
               }}
             >
-              <h2> Create your account for climbAR</h2>
+              <h5 style={{ marginBottom: '1rem' }}>
+                {' '}
+                Create your account for climbAR
+              </h5>
               <Group
                 controlId="email"
                 style={{
@@ -186,8 +190,11 @@ class Signup extends Component {
                   {confirmPasswordError}
                 </Control.Feedback>
               </Group>
-              <div>
-                Already a user? <Link to={'/login'}>Login</Link>
+              <div style={{ marginBottom: '1rem' }}>
+                Already a user?{' '}
+                <Link to={'/login'} style={{ color: '#E45720' }}>
+                  Login
+                </Link>
               </div>
               <Button
                 disabled={
@@ -199,6 +206,7 @@ class Signup extends Component {
                   confirmPasswordError
                 }
                 onClick={this.handleOnSubmit}
+                variant="secondary"
               >
                 Sign Up
               </Button>

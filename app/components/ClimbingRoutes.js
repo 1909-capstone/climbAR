@@ -45,7 +45,7 @@ class ClimbingRoutes extends React.Component {
     } = this;
     return (
       <main>
-        <div> All Climbing Routes </div>
+        <h5 className="allRoutesHead"> All Climbing Routes </h5>
         <RouteFilters />
         <div className="allRoutes">
           {climbingRoutes.map(climbingRoute => {

@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleClimbingRoute } from '../redux/thunks/climbingRoutesThunks';
-import {
-  uploadRouteVideo,
-  removeRouteVideo
-} from '../redux/thunks/routeVideoThunks.js';
+import { uploadRouteVideo } from '../redux/thunks/routeVideoThunks.js';
 import { Link } from 'react-router-dom';
 import style from '../css/singleRoute.css';
 import { user } from '../redux/reducers';
 import { Button } from 'react-bootstrap';
+import { holdColorDictionary } from '../utils';
+import BetaVideo from './BetaVideo';
 
 class SingleClimbingRoute extends React.Component {
   constructor() {
@@ -36,10 +35,6 @@ class SingleClimbingRoute extends React.Component {
     uploadRouteVideo(formData);
   };
 
-  handleOnRemove = (video, routeId) => {
-    this.props.removeRouteVideo(video, routeId);
-  };
-
   componentDidMount() {
     const paramsId = this.props.match.params.id;
     this.props.fetchSingleClimbingRoute(paramsId);
@@ -47,24 +42,10 @@ class SingleClimbingRoute extends React.Component {
   betaVideos(route) {
     if (!route || !route.videos) return '';
     return route.videos.length === 0 ? (
-      <div>'No beta videos yet for this route :('</div>
+      <div>No beta videos yet for this route :(</div>
     ) : (
       route.videos.map(_v => (
-        <div key={_v.id}>
-          <div>
-            <div>
-              <video width="400" controls muted="muted">
-                <source src={_v.url} type="video/mp4" />
-                Your browser does not support HTML5 video.
-              </video>
-            </div>
-            <div>
-              <Button onClick={() => this.handleOnRemove(_v, route.id)}>
-                Remove
-              </Button>
-            </div>
-          </div>
-        </div>
+        <BetaVideo key={_v.id} video={_v} routeId={route.id} />
       ))
     );
   }
@@ -74,18 +55,28 @@ class SingleClimbingRoute extends React.Component {
       state: { fileName },
       betaVideos
     } = this;
+    const holdColor = holdColorDictionary[climbingRoute.holdColor];
     return (
       <main className="single-route">
+        <h5>Selected Climbing Route</h5>
         <div> Grade: {climbingRoute.grade}</div>
-        <div> Hold Color: {climbingRoute.holdColor}</div>
+        <div> Hold Color: {holdColor}</div>
         <div> Expiring On: {climbingRoute.endDate}</div>
-        <Link to={`/model/${climbingRoute.id}`} style={{ color: '#e4572e' }}>
+        <Link
+          className="btn btn-outline-secondary btn-lg"
+          to={`/model/${climbingRoute.id}`}
+          style={{
+            color: '#e4572e',
+            padding: '10px',
+            margin: '10px'
+          }}
+        >
           View Model
         </Link>
-        <div>
+        <div className="video-section">
           {user.userType && (
             <div>
-              <div>Share Your Beta</div>
+              <h5 className="share-your-beta">Share Your Beta</h5>
               <Fragment>
                 <form onSubmit={this.handleOnSubmit}>
                   <div className="custom-file mb-4">
@@ -102,14 +93,14 @@ class SingleClimbingRoute extends React.Component {
                   <input
                     type="submit"
                     value="Upload"
-                    className="btn btn-primary btn-block mt-4"
+                    className="btn btn-secondary btn-block mt-4"
                   />
                 </form>
               </Fragment>
             </div>
           )}
         </div>
-        <div>Beta Videos</div>
+        <h5 className="video-title">Beta Videos</h5>
         {betaVideos(climbingRoute)}
       </main>
     );
@@ -121,9 +112,7 @@ const mapState = ({ climbingRoute, user }) => ({ climbingRoute, user });
 const mapDispatch = dispatch => {
   return {
     fetchSingleClimbingRoute: id => dispatch(fetchSingleClimbingRoute(id)),
-    uploadRouteVideo: videoData => dispatch(uploadRouteVideo(videoData)),
-    removeRouteVideo: (video, routeId) =>
-      dispatch(removeRouteVideo(video, routeId))
+    uploadRouteVideo: videoData => dispatch(uploadRouteVideo(videoData))
   };
 };
 

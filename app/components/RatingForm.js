@@ -42,6 +42,7 @@ class RatingForm extends React.Component {
           name="rating"
           type="select"
           onChange={handleInput}
+          style={{ marginTop: '10px', marginBottom: '10px' }}
         >
           <option value="1">1 - Like climbing a later</option>
           <option value="2">2</option>
@@ -58,7 +59,7 @@ class RatingForm extends React.Component {
           onClick={() => {
             rate(user, route, rating);
           }}
-          variant="info"
+          variant="dark"
         >
           Rate It
         </Button>
