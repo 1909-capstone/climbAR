@@ -48,8 +48,10 @@ class ThreeCanvas extends React.Component {
 
     // grid
 
-    // var gridHelper = new THREE.GridHelper(1000, 20);
-    // scene.add(gridHelper);
+    var gridHelper = new THREE.GridHelper(1000, 20);
+    gridHelper.rotateX(0);
+    console.log('grid', gridHelper);
+    scene.add(gridHelper);
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
