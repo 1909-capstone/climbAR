@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
 
-app.use(express.static(path.join(__dirname, '../public')));
+
 
 // api endpoint for react to check its login status
 app.get('/auth', (req, res, next) => {
@@ -100,12 +100,13 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(express.static(path.join('__dirname', '..', '/public')));
+
 app.use('/api', require('./api'));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
+})
 //Error-handling endware
 app.use('/', (err, req, res, next) => {
   res
