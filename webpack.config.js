@@ -4,8 +4,8 @@ const { resolve } = require('path');
 module.exports = {
   entry: ['babel-polyfill', './app/main'],
   output: {
-    path: __dirname,
-    filename: './public/bundle.js'
+    path: path.resolve(__dirname, public),
+    filename: 'bundle.js'
   },
   mode: 'development',
   context: __dirname,
