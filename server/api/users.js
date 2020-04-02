@@ -267,6 +267,24 @@ router.post('/', (req, res, next) => {
     });
 });
 
+//adds a new mobile user to the database
+router.post('/mobile', (req, res, next) => {
+  const newUser = req.body;
+  bcrypt
+    .hash(newUser.password, 10)
+    .then(hashedPassword => {
+      return User.create({
+        ...newUser,
+        password: hashedPassword
+      });
+    })
+    .then(user => res.status(200).send(user))
+    .catch(e => {
+      console.log('ERROR POSTING NEW USER ', e);
+      return res.status(400).send({ error: e });
+    });
+});
+
 //finds and get all 'Admin' type users in the database
 router.get('/admin', (req, res, next) => {
   User.findAll({
