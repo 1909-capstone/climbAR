@@ -15,7 +15,11 @@ const {
 
 //get user by token
 router.get('/token/:token', (req, res, next) => {
-  User.findOne({where: token: req.params.token}).then(user => user ? res.status(200).send(user) : res.status(404).send('User not found')).catch(err => return res.status(500).send({error: err}))
+  User.findOne({ where: { token: req.params.token } })
+    .then(user =>
+      user ? res.status(200).send(user) : res.status(404).send('User not found')
+    )
+    .catch(err => res.status(500).send({ error: err }));
 });
 
 // set user in state
