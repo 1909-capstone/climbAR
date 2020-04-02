@@ -50,10 +50,11 @@ router.get('/token/:token', (req, res, next) => {
 
 //save token to user row
 router.post('/token', (req, res, next) => {
-  const { email, token } = req.body;
+  const { email, password, token } = req.body;
   console.log('EMAIL = ', email);
   console.log('TOKEN = ', token);
-  User.update({ token }, { where: { email }, returning: true })
+  console.log('PASSWORD = ', password);
+  User.update({ token }, { where: { email, password }, returning: true })
     .then(user =>
       user ? res.status(200).send(user) : res.status(404).send('User not found')
     )
