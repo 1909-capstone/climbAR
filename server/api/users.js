@@ -54,17 +54,21 @@ router.post('/token', (req, res, next) => {
   console.log('EMAIL = ', email);
   console.log('TOKEN = ', token);
   console.log('PASSWORD = ', password);
-  User.update({ token }, { where: { email, password }, returning: true })
+  User.findOne({ where: { email } })
     .then(user => {
-      console.log('USER WITH NEW TOKEN = ', user);
-      return user
-        ? res.status(200).send(user)
-        : res.status(404).send('User not found');
+      if (!user) return res.status(404).send('User not found');
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send({ error: err });
+        }
+        user
+          .update({ token })
+          .then(() => res.status(200).send(user))
+          .catch(err => res.status(500).send({ error: err }));
+      });
     })
-    .catch(err => {
-      console.log('ERROR POSTING TOKEN ', err);
-      res.status(500).send({ error: err });
-    });
+    .catch(err => res.status(500).send({ error: err }));
 });
 
 // set user in state
