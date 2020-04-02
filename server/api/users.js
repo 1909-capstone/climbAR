@@ -15,7 +15,43 @@ const {
 
 //get user by token
 router.get('/token/:token', (req, res, next) => {
-  User.findOne({ where: { token: req.params.token } })
+  User.findOne({
+    where: { token: req.params.token },
+    include: [
+      { model: LikedRoute },
+      { model: CompletedRoute },
+      { model: Video }
+    ]
+  }).then(user => {
+    if (!user) {
+      return res.status(404).send({});
+    }
+    Promise.all(
+      user.completedRoutes.map(_r =>
+        ClimbingRoute.findByPk(_r.climbingRouteId, {
+          include: [
+            { model: RouteModel },
+            {
+              model: CompletedRoute,
+              required: false
+            },
+            { model: LikedRoute, required: false },
+            { model: Rating, required: false }
+          ]
+        })
+      )
+    )
+      .then(completedRouteInfo => {
+        return res.status(202).send({ user, completedRouteInfo });
+      })
+      .catch(err => res.status(500).send({ error: err }));
+  });
+});
+
+//save token to user row
+router.post('/token', (req, res, next) => {
+  const { email, token } = req.body;
+  User.update({ token }, { where: { email }, returning: true })
     .then(user =>
       user ? res.status(200).send(user) : res.status(404).send('User not found')
     )
