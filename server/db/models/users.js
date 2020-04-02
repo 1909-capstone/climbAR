@@ -35,6 +35,9 @@ const User = db.define('user', {
   },
   startDate: {
     type: DATEONLY
+  },
+  token: {
+    type: STRING
   }
 });
 
