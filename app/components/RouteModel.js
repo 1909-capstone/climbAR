@@ -12,6 +12,7 @@ class RouteModel extends React.Component {
       cameraZ: 10
     };
     this.zoomIn = this.zoomIn.bind(this);
+    this.waitingForRouteModel = this.waitingForRouteModel.bind(this);
   }
   zoomIn() {
     const {
@@ -30,6 +31,7 @@ class RouteModel extends React.Component {
     this.zoomIn();
   }
   waitingForRouteModel() {
+    const { climbingRoute } = this.props;
     if (!climbingRoute.routeImage && !climbingRoute.routeModels) {
       console.log('waiting for route model');
       return true;
