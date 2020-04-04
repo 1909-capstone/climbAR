@@ -29,12 +29,16 @@ class RouteModel extends React.Component {
     this.props.fetchSingleClimbingRoute(paramsId);
     this.zoomIn();
   }
+  waitingForRouteModel() {
+    return !climbingRoute.routeImage && !climbingRoute.routeModels;
+  }
   render() {
     const {
       props: { climbingRoute },
-      state: { cameraZ }
+      state: { cameraZ },
+      waitingForRouteModel
     } = this;
-    if (!climbingRoute.routeImage && !climbingRoute.routeModels) return null;
+    if (waitingForRouteModel()) return null;
     return (
       <Scene>
         <a-assets>
