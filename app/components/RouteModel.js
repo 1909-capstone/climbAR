@@ -13,6 +13,7 @@ class RouteModel extends React.Component {
     };
     this.zoomIn = this.zoomIn.bind(this);
     this.waitingForRouteModel = this.waitingForRouteModel.bind(this);
+    this.loadingScreen = this.loadingScreen.bind(this);
   }
   zoomIn() {
     const {
@@ -30,6 +31,53 @@ class RouteModel extends React.Component {
     this.props.fetchSingleClimbingRoute(paramsId);
     this.zoomIn();
   }
+  loadingScreen() {
+    const { cameraZ } = this.state;
+    return (
+      <Scene>
+        <a-assets>
+          <img id="skyTextureMiddle" src="../assets/360-middle-clean.JPG" />
+          <img id="wallTexture" src="../assets/wall-background-close.JPG" />
+        </a-assets>
+        <Entity
+          primitive="a-sky"
+          src="#skyTextureMiddle"
+          height="2304"
+          width="2304"
+          radius="7"
+          theta-length="180"
+          position="0 1 -1"
+          rotation="0 -90 0"
+        />
+        <Entity
+          primitive="a-light"
+          type="point"
+          color="#929292"
+          intensity="1.5"
+          position="-4 5 5"
+        />
+        <a-ring
+          id="loading"
+          visible="true"
+          position="0 1.25 3"
+          color="teal"
+          radius-inner="0.3"
+          radius-outer="0.35"
+          scale="2 1.5 0.5"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+        >
+          <Entity
+            position="0.8 0 0"
+            scale="2 2 2"
+            text={{ value: 'Loading...' }}
+          ></Entity>
+        </a-ring>
+        <Entity primitive="a-light" type="ambient" color="#ffffff" />
+        <Entity primitive="a-camera" position={`0 1.7 ${cameraZ}`}></Entity>
+      </Scene>
+    );
+  }
+
   waitingForRouteModel() {
     const { climbingRoute } = this.props;
     if (!climbingRoute.routeImage && !climbingRoute.routeModels) {
@@ -42,9 +90,10 @@ class RouteModel extends React.Component {
     const {
       props: { climbingRoute },
       state: { cameraZ },
-      waitingForRouteModel
+      waitingForRouteModel,
+      loadingScreen
     } = this;
-    if (waitingForRouteModel()) return null;
+    if (waitingForRouteModel()) return loadingScreen();
     return (
       <Scene>
         <a-assets>
