@@ -12,6 +12,7 @@ class RouteModel extends React.Component {
       cameraZ: 10
     };
     this.zoomIn = this.zoomIn.bind(this);
+    this.waitingForRouteModel = this.waitingForRouteModel.bind(this);
   }
   zoomIn() {
     const {
