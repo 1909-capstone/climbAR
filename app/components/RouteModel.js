@@ -30,7 +30,11 @@ class RouteModel extends React.Component {
     this.zoomIn();
   }
   waitingForRouteModel() {
-    return !climbingRoute.routeImage && !climbingRoute.routeModels;
+    if (!climbingRoute.routeImage && !climbingRoute.routeModels) {
+      console.log('waiting for route model');
+      return true;
+    }
+    return false;
   }
   render() {
     const {
