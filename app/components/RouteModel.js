@@ -34,7 +34,7 @@ class RouteModel extends React.Component {
       props: { climbingRoute },
       state: { cameraZ }
     } = this;
-    console.log('CR = ', climbingRoute);
+    if (!climbingRoute.routeImage && !climbingRoute.routeModels) return null;
     return (
       <Scene>
         <a-assets>
