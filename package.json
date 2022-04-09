@@ -62,7 +62,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "history": "^4.10.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "^1.9.1",
     "pg": "^7.18.1",
     "prop-types": "^15.7.2",
