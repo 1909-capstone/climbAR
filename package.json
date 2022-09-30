@@ -58,7 +58,7 @@
     "bcrypt": "^4.0.0",
     "chalk": "^3.0.0",
     "cookie-parser": "^1.4.4",
-    "d3": "^5.15.0",
+    "d3": "^7.6.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "history": "^4.10.1",
